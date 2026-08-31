@@ -1,1 +1,1179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScriptAI</title>
 
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    background:#080a0f;
+    color:#f5f5f7;
+    font-family:Arial,Helvetica,sans-serif;
+    height:100vh;
+    overflow:hidden;
+}
+
+button{
+    font-family:inherit;
+}
+
+.app{
+    display:flex;
+    width:100%;
+    height:100vh;
+}
+
+.sidebar{
+    width:260px;
+    flex-shrink:0;
+    background:#0f1219;
+    border-right:1px solid #252a35;
+    display:flex;
+    flex-direction:column;
+    padding:18px;
+    overflow:hidden;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:800;
+    margin-bottom:20px;
+}
+
+.logo span{
+    color:#825cff;
+}
+
+.new-chat{
+    width:100%;
+    border:0;
+    border-radius:11px;
+    padding:13px;
+    background:#825cff;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    margin-bottom:20px;
+}
+
+.new-chat:hover{
+    background:#7048f0;
+}
+
+.section-title{
+    color:#747c8d;
+    font-size:11px;
+    font-weight:bold;
+    margin:10px 0 8px;
+}
+
+.tools{
+    overflow-y:auto;
+}
+
+.tool{
+    width:100%;
+    border:0;
+    background:#171b24;
+    color:#e9ebef;
+    padding:11px;
+    margin-bottom:6px;
+    border-radius:9px;
+    text-align:left;
+    cursor:pointer;
+    font-size:13px;
+}
+
+.tool:hover{
+    background:#222835;
+}
+
+.history-area{
+    flex:1;
+    min-height:0;
+    overflow-y:auto;
+    margin-top:8px;
+}
+
+.history-item{
+    width:100%;
+    border:1px solid transparent;
+    background:#141821;
+    color:#dce0e8;
+    padding:9px;
+    margin-bottom:5px;
+    border-radius:8px;
+    cursor:pointer;
+    text-align:left;
+    font-size:12px;
+}
+
+.history-item:hover{
+    background:#202632;
+}
+
+.history-item.active{
+    border-color:#825cff;
+}
+
+.main{
+    flex:1;
+    min-width:0;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+}
+
+.header{
+    height:62px;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 22px;
+    border-bottom:1px solid #252a35;
+    background:#0b0e14;
+}
+
+.header-title{
+    font-weight:bold;
+    font-size:15px;
+}
+
+.status{
+    font-size:12px;
+    color:#64e39a;
+}
+
+.chat{
+    flex:1;
+    min-height:0;
+    overflow-y:auto;
+    padding:30px 20px;
+}
+
+.chat-inner{
+    max-width:900px;
+    margin:auto;
+}
+
+.welcome{
+    text-align:center;
+    padding-top:9vh;
+}
+
+.welcome-icon{
+    width:65px;
+    height:65px;
+    border-radius:18px;
+    background:#825cff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 18px;
+    font-size:30px;
+    box-shadow:0 10px 40px rgba(130,92,255,.25);
+}
+
+.welcome h1{
+    font-size:38px;
+    margin-bottom:10px;
+}
+
+.welcome p{
+    color:#8e96a6;
+    line-height:1.5;
+}
+
+.suggestions{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:8px;
+    margin-top:25px;
+}
+
+.suggestion{
+    border:1px solid #2b3140;
+    background:#141821;
+    color:#e4e7ec;
+    padding:10px 13px;
+    border-radius:9px;
+    cursor:pointer;
+}
+
+.suggestion:hover{
+    background:#222835;
+}
+
+.message{
+    margin-bottom:18px;
+    padding:15px;
+    border-radius:13px;
+    line-height:1.5;
+    word-wrap:break-word;
+}
+
+.user-message{
+    background:#191e28;
+    border:1px solid #252b37;
+}
+
+.ai-message{
+    background:#10141b;
+    border:1px solid #252b37;
+}
+
+.message-name{
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:7px;
+    color:#aeb6c5;
+}
+
+.user-message .message-name{
+    color:#bcaeff;
+}
+
+.ai-message .message-name{
+    color:#8f73ff;
+}
+
+.code-container{
+    margin-top:12px;
+    background:#07090d;
+    border:1px solid #303744;
+    border-radius:11px;
+    overflow:hidden;
+}
+
+.code-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:9px 11px;
+    border-bottom:1px solid #252a33;
+    color:#8992a3;
+    font-size:11px;
+}
+
+.copy-button{
+    border:0;
+    background:#1a1f29;
+    color:#dfe3eb;
+    padding:6px 9px;
+    border-radius:7px;
+    cursor:pointer;
+}
+
+pre{
+    margin:0;
+    padding:15px;
+    overflow-x:auto;
+    color:#e7e9ee;
+    font-family:Consolas,monospace;
+    font-size:13px;
+    line-height:1.55;
+}
+
+.composer{
+    flex-shrink:0;
+    border-top:1px solid #252a35;
+    background:#0b0e14;
+    padding:13px 20px 17px;
+}
+
+.composer-inner{
+    max-width:900px;
+    margin:auto;
+}
+
+.input-box{
+    display:flex;
+    align-items:flex-end;
+    gap:8px;
+    background:#151922;
+    border:1px solid #303642;
+    border-radius:14px;
+    padding:8px;
+}
+
+.input-box:focus-within{
+    border-color:#825cff;
+}
+
+textarea{
+    flex:1;
+    min-width:0;
+    min-height:45px;
+    max-height:160px;
+    resize:none;
+    border:0;
+    outline:0;
+    background:transparent;
+    color:white;
+    padding:10px;
+    font-size:14px;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+.send{
+    flex-shrink:0;
+    border:0;
+    border-radius:10px;
+    padding:11px 16px;
+    background:#825cff;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.bottom-tools{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    margin-top:8px;
+}
+
+.bottom-tools button{
+    border:1px solid #292f3b;
+    background:#151a23;
+    color:#cdd2dc;
+    padding:7px 10px;
+    border-radius:8px;
+    font-size:11px;
+    cursor:pointer;
+}
+
+@media(max-width:750px){
+    .sidebar{
+        display:none;
+    }
+
+    .header{
+        padding:0 14px;
+    }
+
+    .chat{
+        padding:18px 12px;
+    }
+
+    .composer{
+        padding:10px 12px 14px;
+    }
+
+    .welcome{
+        padding-top:6vh;
+    }
+
+    .welcome h1{
+        font-size:29px;
+    }
+
+    .message{
+        padding:13px;
+    }
+
+    .send{
+        padding:10px 13px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<aside class="sidebar">
+
+    <div class="logo">
+        ⚡ Script<span>AI</span>
+    </div>
+
+    <button class="new-chat" onclick="novoChat()">
+        ＋ Novo chat
+    </button>
+
+    <div class="section-title">FERRAMENTAS</div>
+
+    <div class="tools">
+
+        <button class="tool" onclick="modelo('Crie um sistema de moedas para meu jogo Roblox.')">
+            💰 Sistema de moedas
+        </button>
+
+        <button class="tool" onclick="modelo('Crie um sistema de loja para meu jogo Roblox.')">
+            🛒 Sistema de loja
+        </button>
+
+        <button class="tool" onclick="modelo('Crie um sistema de NPC para meu jogo Roblox.')">
+            🤖 Sistema de NPC
+        </button>
+
+        <button class="tool" onclick="modelo('Crie um sistema de checkpoint para meu jogo Roblox.')">
+            📍 Checkpoint
+        </button>
+
+        <button class="tool" onclick="modelo('Crie um sistema de teleporte para meu jogo Roblox.')">
+            🚀 Teleporte
+        </button>
+
+        <button class="tool" onclick="modelo('Explique o código Lua que eu enviar.')">
+            📖 Explicar código
+        </button>
+
+        <button class="tool" onclick="modelo('Corrija o código Lua que eu enviar.')">
+            🐛 Corrigir código
+        </button>
+
+        <button class="tool" onclick="modelo('Otimize o código Lua que eu enviar.')">
+            ⚡ Otimizar código
+        </button>
+
+    </div>
+
+    <div class="section-title">HISTÓRICO</div>
+
+    <div class="history-area" id="historico"></div>
+
+</aside>
+
+<main class="main">
+
+<header class="header">
+    <div class="header-title">
+        🤖 Gerador de Scripts Lua
+    </div>
+
+    <div class="status">
+        ● Online
+    </div>
+</header>
+
+<section class="chat">
+    <div class="chat-inner" id="chat"></div>
+</section>
+
+<footer class="composer">
+
+    <div class="composer-inner">
+
+        <div class="input-box">
+
+            <textarea
+                id="input"
+                placeholder="Descreva o script que você quer criar..."
+            ></textarea>
+
+            <button class="send" onclick="enviar()">
+                Gerar
+            </button>
+
+        </div>
+
+        <div class="bottom-tools">
+
+            <button onclick="modelo('Crie um script Lua para meu jogo Roblox.')">
+                ＋ Script
+            </button>
+
+            <button onclick="modelo('Corrija este código Lua:')">
+                🐛 Corrigir
+            </button>
+
+            <button onclick="modelo('Explique este código Lua:')">
+                📖 Explicar
+            </button>
+
+            <button onclick="modelo('Otimize este código Lua:')">
+                ⚡ Otimizar
+            </button>
+
+            <button onclick="limparChat()">
+                🗑 Limpar
+            </button>
+
+        </div>
+
+    </div>
+
+</footer>
+
+</main>
+
+</div>
+
+<script>
+
+const CHAVE_CHATS = "SCRIPT_AI_CHATS_V1";
+const CHAVE_ATUAL = "SCRIPT_AI_CHAT_ATUAL_V1";
+
+let chats = {};
+
+try {
+    chats = JSON.parse(
+        localStorage.getItem(CHAVE_CHATS) || "{}"
+    );
+} catch {
+    chats = {};
+}
+
+let chatAtual = localStorage.getItem(CHAVE_ATUAL);
+
+if (!chatAtual || !chats[chatAtual]) {
+
+    chatAtual = criarId();
+
+    chats[chatAtual] = {
+        titulo:"Novo chat",
+        mensagens:[]
+    };
+
+    salvar();
+}
+
+const chat = document.getElementById("chat");
+const input = document.getElementById("input");
+const historico = document.getElementById("historico");
+
+function criarId(){
+
+    return "chat_" +
+        Date.now() +
+        "_" +
+        Math.random()
+        .toString(36)
+        .substring(2,8);
+
+}
+
+function salvar(){
+
+    localStorage.setItem(
+        CHAVE_CHATS,
+        JSON.stringify(chats)
+    );
+
+    localStorage.setItem(
+        CHAVE_ATUAL,
+        chatAtual
+    );
+
+}
+
+function atualizarHistorico(){
+
+    historico.innerHTML = "";
+
+    Object.keys(chats)
+        .reverse()
+        .forEach(function(id){
+
+            const item = chats[id];
+
+            const botao =
+                document.createElement("button");
+
+            botao.className = "history-item";
+
+            if(id === chatAtual){
+                botao.classList.add("active");
+            }
+
+            botao.textContent =
+                "💬 " +
+                (item.titulo || "Novo chat");
+
+            botao.onclick =
+                function(){
+                    abrirChat(id);
+                };
+
+            historico.appendChild(botao);
+
+        });
+
+}
+
+function abrirChat(id){
+
+    if(!chats[id]){
+        return;
+    }
+
+    chatAtual = id;
+
+    salvar();
+    renderizar();
+    atualizarHistorico();
+
+}
+
+function renderizar(){
+
+    chat.innerHTML = "";
+
+    const dados = chats[chatAtual];
+
+    if(!dados || dados.mensagens.length === 0){
+
+        mostrarWelcome();
+        return;
+
+    }
+
+    dados.mensagens.forEach(function(msg){
+
+        if(msg.tipo === "user"){
+            mostrarMensagemUsuario(
+                msg.texto,
+                false
+            );
+        }
+
+        if(msg.tipo === "ai"){
+            mostrarCodigo(
+                msg.texto,
+                false
+            );
+        }
+
+    });
+
+    scrollFinal();
+
+}
+
+function mostrarWelcome(){
+
+    chat.innerHTML = `
+
+        <div class="welcome">
+
+            <div class="welcome-icon">
+                ⚡
+            </div>
+
+            <h1>
+                O que você quer criar?
+            </h1>
+
+            <p>
+                Descreva seu script Lua e a ScriptAI
+                prepara um exemplo para seu projeto.
+            </p>
+
+            <div class="suggestions">
+
+                <button class="suggestion"
+                onclick="modelo('Crie um sistema de moedas para meu jogo.')">
+                    💰 Moedas
+                </button>
+
+                <button class="suggestion"
+                onclick="modelo('Crie um sistema de teleporte.')">
+                    🚀 Teleporte
+                </button>
+
+                <button class="suggestion"
+                onclick="modelo('Crie um sistema de checkpoint.')">
+                    📍 Checkpoint
+                </button>
+
+                <button class="suggestion"
+                onclick="modelo('Crie um sistema de NPC.')">
+                    🤖 NPC
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+function modelo(texto){
+
+    input.value = texto;
+    input.focus();
+
+}
+
+function novoChat(){
+
+    chatAtual = criarId();
+
+    chats[chatAtual] = {
+        titulo:"Novo chat",
+        mensagens:[]
+    };
+
+    salvar();
+    atualizarHistorico();
+    renderizar();
+
+    input.focus();
+
+}
+
+function limparChat(){
+
+    if(!chats[chatAtual]){
+        return;
+    }
+
+    chats[chatAtual].mensagens = [];
+    chats[chatAtual].titulo = "Novo chat";
+
+    salvar();
+    renderizar();
+    atualizarHistorico();
+
+}
+
+function mostrarMensagemUsuario(
+    texto,
+    salvarMensagem = true
+){
+
+    const div =
+        document.createElement("div");
+
+    div.className =
+        "message user-message";
+
+    const nome =
+        document.createElement("div");
+
+    nome.className =
+        "message-name";
+
+    nome.textContent =
+        "Você";
+
+    const conteudo =
+        document.createElement("div");
+
+    conteudo.textContent =
+        texto;
+
+    div.appendChild(nome);
+    div.appendChild(conteudo);
+
+    chat.appendChild(div);
+
+    if(salvarMensagem){
+
+        chats[chatAtual].mensagens.push({
+            tipo:"user",
+            texto:texto
+        });
+
+        salvar();
+
+    }
+
+    scrollFinal();
+
+}
+
+function mostrarCodigo(
+    codigo,
+    salvarMensagem = true
+){
+
+    const div =
+        document.createElement("div");
+
+    div.className =
+        "message ai-message";
+
+    const nome =
+        document.createElement("div");
+
+    nome.className =
+        "message-name";
+
+    nome.textContent =
+        "🤖 ScriptAI";
+
+    const texto =
+        document.createElement("div");
+
+    texto.textContent =
+        "Aqui está o código gerado:";
+
+    const container =
+        document.createElement("div");
+
+    container.className =
+        "code-container";
+
+    const topo =
+        document.createElement("div");
+
+    topo.className =
+        "code-top";
+
+    const linguagem =
+        document.createElement("span");
+
+    linguagem.textContent =
+        "Lua";
+
+    const copiar =
+        document.createElement("button");
+
+    copiar.className =
+        "copy-button";
+
+    copiar.textContent =
+        "📋 Copiar";
+
+    copiar.onclick =
+        async function(){
+
+            try{
+
+                await navigator.clipboard.writeText(
+                    codigo
+                );
+
+                copiar.textContent =
+                    "✅ Copiado!";
+
+            }catch{
+
+                copiar.textContent =
+                    "❌ Erro";
+
+            }
+
+            setTimeout(
+                function(){
+                    copiar.textContent =
+                        "📋 Copiar";
+                },
+                1500
+            );
+
+        };
+
+    topo.appendChild(linguagem);
+    topo.appendChild(copiar);
+
+    const pre =
+        document.createElement("pre");
+
+    pre.textContent =
+        codigo;
+
+    container.appendChild(topo);
+    container.appendChild(pre);
+
+    div.appendChild(nome);
+    div.appendChild(texto);
+    div.appendChild(container);
+
+    chat.appendChild(div);
+
+    if(salvarMensagem){
+
+        chats[chatAtual].mensagens.push({
+            tipo:"ai",
+            texto:codigo
+        });
+
+        salvar();
+
+    }
+
+    scrollFinal();
+
+}
+
+function mostrarCarregando(){
+
+    const div =
+        document.createElement("div");
+
+    div.className =
+        "message ai-message";
+
+    div.id =
+        "carregando";
+
+    div.innerHTML = `
+
+        <div class="message-name">
+            🤖 ScriptAI
+        </div>
+
+        ⏳ Gerando seu script...
+
+    `;
+
+    chat.appendChild(div);
+
+    scrollFinal();
+
+}
+
+function removerCarregando(){
+
+    const elemento =
+        document.getElementById(
+            "carregando"
+        );
+
+    if(elemento){
+        elemento.remove();
+    }
+
+}
+
+function gerarScript(pedido){
+
+    const p =
+        pedido.toLowerCase();
+
+    if(
+        p.includes("moeda") ||
+        p.includes("dinheiro") ||
+        p.includes("coins")
+    ){
+
+        return `local Players = game:GetService("Players")
+
+Players.PlayerAdded:Connect(function(player)
+
+    local leaderstats = Instance.new("Folder")
+    leaderstats.Name = "leaderstats"
+    leaderstats.Parent = player
+
+    local moedas = Instance.new("IntValue")
+    moedas.Name = "Moedas"
+    moedas.Value = 0
+    moedas.Parent = leaderstats
+
+end)
+
+-- Exemplo para adicionar moedas:
+-- player.leaderstats.Moedas.Value += 10`;
+
+    }
+
+    if(p.includes("teleporte")){
+
+        return `local destino =
+    workspace:WaitForChild("Destino")
+
+script.Parent.Touched:Connect(function(hit)
+
+    local character = hit.Parent
+
+    local humanoid =
+        character:FindFirstChildOfClass("Humanoid")
+
+    if humanoid then
+
+        character:PivotTo(
+            destino.CFrame +
+            Vector3.new(0, 3, 0)
+        )
+
+    end
+
+end)`;
+
+    }
+
+    if(p.includes("checkpoint")){
+
+        return `local checkpoint =
+    script.Parent
+
+checkpoint.Touched:Connect(function(hit)
+
+    local player =
+        game.Players:GetPlayerFromCharacter(
+            hit.Parent
+        )
+
+    if player then
+
+        player:SetAttribute(
+            "Checkpoint",
+            checkpoint.Name
+        )
+
+        print(
+            "Checkpoint salvo para "
+            .. player.Name
+        )
+
+    end
+
+end)`;
+
+    }
+
+    if(p.includes("npc")){
+
+        return `local npc =
+    script.Parent
+
+local humanoid =
+    npc:FindFirstChildOfClass("Humanoid")
+
+if humanoid then
+
+    humanoid.WalkSpeed = 10
+
+    print("NPC configurado!")
+
+end`;
+
+    }
+
+    if(p.includes("loja")){
+
+        return `local preco = 100
+
+local function comprar(player)
+
+    local leaderstats =
+        player:FindFirstChild("leaderstats")
+
+    if not leaderstats then
+        return
+    end
+
+    local moedas =
+        leaderstats:FindFirstChild("Moedas")
+
+    if moedas and moedas.Value >= preco then
+
+        moedas.Value -= preco
+
+        print(
+            player.Name ..
+            " comprou o item!"
+        )
+
+    end
+
+end`;
+
+    }
+
+    return `-- ScriptAI
+-- Exemplo baseado no pedido:
+
+-- ${pedido.replace(/--/g,"")}
+
+local function iniciar()
+
+    print("Sistema iniciado!")
+
+end
+
+iniciar()`;
+
+}
+
+function enviar(){
+
+    const pedido =
+        input.value.trim();
+
+    if(!pedido){
+        return;
+    }
+
+    const dados =
+        chats[chatAtual];
+
+    if(dados.mensagens.length === 0){
+
+        dados.titulo =
+            pedido.substring(0,32);
+
+    }
+
+    mostrarMensagemUsuario(
+        pedido,
+        true
+    );
+
+    input.value = "";
+
+    mostrarCarregando();
+
+    setTimeout(function(){
+
+        removerCarregando();
+
+        const codigo =
+            gerarScript(pedido);
+
+        mostrarCodigo(
+            codigo,
+            true
+        );
+
+        salvar();
+        atualizarHistorico();
+
+    },800);
+
+}
+
+function scrollFinal(){
+
+    setTimeout(function(){
+
+        const area =
+            document.querySelector(".chat");
+
+        area.scrollTop =
+            area.scrollHeight;
+
+    },10);
+
+}
+
+input.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Enter" &&
+            !event.shiftKey
+        ){
+
+            event.preventDefault();
+
+            enviar();
+
+        }
+
+    }
+);
+
+atualizarHistorico();
+renderizar();
+
+</script>
+
+</body>
+  </html>
