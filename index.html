@@ -3,48 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>ScriptAI</title>
 
 <style>
-
 *{
     box-sizing:border-box;
-    margin:0;
-    padding:0;
 }
 
 body{
-    background:#080a0f;
-    color:#f5f5f7;
-    font-family:Arial,Helvetica,sans-serif;
-    height:100vh;
-    overflow:hidden;
-}
-
-button{
-    font-family:inherit;
+    margin:0;
+    background:#080b12;
+    color:white;
+    font-family:Arial,sans-serif;
 }
 
 .app{
-    display:flex;
-    width:100%;
     height:100vh;
+    display:flex;
 }
 
 .sidebar{
-    width:260px;
-    flex-shrink:0;
-    background:#0f1219;
-    border-right:1px solid #252a35;
-    display:flex;
-    flex-direction:column;
+    width:240px;
+    background:#10141d;
     padding:18px;
+    border-right:1px solid #292f3b;
 }
 
 .logo{
     font-size:25px;
-    font-weight:800;
+    font-weight:bold;
     margin-bottom:20px;
 }
 
@@ -52,11 +39,11 @@ button{
     color:#825cff;
 }
 
-.new-chat{
+.new{
     width:100%;
+    padding:12px;
     border:0;
-    border-radius:11px;
-    padding:13px;
+    border-radius:9px;
     background:#825cff;
     color:white;
     font-weight:bold;
@@ -64,328 +51,189 @@ button{
     margin-bottom:20px;
 }
 
-.new-chat:hover{
-    background:#7048f0;
-}
-
-.section-title{
-    color:#747c8d;
-    font-size:11px;
-    font-weight:bold;
-    margin:10px 0 8px;
-}
-
-.tools{
-    overflow-y:auto;
-}
-
 .tool{
     width:100%;
+    padding:10px;
+    margin-bottom:7px;
     border:0;
-    background:#171b24;
-    color:#e9ebef;
-    padding:11px;
-    margin-bottom:6px;
-    border-radius:9px;
+    border-radius:8px;
+    background:#191e28;
+    color:white;
     text-align:left;
     cursor:pointer;
-    font-size:13px;
 }
 
 .tool:hover{
-    background:#222835;
-}
-
-.history-area{
-    flex:1;
-    min-height:0;
-    overflow-y:auto;
-}
-
-.history-item{
-    width:100%;
-    border:1px solid transparent;
-    background:#141821;
-    color:#dce0e8;
-    padding:9px;
-    margin-bottom:5px;
-    border-radius:8px;
-    cursor:pointer;
-    text-align:left;
-    font-size:12px;
-}
-
-.history-item:hover{
-    background:#202632;
+    background:#262d3a;
 }
 
 .main{
     flex:1;
-    min-width:0;
-    height:100%;
     display:flex;
     flex-direction:column;
+    min-width:0;
 }
 
 .header{
-    height:62px;
-    flex-shrink:0;
+    height:60px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 22px;
-    border-bottom:1px solid #252a35;
-    background:#0b0e14;
+    padding:0 20px;
+    border-bottom:1px solid #292f3b;
 }
 
-.header-title{
-    font-weight:bold;
-    font-size:15px;
-}
-
-.status{
-    font-size:12px;
-    color:#64e39a;
+.online{
+    color:#55e38b;
+    font-size:13px;
 }
 
 .chat{
     flex:1;
-    min-height:0;
     overflow-y:auto;
-    padding:30px 20px;
+    padding:25px 15px;
 }
 
-.chat-inner{
+.chatContent{
     max-width:900px;
     margin:auto;
 }
 
 .welcome{
     text-align:center;
-    padding-top:9vh;
-}
-
-.welcome-icon{
-    width:65px;
-    height:65px;
-    border-radius:18px;
-    background:#825cff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin:0 auto 18px;
-    font-size:30px;
+    margin-top:10vh;
 }
 
 .welcome h1{
-    font-size:38px;
-    margin-bottom:10px;
+    font-size:36px;
 }
 
 .welcome p{
-    color:#8e96a6;
-    line-height:1.5;
-}
-
-.suggestions{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:8px;
-    margin-top:25px;
-}
-
-.suggestion{
-    border:1px solid #2b3140;
-    background:#141821;
-    color:#e4e7ec;
-    padding:10px 13px;
-    border-radius:9px;
-    cursor:pointer;
-}
-
-.suggestion:hover{
-    background:#222835;
+    color:#8992a3;
 }
 
 .message{
-    margin-bottom:18px;
+    margin:15px auto;
+    max-width:900px;
     padding:15px;
-    border-radius:13px;
+    border-radius:12px;
     line-height:1.5;
-    word-wrap:break-word;
+    white-space:pre-wrap;
 }
 
-.user-message{
-    background:#191e28;
-    border:1px solid #252b37;
+.user{
+    background:#191f2a;
 }
 
-.ai-message{
-    background:#10141b;
-    border:1px solid #252b37;
+.ai{
+    background:#10151e;
+    border:1px solid #292f3b;
 }
 
-.message-name{
+.name{
     font-size:12px;
     font-weight:bold;
-    margin-bottom:7px;
-    color:#aeb6c5;
+    color:#9b83ff;
+    margin-bottom:8px;
 }
 
-.user-message .message-name{
-    color:#bcaeff;
-}
-
-.ai-message .message-name{
-    color:#8f73ff;
-}
-
-.code-container{
-    margin-top:12px;
-    background:#07090d;
+.code{
+    background:#05070a;
     border:1px solid #303744;
-    border-radius:11px;
-    overflow:hidden;
+    border-radius:9px;
+    margin-top:10px;
+    overflow:auto;
 }
 
-.code-top{
+.codeTop{
+    padding:8px 10px;
+    border-bottom:1px solid #292f3b;
     display:flex;
     justify-content:space-between;
-    align-items:center;
-    padding:9px 11px;
-    border-bottom:1px solid #252a33;
-    color:#8992a3;
-    font-size:11px;
 }
 
-.copy-button{
+.copy{
+    background:#202632;
+    color:white;
     border:0;
-    background:#1a1f29;
-    color:#dfe3eb;
-    padding:6px 9px;
-    border-radius:7px;
+    padding:6px 10px;
+    border-radius:6px;
     cursor:pointer;
 }
 
 pre{
     margin:0;
     padding:15px;
-    overflow-x:auto;
-    color:#e7e9ee;
+    overflow:auto;
     font-family:Consolas,monospace;
-    font-size:13px;
-    line-height:1.55;
 }
 
 .composer{
-    flex-shrink:0;
-    border-top:1px solid #252a35;
-    background:#0b0e14;
-    padding:13px 20px 17px;
+    padding:12px 15px 17px;
+    border-top:1px solid #292f3b;
 }
 
-.composer-inner{
+.box{
     max-width:900px;
     margin:auto;
-}
-
-.input-box{
     display:flex;
-    align-items:flex-end;
     gap:8px;
-    background:#151922;
-    border:1px solid #303642;
-    border-radius:14px;
-    padding:8px;
-}
-
-.input-box:focus-within{
-    border-color:#825cff;
+    background:#151a23;
+    border:1px solid #343b49;
+    border-radius:12px;
+    padding:7px;
 }
 
 textarea{
     flex:1;
     min-width:0;
-    min-height:45px;
-    max-height:160px;
+    height:45px;
+    max-height:150px;
     resize:none;
     border:0;
     outline:0;
     background:transparent;
     color:white;
-    padding:10px;
+    padding:12px;
     font-size:14px;
 }
 
 .send{
-    flex-shrink:0;
     border:0;
-    border-radius:10px;
-    padding:11px 16px;
+    border-radius:9px;
     background:#825cff;
     color:white;
     font-weight:bold;
+    padding:0 18px;
     cursor:pointer;
 }
 
 .send:hover{
-    background:#7048f0;
+    background:#7048ed;
 }
 
-.send:active{
-    transform:scale(.97);
-}
-
-.bottom-tools{
+.bottom{
+    max-width:900px;
+    margin:8px auto 0;
     display:flex;
-    flex-wrap:wrap;
     gap:7px;
-    margin-top:8px;
+    flex-wrap:wrap;
 }
 
-.bottom-tools button{
-    border:1px solid #292f3b;
+.bottom button{
     background:#151a23;
-    color:#cdd2dc;
+    color:#d9dce3;
+    border:1px solid #292f3b;
+    border-radius:7px;
     padding:7px 10px;
-    border-radius:8px;
-    font-size:11px;
     cursor:pointer;
 }
 
-@media(max-width:750px){
-
+@media(max-width:700px){
     .sidebar{
         display:none;
     }
-
-    .header{
-        padding:0 14px;
-    }
-
-    .chat{
-        padding:18px 12px;
-    }
-
-    .composer{
-        padding:10px 12px 14px;
-    }
-
-    .welcome{
-        padding-top:6vh;
-    }
-
-    .welcome h1{
-        font-size:29px;
-    }
-
-    .message{
-        padding:13px;
-    }
-
 }
-
 </style>
 </head>
 
@@ -399,107 +247,84 @@ textarea{
 ⚡ Script<span>AI</span>
 </div>
 
-<button class="new-chat" id="newChatButton">
+<button class="new" id="newChat">
 ＋ Novo chat
 </button>
 
-<div class="section-title">
-SISTEMAS
-</div>
-
-<div class="tools">
-
-<button class="tool" data-prompt="Crie um script de sistema de dinheiro para Roblox com leaderstats, moedas e salvamento DataStore.">
-💰 Dinheiro
+<button class="tool" data-prompt="Crie um script de sistema de dinheiro para Roblox com leaderstats e moedas.">
+💰 Sistema de dinheiro
 </button>
 
-<button class="tool" data-prompt="Crie um script de sistema de loja para Roblox com dinheiro, compra, venda e GUI.">
-🛒 Loja
+<button class="tool" data-prompt="Crie um script de loja para Roblox com dinheiro, compra e GUI.">
+🛒 Sistema de loja
 </button>
 
-<button class="tool" data-prompt="Crie um script de sistema de empregos para Roblox com cargos e salários.">
-💼 Empregos
+<button class="tool" data-prompt="Crie um sistema de empregos para Roblox com salários.">
+💼 Sistema de empregos
 </button>
 
-<button class="tool" data-prompt="Crie um script de sistema de casas compráveis para Roblox.">
-🏠 Casas
+<button class="tool" data-prompt="Crie um sistema de casas compráveis para Roblox.">
+🏠 Sistema de casas
 </button>
 
-<button class="tool" data-prompt="Crie um script de sistema de carros e garagem para Roblox.">
-🚗 Carros
+<button class="tool" data-prompt="Crie um sistema de carros para Roblox.">
+🚗 Sistema de carros
 </button>
 
-<button class="tool" data-prompt="Crie um script de sistema de NPCs para Roblox.">
-🤖 NPCs
+<button class="tool" data-prompt="Crie um sistema de NPCs para Roblox.">
+🤖 Sistema de NPCs
 </button>
 
-<button class="tool" data-prompt="Crie um script de celular GUI para Roblox com aplicativos.">
+<button class="tool" data-prompt="Crie um sistema de celular com GUI para Roblox.">
 📱 Celular
 </button>
 
-<button class="tool" data-prompt="Crie um script de sistema de polícia e prisão para Roblox.">
+<button class="tool" data-prompt="Crie um sistema de polícia e prisão para Roblox.">
 👮 Polícia
 </button>
 
-<button class="tool" data-prompt="Crie um script de cidade RP para Roblox com dinheiro, empregos, lojas, casas, carros, NPCs, celular e polícia.">
-🏙️ Cidade RP
-</button>
-
-<button class="tool" data-prompt="Crie um script de inventário completo para Roblox.">
-🎒 Inventário
-</button>
-
-<button class="tool" data-prompt="Crie um script de missões para Roblox com objetivos e recompensas.">
-🎯 Missões
-</button>
-
-<button class="tool" data-prompt="Crie um script de XP e níveis para Roblox.">
-⭐ XP e níveis
-</button>
-
-<button class="tool" data-prompt="Crie um script de equipes e cargos para Roblox.">
-👥 Equipes
-</button>
-
-<button class="tool" data-prompt="Crie um script de administração para Roblox com comandos e permissões.">
-⚙️ Administração
-</button>
-
-</div>
-
-<div class="section-title">
-HISTÓRICO
-</div>
-
-<div class="history-area" id="historico"></div>
-
 </aside>
+
 
 <main class="main">
 
 <header class="header">
 
-<div class="header-title">
-🤖 Gerador de Scripts Lua
-</div>
+<strong>🤖 Gerador de Scripts Roblox</strong>
 
-<div class="status">
+<span class="online">
 ● Online
-</div>
+</span>
 
 </header>
 
-<section class="chat">
 
-<div class="chat-inner" id="chat"></div>
+<section class="chat" id="chat">
+
+<div class="chatContent" id="chatContent">
+
+<div class="welcome">
+
+<h1>⚡ ScriptAI</h1>
+
+<p>
+Peça um script ou sistema para Roblox.
+</p>
+
+<p>
+Exemplo: "Crie um sistema de dinheiro para Roblox"
+</p>
+
+</div>
+
+</div>
 
 </section>
 
+
 <footer class="composer">
 
-<div class="composer-inner">
-
-<div class="input-box">
+<div class="box">
 
 <textarea
 id="input"
@@ -507,38 +332,37 @@ placeholder="Digite sua mensagem..."
 ></textarea>
 
 <button
-type="button"
 class="send"
 id="sendButton"
+type="button"
 >
-Gerar
+GERAR
 </button>
 
 </div>
 
-<div class="bottom-tools">
 
-<button data-prompt="Crie um script de sistema completo para meu jogo Roblox.">
-＋ Sistema
+<div class="bottom">
+
+<button data-prompt="Crie um sistema completo de dinheiro para Roblox.">
+💰 Dinheiro
 </button>
 
-<button data-prompt="Crie um script de GUI completa para este sistema Roblox.">
-🖥️ GUI
+<button data-prompt="Crie um sistema completo de loja para Roblox.">
+🛒 Loja
 </button>
 
-<button data-prompt="Adicione salvamento DataStore a este sistema Roblox.">
-💾 DataStore
+<button data-prompt="Crie um sistema completo de empregos para Roblox.">
+💼 Empregos
 </button>
 
-<button data-prompt="Organize este sistema Roblox em scripts separados e diga onde colocar cada script.">
-📂 Organizar
+<button data-prompt="Crie um sistema completo de cidade RP para Roblox.">
+🏙️ Cidade RP
 </button>
 
 <button id="clearButton">
 🗑 Limpar
 </button>
-
-</div>
 
 </div>
 
@@ -548,743 +372,828 @@ Gerar
 
 </div>
 
+
 <script>
-
-/* ==============================
-   CONFIGURAÇÃO
-============================== */
-
-const STORAGE_KEY =
-"SCRIPT_AI_CHATS_V3";
-
-let chats = [];
-
-let conversaAtual = [];
-
-
-/* ==============================
-   CARREGAR
-============================== */
-
-try{
-
-    chats =
-    JSON.parse(
-        localStorage.getItem(
-            STORAGE_KEY
-        ) || "[]"
-    );
-
-}catch(error){
-
-    chats=[];
-
-}
-
-
-/* ==============================
-   ELEMENTOS
-============================== */
 
 const input =
 document.getElementById("input");
 
 const sendButton =
-document.getElementById(
-    "sendButton"
-);
+document.getElementById("sendButton");
 
-const chat =
-document.getElementById("chat");
-
-const historico =
-document.getElementById(
-    "historico"
-);
+const chatContent =
+document.getElementById("chatContent");
 
 
-/* ==============================
-   SALVAR
-============================== */
+/* ==========================
+   ADICIONAR MENSAGEM
+========================== */
 
-function salvar(){
+function addMessage(text,type){
 
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(chats)
-    );
+    const message =
+    document.createElement("div");
 
-}
+    message.className =
+    "message " + type;
 
 
-/* ==============================
-   ESCAPAR HTML
-============================== */
+    const name =
+    document.createElement("div");
 
-function escapeHTML(text){
+    name.className="name";
 
-    return String(text).replace(
-        /[&<>"']/g,
-        function(character){
+    name.textContent =
+    type === "user"
+    ? "Você"
+    : "🤖 ScriptAI";
 
-            const entities={
 
-                "&":"&amp;",
-                "<":"&lt;",
-                ">":"&gt;",
-                '"':"&quot;",
-                "'":"&#039;"
+    message.appendChild(name);
 
-            };
 
-            return entities[
-                character
-            ];
+    const content =
+    document.createElement("div");
 
-        }
-    );
+    content.innerHTML =
+    formatText(text);
+
+
+    message.appendChild(content);
+
+    chatContent.appendChild(message);
+
+
+    document.getElementById("chat")
+    .scrollTo({
+        top:document.getElementById("chat")
+        .scrollHeight,
+        behavior:"smooth"
+    });
 
 }
 
 
-/* ==============================
-   WELCOME
-============================== */
+/* ==========================
+   FORMATAR TEXTO
+========================== */
 
-function mostrarWelcome(){
+function formatText(text){
 
-    chat.innerHTML=`
-
-    <div class="welcome">
-
-        <div class="welcome-icon">
-            ⚡
-        </div>
-
-        <h1>
-            O que você quer criar?
-        </h1>
-
-        <p>
-            Peça um script ou sistema para Roblox.
-        </p>
-
-        <div class="suggestions">
-
-            <button
-            class="suggestion"
-            data-prompt="Crie um script de cidade RP completa para Roblox com dinheiro, empregos, lojas, casas, carros, NPCs, celular e polícia.">
-            🏙️ Cidade RP
-            </button>
-
-            <button
-            class="suggestion"
-            data-prompt="Crie um script de sistema de loja para Roblox com moedas e GUI.">
-            🛒 Loja
-            </button>
-
-            <button
-            class="suggestion"
-            data-prompt="Crie um script de sistema de empregos para Roblox com salários.">
-            💼 Empregos
-            </button>
-
-            <button
-            class="suggestion"
-            data-prompt="Crie um script de casas compráveis para Roblox.">
-            🏠 Casas
-            </button>
-
-        </div>
-
-    </div>
-
-    `;
-
-    ativarBotoesPrompt();
-
-}
+    let safe =
+    String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;");
 
 
-/* ==============================
-   USUÁRIO
-============================== */
-
-function mostrarUsuario(texto){
-
-    const div =
-    document.createElement(
-        "div"
-    );
-
-    div.className =
-    "message user-message";
-
-    div.innerHTML =
-    `
-    <div class="message-name">
-        Você
-    </div>
-
-    <div>
-        ${escapeHTML(texto)}
-    </div>
-    `;
-
-    chat.appendChild(div);
-
-}
+    const parts =
+    safe.split("```");
 
 
-/* ==============================
-   IA
-============================== */
-
-function mostrarIA(texto){
-
-    const div =
-    document.createElement(
-        "div"
-    );
-
-    div.className =
-    "message ai-message";
-
-    const nome =
-    document.createElement(
-        "div"
-    );
-
-    nome.className =
-    "message-name";
-
-    nome.textContent =
-    "🤖 ScriptAI";
-
-    div.appendChild(nome);
+    let html="";
 
 
-    const partes =
-    texto.split(
-        /```(?:lua|luau)?/i
-    );
+    parts.forEach(
+    (part,index)=>{
 
-    for(
-        let i=0;
-        i<partes.length;
-        i++
-    ){
+        if(index % 2 === 0){
 
-        if(i%2===0){
-
-            if(
-                partes[i].trim()
-            ){
-
-                const textoDiv =
-                document.createElement(
-                    "div"
-                );
-
-                textoDiv.innerHTML =
-                escapeHTML(
-                    partes[i]
-                ).replace(
-                    /\n/g,
-                    "<br>"
-                );
-
-                div.appendChild(
-                    textoDiv
-                );
-
-            }
+            html +=
+            part.replace(
+                /\n/g,
+                "<br>"
+            );
 
         }else{
 
-            const container =
-            document.createElement(
-                "div"
-            );
+            html += `
 
-            container.className =
-            "code-container";
+            <div class="code">
 
+                <div class="codeTop">
 
-            const topo =
-            document.createElement(
-                "div"
-            );
+                    <span>Lua / Luau</span>
 
-            topo.className =
-            "code-top";
+                    <button
+                    class="copy"
+                    onclick="copiarCodigo(this)"
+                    >
+                    📋 Copiar
+                    </button>
 
+                </div>
 
-            const linguagem =
-            document.createElement(
-                "span"
-            );
+                <pre>${part}</pre>
 
-            linguagem.textContent =
-            "Lua / Luau";
+            </div>
 
-
-            const copiar =
-            document.createElement(
-                "button"
-            );
-
-            copiar.className =
-            "copy-button";
-
-            copiar.textContent =
-            "📋 Copiar";
-
-
-            const codigo =
-            partes[i].trim();
-
-
-            copiar.addEventListener(
-                "click",
-                async function(){
-
-                    try{
-
-                        await navigator
-                        .clipboard
-                        .writeText(
-                            codigo
-                        );
-
-                        copiar.textContent =
-                        "✅ Copiado!";
-
-                        setTimeout(
-                            function(){
-
-                                copiar.textContent =
-                                "📋 Copiar";
-
-                            },
-                            1500
-                        );
-
-                    }catch(error){
-
-                        copiar.textContent =
-                        "❌ Erro";
-
-                    }
-
-                }
-            );
-
-
-            topo.appendChild(
-                linguagem
-            );
-
-            topo.appendChild(
-                copiar
-            );
-
-
-            const pre =
-            document.createElement(
-                "pre"
-            );
-
-            pre.textContent =
-            codigo;
-
-
-            container.appendChild(
-                topo
-            );
-
-            container.appendChild(
-                pre
-            );
-
-            div.appendChild(
-                container
-            );
+            `;
 
         }
 
-    }
+    });
 
-    chat.appendChild(div);
+
+    return html;
 
 }
 
 
-/* ==============================
-   DETECTAR PEDIDO DE CÓDIGO
-============================== */
+/* ==========================
+   COPIAR CÓDIGO
+========================== */
 
-function pediuCodigo(texto){
+function copiarCodigo(button){
+
+    const codigo =
+    button
+    .parentElement
+    .nextElementSibling
+    .innerText;
+
+
+    navigator.clipboard
+    .writeText(codigo)
+    .then(()=>{
+
+        button.innerText =
+        "✅ Copiado!";
+
+        setTimeout(
+        ()=>{
+
+            button.innerText =
+            "📋 Copiar";
+
+        },
+        1500
+        );
+
+    });
+
+}
+
+
+/* ==========================
+   DETECTAR PEDIDO
+========================== */
+
+function querScript(text){
 
     const t =
-    texto
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(
-        /[\u0300-\u036f]/g,
-        ""
-    );
+    text.toLowerCase();
 
 
-    const frases=[
+    const palavras=[
 
         "cria um script",
         "crie um script",
         "faz um script",
         "faca um script",
-        "fazer um script",
 
         "gera um script",
         "gere um script",
-        "gerar um script",
 
         "quero um script",
         "preciso de um script",
 
-        "me de um script",
-        "me da um script",
-
         "cria um sistema",
         "crie um sistema",
-
         "faz um sistema",
         "faca um sistema",
 
-        "fazer um sistema",
-
         "gera um sistema",
         "gere um sistema",
-        "gerar um sistema",
 
         "quero um sistema",
         "preciso de um sistema",
 
         "criar um sistema",
-        "criar sistema",
-
         "criar um script",
-        "criar script",
-
-        "codigo para",
-        "codigo de",
 
         "script para",
         "script de",
 
-        "codigo lua",
-        "script lua",
+        "codigo para",
+        "código para",
 
-        "codigo luau",
-        "script luau",
-
-        "adicione um sistema",
-        "adiciona um sistema",
-
-        "monte um sistema",
-        "monta um sistema",
-
-        "construa um sistema",
-        "construir um sistema"
+        "sistema de",
+        "sistema para"
 
     ];
 
 
-    return frases.some(
-        function(frase){
-
-            return t.includes(
-                frase
-            );
-
-        }
+    return palavras.some(
+        palavra =>
+        t.includes(palavra)
     );
 
 }
 
 
-/* ==============================
-   RESPOSTA NORMAL
-============================== */
+/* ==========================
+   GERAR CÓDIGO
+========================== */
 
-function respostaNormal(texto){
+function gerarCodigo(pedido){
 
     const t =
-    texto
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(
-        /[\u0300-\u036f]/g,
-        ""
-    )
-    .trim();
+    pedido.toLowerCase();
 
 
     if(
-        /^(oi|ola|eai|e ai|opa|hey|hello|hi)[!?. ]*$/
-        .test(t)
+        t.includes("dinheiro") ||
+        t.includes("moeda")
     ){
 
-        return `
-Olá! 👋
+        return `Aqui está um sistema básico de dinheiro para Roblox:
 
-Eu sou a ScriptAI.
-
-Posso conversar com você e criar
-scripts e sistemas para Roblox.
-
-Quando quiser código, diga por exemplo:
-
-"Crie um script de sistema de dinheiro para Roblox."
-`;
-
-    }
-
-
-    if(
-        t.includes("quem e voce") ||
-        t.includes("quem e vc")
-    ){
-
-        return `
-🤖 Sou a ScriptAI!
-
-Fui criada para ajudar a desenvolver
-scripts e sistemas para Roblox em Lua/Luau.
-`;
-
-    }
-
-
-    if(
-        t.includes("o que voce faz") ||
-        t.includes("o que vc faz")
-    ){
-
-        return `
-Posso ajudar a criar scripts e sistemas
-para Roblox.
-
-Exemplo:
-
-"Crie um sistema de loja com dinheiro e GUI."
-`;
-
-    }
-
-
-    if(
-        t.includes("obrigado") ||
-        t.includes("valeu") ||
-        t==="vlw"
-    ){
-
-        return "Tamo junto! 😎🔥";
-
-    }
-
-
-    return `
-Entendi! 👍
-
-Se você quiser que eu gere código,
-peça explicitamente.
-
-Exemplo:
-
-"Crie um script de dinheiro para Roblox."
-`;
-
-}
-
-
-/* ==============================
-   GERAR SISTEMAS
-============================== */
-
-function gerarProjeto(pedido){
-
-    const p =
-    pedido
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(
-        /[\u0300-\u036f]/g,
-        ""
-    );
-
-
-    const projeto=[];
-
-
-    if(
-        p.includes("dinheiro") ||
-        p.includes("moeda")
-    ){
-
-        projeto.push({
-
-            nome:
-            "ServerScriptService/MoneySystem.server.lua",
-
-            codigo:
-
-`local Players =
-game:GetService("Players")
+```lua
+local Players = game:GetService("Players")
 
 Players.PlayerAdded:Connect(function(player)
 
-    local leaderstats =
-    Instance.new("Folder")
+    local leaderstats = Instance.new("Folder")
+    leaderstats.Name = "leaderstats"
+    leaderstats.Parent = player
 
-    leaderstats.Name =
-    "leaderstats"
-
-    leaderstats.Parent =
-    player
-
-
-    local dinheiro =
-    Instance.new("IntValue")
-
-    dinheiro.Name =
-    "Dinheiro"
-
-    dinheiro.Value =
-    500
-
-    dinheiro.Parent =
-    leaderstats
+    local dinheiro = Instance.new("IntValue")
+    dinheiro.Name = "Dinheiro"
+    dinheiro.Value = 500
+    dinheiro.Parent = leaderstats
 
 end)
 
+Coloque esse Script em ServerScriptService.`;
 
-local function adicionarDinheiro(
-    player,
-    quantidade
-)
+}
+
+
+if(t.includes("loja")){
+
+    return `Sistema básico de loja:
+
+local ReplicatedStorage =
+    game:GetService("ReplicatedStorage")
+
+local comprar =
+    Instance.new("RemoteEvent")
+
+comprar.Name = "ComprarItem"
+comprar.Parent = ReplicatedStorage
+
+comprar.OnServerEvent:Connect(function(player, preco)
 
     local stats =
-    player:FindFirstChild(
-        "leaderstats"
-    )
+        player:FindFirstChild("leaderstats")
 
-    if not stats then
+    if not stats then return end
+
+    local dinheiro =
+        stats:FindFirstChild("Dinheiro")
+
+    if not dinheiro then return end
+
+    if dinheiro.Value >= preco then
+
+        dinheiro.Value -= preco
+
+        print(player.Name .. " comprou o item!")
+
+    end
+
+end)
+````;
+
+    }
+
+
+    if(t.includes("emprego")){
+
+        return `Sistema de empregos:
+
+```lua
+local empregos = {
+    Policial = 250,
+    Medico = 220,
+    Motorista = 180,
+    Entregador = 150
+}
+
+local function escolherEmprego(player,nome)
+
+    local salario =
+        empregos[nome]
+
+    if not salario then
         return
     end
 
-
-    local dinheiro =
-    stats:FindFirstChild(
-        "Dinheiro"
+    player:SetAttribute(
+        "Emprego",
+        nome
     )
 
-    if dinheiro then
+    player:SetAttribute(
+        "Salario",
+        salario
+    )
 
-        dinheiro.Value +=
-        quantidade
+end
+
+_G.EscolherEmprego =
+    escolherEmprego
+````;
+
+    }
+
+
+    if(t.includes("casa")){
+
+        return `Sistema de casas:
+
+```lua
+local casas = {}
+
+local function comprarCasa(
+    player,
+    nome,
+    preco
+)
+
+    if casas[nome] then
+        return false
+    end
+
+    local stats =
+        player:FindFirstChild("leaderstats")
+
+    if not stats then
+        return false
+    end
+
+    local dinheiro =
+        stats:FindFirstChild("Dinheiro")
+
+    if not dinheiro then
+        return false
+    end
+
+    if dinheiro.Value < preco then
+        return false
+    end
+
+    dinheiro.Value -= preco
+
+    casas[nome] =
+        player.UserId
+
+    return true
+
+end
+
+_G.ComprarCasa =
+    comprarCasa
+````;
+
+    }
+
+
+    if(t.includes("carro")){
+
+        return `Sistema básico de veículos:
+
+```lua
+local ReplicatedStorage =
+    game:GetService("ReplicatedStorage")
+
+local spawnCar =
+    Instance.new("RemoteEvent")
+
+spawnCar.Name =
+    "SpawnCar"
+
+spawnCar.Parent =
+    ReplicatedStorage
+
+spawnCar.OnServerEvent:Connect(
+function(player,carro)
+
+    if not carro then
+        return
+    end
+
+    local novoCarro =
+        carro:Clone()
+
+    novoCarro.Parent =
+        workspace
+
+    if player.Character then
+
+        novoCarro:PivotTo(
+            player.Character:GetPivot()
+            * CFrame.new(0,0,-10)
+        )
+
+    end
+
+end)
+````;
+
+    }
+
+
+    if(t.includes("npc")){
+
+        return `Sistema de NPC:
+
+```lua
+local PathfindingService =
+    game:GetService("PathfindingService")
+
+local function andarNPC(npc,destino)
+
+    local humanoid =
+        npc:FindFirstChildOfClass("Humanoid")
+
+    local root =
+        npc:FindFirstChild("HumanoidRootPart")
+
+    if not humanoid or not root then
+        return
+    end
+
+    local path =
+        PathfindingService:CreatePath()
+
+    path:ComputeAsync(
+        root.Position,
+        destino
+    )
+
+    if path.Status ==
+       Enum.PathStatus.Success then
+
+        for _,waypoint in
+        ipairs(path:GetWaypoints()) do
+
+            humanoid:MoveTo(
+                waypoint.Position
+            )
+
+            humanoid.MoveToFinished:Wait()
+
+        end
 
     end
 
 end
 
-
-_G.AdicionarDinheiro =
-adicionarDinheiro`
-        });
+_G.AndarNPC =
+    andarNPC
+````;
 
     }
 
 
     if(
-        p.includes("loja")
+        t.includes("celular") ||
+        t.includes("telefone")
     ){
 
-        projeto.push({
+        return `Sistema de celular GUI:
 
-            nome:
-            "ServerScriptService/ShopSystem.server.lua",
+```lua
+local Players =
+    game:GetService("Players")
 
-            codigo:
+local player =
+    Players.LocalPlayer
 
-`local ReplicatedStorage =
-game:GetService(
-    "ReplicatedStorage"
+local gui =
+    Instance.new("ScreenGui")
+
+gui.Name =
+    "CelularGUI"
+
+gui.Parent =
+    player:WaitForChild("PlayerGui")
+
+local frame =
+    Instance.new("Frame")
+
+frame.Size =
+    UDim2.fromOffset(280,500)
+
+frame.Position =
+    UDim2.new(0.5,-140,0.5,-250)
+
+frame.Parent =
+    gui
+
+local titulo =
+    Instance.new("TextLabel")
+
+titulo.Size =
+    UDim2.new(1,0,0,50)
+
+titulo.Text =
+    "📱 CELULAR"
+
+titulo.Parent =
+    frame
+````;
+
+    }
+
+
+    if(
+        t.includes("policia") ||
+        t.includes("polícia") ||
+        t.includes("prisao") ||
+        t.includes("prisão")
+    ){
+
+        return `Sistema de polícia:
+
+```lua
+local function colocarProcurado(
+    player,
+    nivel
 )
 
+    player:SetAttribute(
+        "Procurado",
+        nivel
+    )
 
-local comprar =
-Instance.new("RemoteEvent")
+end
 
-comprar.Name =
-"ComprarItem"
+local function prender(
+    player,
+    tempo
+)
 
-comprar.Parent =
-ReplicatedStorage
+    player:SetAttribute(
+        "Preso",
+        true
+    )
 
+    task.delay(
+        tempo,
+        function()
 
-local produtos={
+            if player then
 
-    Espada={
-        preco=100
-    },
+                player:SetAttribute(
+                    "Preso",
+                    false
+                )
 
-    Lanterna={
-        preco=50
-    },
+            end
 
-    Radio={
-        preco=150
+        end
+    )
+
+end
+
+_G.ColocarProcurado =
+    colocarProcurado
+
+_G.Prender =
+    prender
+````;
+
     }
+
+
+    return `Entendi o sistema que você pediu.
+
+Para gerar um sistema específico, diga exatamente o que ele deve fazer.
+
+Por exemplo:
+
+"Crie um sistema de dinheiro para Roblox com DataStore, GUI e salário."`;
 
 }
 
 
-comprar.OnServerEvent:Connect(
-function(player,nome)
+/* ==========================
+   RESPOSTA NORMAL
+========================== */
 
-    local produto =
-    produtos[nome]
+function respostaNormal(text){
 
-    if not produto then
-        return
-    end
-
-
-    local stats =
-    player:FindFirstChild(
-        "leaderstats"
-    )
-
-    if not stats then
-        return
-    end
+    const t =
+    text.toLowerCase().trim();
 
 
-    local dinheiro =
-    stats:FindFirstChild(
-        "Dinheiro"
-    )
+    if(
+        t === "oi" ||
+        t === "olá" ||
+        t === "ola" ||
+        t === "eai" ||
+        t === "e aí" ||
+        t === "opa"
+    ){
 
-    if not dinheiro then
-        return
-    end
+        return `Olá! 👋
+
+Sou a ScriptAI.
+
+Posso conversar normalmente ou criar scripts para Roblox.
+
+Quando quiser código, diga:
+"Crie um sistema de dinheiro para Roblox."`;
+
+    }
 
 
-    if dinheiro.Value >=
-       produto.preco then
+    if(
+        t.includes("quem é você") ||
+        t.includes("quem e voce")
+    ){
 
-        dinheiro.Value -=
-        produto.preco
+        return `Sou a ScriptAI 🤖
 
-        print(
-     
+Meu objetivo é ajudar você a criar scripts e sistemas para Roblox.`;
+
+    }
+
+
+    return `Entendi! 👍
+
+Se quiser que eu crie um código, diga algo como:
+
+"Crie um script de sistema de dinheiro para Roblox."`;
+
+}
+
+
+/* ==========================
+   FUNÇÃO ENVIAR
+========================== */
+
+function enviar(){
+
+    const texto =
+    input.value.trim();
+
+
+    if(texto === ""){
+        return;
+    }
+
+
+    input.value = "";
+
+
+    addMessage(
+        texto,
+        "user"
+    );
+
+
+    setTimeout(
+    function(){
+
+        let resposta;
+
+
+        if(
+            querScript(texto)
+        ){
+
+            resposta =
+            gerarCodigo(texto);
+
+        }else{
+
+            resposta =
+            respostaNormal(texto);
+
+        }
+
+
+        addMessage(
+            resposta,
+            "ai"
+        );
+
+    },
+    400
+    );
+
+}
+
+
+/* ==========================
+   BOTÃO GERAR
+========================== */
+
+sendButton.onclick =
+function(){
+
+    enviar();
+
+};
+
+
+/* ==========================
+   ENTER
+========================== */
+
+input.onkeydown =
+function(event){
+
+    if(
+        event.key === "Enter" &&
+        !event.shiftKey
+    ){
+
+        event.preventDefault();
+
+        enviar();
+
+    }
+
+};
+
+
+/* ==========================
+   BOTÕES DE SISTEMA
+========================== */
+
+document
+.querySelectorAll(
+    "[data-prompt]"
+)
+.forEach(
+function(button){
+
+    button.onclick =
+    function(){
+
+        input.value =
+        button.dataset.prompt;
+
+        input.focus();
+
+    };
+
+});
+
+
+/* ==========================
+   NOVO CHAT
+========================== */
+
+document
+.getElementById("newChat")
+.onclick =
+function(){
+
+    chatContent.innerHTML = `
+
+    <div class="welcome">
+
+        <h1>⚡ ScriptAI</h1>
+
+        <p>
+        Peça um script ou sistema para Roblox.
+        </p>
+
+    </div>
+
+    `;
+
+    input.value="";
+
+    input.focus();
+
+};
+
+
+/* ==========================
+   LIMPAR
+========================== */
+
+document
+.getElementById("clearButton")
+.onclick =
+function(){
+
+    chatContent.innerHTML="";
+
+    input.value="";
+
+    input.focus();
+
+};
+
+</script>
+
+</body>
+</html>
