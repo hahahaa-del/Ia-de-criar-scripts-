@@ -105,8 +105,6 @@ button{font-family:inherit}
 
 .history-item:hover{background:#202632}
 
-.history-item.active{border-color:#825cff}
-
 .main{
     flex:1;
     min-width:0;
@@ -455,7 +453,9 @@ const CHAVE="SCRIPT_AI_CHATS_V2";
 let chats=[];
 
 try{
-    chats=JSON.parse(localStorage.getItem(CHAVE)||"[]");
+    chats=JSON.parse(
+        localStorage.getItem(CHAVE)||"[]"
+    );
 }catch{
     chats=[];
 }
@@ -463,19 +463,15 @@ try{
 let conversaAtual=[];
 
 function salvar(){
-
     localStorage.setItem(
         CHAVE,
         JSON.stringify(chats)
     );
-
 }
 
 function modelo(texto){
-
     document.getElementById("input").value=texto;
     document.getElementById("input").focus();
-
 }
 
 function novoChat(){
@@ -483,12 +479,14 @@ function novoChat(){
     if(conversaAtual.length){
 
         chats.push({
+            titulo:
+                conversaAtual[0]?.texto ||
+                "Novo chat",
             mensagens:[...conversaAtual],
             data:new Date().toLocaleString("pt-BR")
         });
 
         salvar();
-
     }
 
     conversaAtual=[];
@@ -498,7 +496,6 @@ function novoChat(){
     mostrarWelcome();
 
     atualizarHistorico();
-
 }
 
 function limparChat(){
@@ -508,7 +505,6 @@ function limparChat(){
     document.getElementById("chat").innerHTML="";
 
     mostrarWelcome();
-
 }
 
 function mostrarWelcome(){
@@ -552,22 +548,24 @@ function mostrarWelcome(){
     </div>
 
     `;
-
 }
 
 function escapeHTML(text){
 
-    return text.replace(/[&<>"']/g,function(m){
+    return text.replace(
+        /[&<>"']/g,
+        function(m){
 
-        return {
-            "&":"&amp;",
-            "<":"&lt;",
-            ">":"&gt;",
-            '"':"&quot;",
-            "'":"&#039;"
-        }[m];
+            return {
+                "&":"&amp;",
+                "<":"&lt;",
+                ">":"&gt;",
+                '"':"&quot;",
+                "'":"&#039;"
+            }[m];
 
-    });
+        }
+    );
 
 }
 
@@ -581,8 +579,8 @@ function mostrarUsuario(texto){
         '<div class="message-name">Você</div>'+
         escapeHTML(texto);
 
-    document.getElementById("chat").appendChild(div);
-
+    document.getElementById("chat")
+        .appendChild(div);
 }
 
 function mostrarIA(texto){
@@ -599,7 +597,8 @@ function mostrarIA(texto){
 
     div.appendChild(nome);
 
-    const partes=texto.split(/```(?:lua|luau)?/i);
+    const partes=
+        texto.split(/```(?:lua|luau)?/i);
 
     let codigoEncontrado=false;
 
@@ -607,29 +606,37 @@ function mostrarIA(texto){
 
         if(i%2===0){
 
-            const p=document.createElement("div");
+            if(partes[i].trim()){
 
-            p.textContent=partes[i];
+                const p=
+                    document.createElement("div");
 
-            div.appendChild(p);
+                p.textContent=partes[i];
+
+                div.appendChild(p);
+            }
 
         }else{
 
             codigoEncontrado=true;
 
-            const container=document.createElement("div");
+            const container=
+                document.createElement("div");
 
             container.className="code-container";
 
-            const topo=document.createElement("div");
+            const topo=
+                document.createElement("div");
 
             topo.className="code-top";
 
-            const linguagem=document.createElement("span");
+            const linguagem=
+                document.createElement("span");
 
             linguagem.textContent="Lua / Luau";
 
-            const copiar=document.createElement("button");
+            const copiar=
+                document.createElement("button");
 
             copiar.className="copy-button";
 
@@ -637,18 +644,18 @@ function mostrarIA(texto){
 
             copiar.onclick=async function(){
 
-                const codigo=partes[i];
-
                 try{
 
                     await navigator.clipboard.writeText(
-                        codigo.trim()
+                        partes[i].trim()
                     );
 
                     copiar.textContent="✅ Copiado!";
 
                     setTimeout(
-                        ()=>copiar.textContent="📋 Copiar",
+                        ()=>{
+                            copiar.textContent="📋 Copiar";
+                        },
                         1500
                     );
 
@@ -657,13 +664,13 @@ function mostrarIA(texto){
                     copiar.textContent="❌ Erro";
 
                 }
-
             };
 
             topo.appendChild(linguagem);
             topo.appendChild(copiar);
 
-            const pre=document.createElement("pre");
+            const pre=
+                document.createElement("pre");
 
             pre.textContent=partes[i];
 
@@ -671,28 +678,172 @@ function mostrarIA(texto){
             container.appendChild(pre);
 
             div.appendChild(container);
-
         }
+    }
+
+    if(!codigoEncontrado && !texto.includes("```")){
+
+        div.innerHTML=
+            '<div class="message-name">🤖 ScriptAI</div>'+
+            '<div>'+escapeHTML(texto)+'</div>';
 
     }
 
-    if(!codigoEncontrado){
+    document.getElementById("chat")
+        .appendChild(div);
+}
 
-        const p=document.createElement("p");
+/*
+========================================================
+DETECTOR DE PEDIDO DE SCRIPT
+========================================================
+*/
 
-        p.textContent=texto;
+function pediuCodigo(texto){
 
-        div.appendChild(p);
+    const t=texto
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g,"");
+
+    const pedidos=[
+
+        "cria um script",
+        "crie um script",
+        "faz um script",
+        "faca um script",
+        "fazer um script",
+        "gere um script",
+        "gera um script",
+        "gerar um script",
+        "quero um script",
+        "preciso de um script",
+        "me de um script",
+        "me da um script",
+        "me de o script",
+        "me da o script",
+
+        "cria sistema",
+        "cria um sistema",
+        "crie sistema",
+        "crie um sistema",
+        "faz sistema",
+        "faz um sistema",
+        "faca sistema",
+        "faca um sistema",
+        "fazer sistema",
+        "fazer um sistema",
+        "gere sistema",
+        "gere um sistema",
+        "gera sistema",
+        "gera um sistema",
+        "gerar sistema",
+        "gerar um sistema",
+        "quero sistema",
+        "quero um sistema",
+        "preciso de um sistema",
+        "me de um sistema",
+        "me da um sistema",
+
+        "criar script",
+        "criar um script",
+        "criar sistema",
+        "criar um sistema",
+
+        "codigo para",
+        "codigo de",
+        "script para",
+        "script de",
+        "codigo lua",
+        "script lua",
+        "script luau",
+        "codigo luau",
+
+        "adicione um sistema",
+        "adiciona um sistema",
+        "adicionar um sistema",
+
+        "monte um sistema",
+        "monta um sistema",
+
+        "construa um sistema",
+        "construir um sistema",
+
+        "desenvolva um sistema",
+        "desenvolver um sistema"
+    ];
+
+    return pedidos.some(
+        frase=>t.includes(frase)
+    );
+}
+
+/*
+========================================================
+RESPOSTAS NORMAIS
+========================================================
+*/
+
+function respostaNormal(texto){
+
+    const t=texto
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g,"")
+        .trim();
+
+    if(
+        /^(oi|ola|eai|e ai|opa|hey|hello|hi)[!?. ]*$/.test(t)
+    ){
+
+        return "Olá! 👋 Eu sou a ScriptAI. Posso conversar com você e também criar scripts e sistemas para Roblox. Quando quiser código, diga algo como: \"Crie um sistema de dinheiro para Roblox\".";
 
     }
 
-    document.getElementById("chat").appendChild(div);
+    if(
+        t.includes("quem e voce") ||
+        t.includes("quem e vc")
+    ){
+
+        return "🤖 Eu sou a ScriptAI, focada em ajudar a criar scripts e sistemas em Lua/Luau para Roblox.";
+
+    }
+
+    if(
+        t.includes("o que voce faz") ||
+        t.includes("o que vc faz")
+    ){
+
+        return "Posso ajudar a planejar e gerar scripts e sistemas para Roblox. Quando quiser que eu gere código, basta pedir explicitamente, por exemplo: \"Crie um sistema de loja com dinheiro e GUI\".";
+
+    }
+
+    if(
+        t.includes("obrigado") ||
+        t.includes("valeu") ||
+        t.includes("vlw")
+    ){
+
+        return "Tamo junto! 😎🔥";
+
+    }
+
+    return "Entendi! 👍 Se você quiser que eu gere código, é só pedir explicitamente, por exemplo: \"Crie um script de dinheiro para Roblox\".";
 
 }
 
+/*
+========================================================
+GERADOR DE PROJETO
+========================================================
+*/
+
 function gerarProjeto(pedido){
 
-    const p=pedido.toLowerCase();
+    const p=pedido
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g,"");
 
     let partes=[];
 
@@ -703,32 +854,48 @@ function gerarProjeto(pedido){
 
         partes.push({
 
-            nome:"ServerScriptService/CityServer.server.lua",
+            nome:
+            "ServerScriptService/CityServer.server.lua",
 
-            codigo:`-- ScriptAI - Sistema base de Cidade RP
+            codigo:
+`-- ScriptAI
+-- Sistema base de Cidade RP
 
-local Players = game:GetService("Players")
-local DataStoreService = game:GetService("DataStoreService")
+local Players =
+    game:GetService("Players")
+
+local DataStoreService =
+    game:GetService("DataStoreService")
 
 local dinheiroStore =
-    DataStoreService:GetDataStore("ScriptAI_Dinheiro_V1")
+    DataStoreService:GetDataStore(
+        "ScriptAI_Dinheiro_V1"
+    )
 
 Players.PlayerAdded:Connect(function(player)
 
     local leaderstats =
         Instance.new("Folder")
 
-    leaderstats.Name="leaderstats"
-    leaderstats.Parent=player
+    leaderstats.Name =
+        "leaderstats"
+
+    leaderstats.Parent =
+        player
 
     local dinheiro =
         Instance.new("IntValue")
 
-    dinheiro.Name="Dinheiro"
-    dinheiro.Value=500
-    dinheiro.Parent=leaderstats
+    dinheiro.Name =
+        "Dinheiro"
 
-    local sucesso,dados=
+    dinheiro.Value =
+        500
+
+    dinheiro.Parent =
+        leaderstats
+
+    local sucesso,dados =
         pcall(function()
 
             return dinheiroStore:GetAsync(
@@ -738,22 +905,33 @@ Players.PlayerAdded:Connect(function(player)
         end)
 
     if sucesso and dados then
-        dinheiro.Value=dados
+
+        dinheiro.Value =
+            dados
+
     end
 
 end)
 
 Players.PlayerRemoving:Connect(function(player)
 
-    local stats=
-        player:FindFirstChild("leaderstats")
+    local stats =
+        player:FindFirstChild(
+            "leaderstats"
+        )
 
-    if not stats then return end
+    if not stats then
+        return
+    end
 
-    local dinheiro=
-        stats:FindFirstChild("Dinheiro")
+    local dinheiro =
+        stats:FindFirstChild(
+            "Dinheiro"
+        )
 
-    if not dinheiro then return end
+    if not dinheiro then
+        return
+    end
 
     pcall(function()
 
@@ -766,7 +944,6 @@ Players.PlayerRemoving:Connect(function(player)
 
 end)`
         });
-
     }
 
     if(
@@ -776,300 +953,57 @@ end)`
 
         partes.push({
 
-            nome:"ServerScriptService/MoneySystem.server.lua",
+            nome:
+            "ServerScriptService/MoneySystem.server.lua",
 
-            codigo:`-- Sistema de dinheiro
+            codigo:
+`-- Sistema de dinheiro
 
-local Players=game:GetService("Players")
+local Players =
+    game:GetService("Players")
 
 Players.PlayerAdded:Connect(function(player)
 
-    local stats=
-        player:FindFirstChild("leaderstats")
+    local stats =
+        player:FindFirstChild(
+            "leaderstats"
+        )
 
     if not stats then
 
-        stats=Instance.new("Folder")
-        stats.Name="leaderstats"
-        stats.Parent=player
+        stats =
+            Instance.new("Folder")
+
+        stats.Name =
+            "leaderstats"
+
+        stats.Parent =
+            player
 
     end
 
-    local money=
-        stats:FindFirstChild("Dinheiro")
+    local money =
+        stats:FindFirstChild(
+            "Dinheiro"
+        )
 
     if not money then
 
-        money=Instance.new("IntValue")
-        money.Name="Dinheiro"
-        money.Value=500
-        money.Parent=stats
+        money =
+            Instance.new("IntValue")
+
+        money.Name =
+            "Dinheiro"
+
+        money.Value =
+            500
+
+        money.Parent =
+            stats
 
     end
 
 end)
 
 local function adicionarDinheiro(
-    player,
-    quantidade
-)
-
-    local stats=
-        player:FindFirstChild("leaderstats")
-
-    if not stats then return end
-
-    local money=
-        stats:FindFirstChild("Dinheiro")
-
-    if money then
-        money.Value += quantidade
-    end
-
-end
-
-_G.AdicionarDinheiro=adicionarDinheiro`
-        });
-
-    }
-
-    if(p.includes("loja")){
-
-        partes.push({
-
-            nome:"ServerScriptService/ShopServer.server.lua",
-
-            codigo:`-- Sistema de loja
-
-local ReplicatedStorage=
-    game:GetService("ReplicatedStorage")
-
-local comprar=
-    Instance.new("RemoteEvent")
-
-comprar.Name="ComprarItem"
-comprar.Parent=ReplicatedStorage
-
-local produtos={
-
-    Espada={
-        preco=100
-    },
-
-    Lanterna={
-        preco=50
-    },
-
-    Radio={
-        preco=150
-    }
-
-}
-
-comprar.OnServerEvent:Connect(
-    function(player,nome)
-
-        local produto=
-            produtos[nome]
-
-        if not produto then return end
-
-        local stats=
-            player:FindFirstChild("leaderstats")
-
-        if not stats then return end
-
-        local dinheiro=
-            stats:FindFirstChild("Dinheiro")
-
-        if not dinheiro then return end
-
-        if dinheiro.Value >= produto.preco then
-
-            dinheiro.Value -= produto.preco
-
-            print(
-                player.Name..
-                " comprou "..
-                nome
-            )
-
-        end
-
-    end
-)`
-        });
-
-    }
-
-    if(p.includes("emprego")){
-
-        partes.push({
-
-            nome:"ServerScriptService/Jobs.server.lua",
-
-            codigo:`-- Sistema de empregos
-
-local ReplicatedStorage=
-    game:GetService("ReplicatedStorage")
-
-local escolher=
-    Instance.new("RemoteEvent")
-
-escolher.Name="EscolherEmprego"
-escolher.Parent=ReplicatedStorage
-
-local empregos={
-
-    Policial=250,
-    Medico=220,
-    Motorista=180,
-    Entregador=150,
-    Mecanico=200
-
-}
-
-escolher.OnServerEvent:Connect(
-    function(player,emprego)
-
-        local salario=
-            empregos[emprego]
-
-        if not salario then return end
-
-        player:SetAttribute(
-            "Emprego",
-            emprego
-        )
-
-        player:SetAttribute(
-            "Salario",
-            salario
-        )
-
-    end
-)`
-        });
-
-    }
-
-    if(p.includes("casa")){
-
-        partes.push({
-
-            nome:"ServerScriptService/Houses.server.lua",
-
-            codigo:`-- Sistema de propriedades
-
-local casas={}
-
-local function comprarCasa(
-    player,
-    casa,
-    preco
-)
-
-    if casas[casa] then
-        return false
-    end
-
-    local stats=
-        player:FindFirstChild("leaderstats")
-
-    if not stats then return false end
-
-    local dinheiro=
-        stats:FindFirstChild("Dinheiro")
-
-    if not dinheiro then return false end
-
-    if dinheiro.Value < preco then
-        return false
-    end
-
-    dinheiro.Value-=preco
-
-    casas[casa]=player.UserId
-
-    return true
-
-end
-
-_G.ComprarCasa=comprarCasa`
-        });
-
-    }
-
-    if(p.includes("carro") || p.includes("veículo")){
-
-        partes.push({
-
-            nome:"ServerScriptService/VehicleServer.server.lua",
-
-            codigo:`-- Sistema base de veículos
-
-local ReplicatedStorage=
-    game:GetService("ReplicatedStorage")
-
-local spawnCar=
-    Instance.new("RemoteEvent")
-
-spawnCar.Name="SpawnCar"
-spawnCar.Parent=ReplicatedStorage
-
-spawnCar.OnServerEvent:Connect(
-    function(player,modelo)
-
-        if typeof(modelo)~="Instance" then
-            return
-        end
-
-        local clone=
-            modelo:Clone()
-
-        clone.Parent=
-            workspace
-
-        if player.Character then
-
-            clone:PivotTo(
-                player.Character:GetPivot()
-                *CFrame.new(0,0,-12)
-            )
-
-        end
-
-    end
-)`
-        });
-
-    }
-
-    if(p.includes("npc")){
-
-        partes.push({
-
-            nome:"ServerScriptService/NPCSystem.server.lua",
-
-            codigo:`-- Sistema base de NPC
-
-local PathfindingService=
-    game:GetService("PathfindingService")
-
-local function fazerNPCAndar(
-    npc,
-    destino
-)
-
-    local humanoid=
-        npc:FindFirstChildOfClass(
-            "Humanoid"
-        )
-
-    local root=
-        npc:FindFirstChild(
-            "HumanoidRootPart"
-        )
-
-    if not humanoid or not root then
-        retu
+    p
