@@ -102,7 +102,6 @@ margin-top:80px;
 
 .hero h1{
 font-size:48px;
-margin:10px;
 }
 
 .hero h1 span{
@@ -113,12 +112,13 @@ color:#825cff;
 color:#929aaa;
 }
 
-.primary{
+.primary,
+.generate{
 background:#825cff;
-color:white;
+color:#fff;
 border:0;
-padding:14px 22px;
 border-radius:9px;
+padding:13px 22px;
 font-weight:bold;
 }
 
@@ -139,18 +139,13 @@ background:transparent;
 border:0;
 outline:0;
 resize:none;
-color:white;
+color:#fff;
 padding:12px;
 font-size:15px;
 }
 
 .generate{
-background:#825cff;
-color:white;
-border:0;
-border-radius:9px;
 padding:0 25px;
-font-weight:bold;
 }
 
 .quick{
@@ -163,7 +158,7 @@ margin-top:10px;
 .quick button{
 background:#151a23;
 border:1px solid #303744;
-color:white;
+color:#fff;
 padding:8px 12px;
 border-radius:7px;
 }
@@ -176,8 +171,8 @@ margin-top:20px;
 padding:16px;
 border-radius:12px;
 margin:10px 0;
-white-space:pre-wrap;
 line-height:1.5;
+white-space:pre-wrap;
 }
 
 .user{
@@ -202,13 +197,13 @@ display:flex;
 justify-content:space-between;
 padding:8px 10px;
 border-bottom:1px solid #292f3a;
-color:#9da6b5;
 font-size:12px;
+color:#9da6b5;
 }
 
 .copy{
 background:#252c38;
-color:#fff;
+color:white;
 border:0;
 padding:7px 10px;
 border-radius:6px;
@@ -241,7 +236,7 @@ font-size:14px;
 
 .card button{
 background:#825cff;
-color:#fff;
+color:white;
 border:0;
 padding:9px 13px;
 border-radius:7px;
@@ -260,7 +255,6 @@ margin-top:15px;
 
 .loading{
 color:#aaa;
-padding:15px;
 }
 
 @media(max-width:700px){
@@ -325,27 +319,27 @@ height:50px;
 
 <div class="nav">
 
-<button class="active" onclick="abrir('inicio',this)">
+<button class="active" onclick="abrirPagina('inicio',this)">
 🏠 Início
 </button>
 
-<button onclick="abrir('gerador',this)">
+<button onclick="abrirPagina('gerador',this)">
 🤖 IA / Gerador
 </button>
 
-<button onclick="abrir('sistemas',this)">
+<button onclick="abrirPagina('sistemas',this)">
 🧩 Sistemas
 </button>
 
-<button onclick="abrir('biblioteca',this)">
+<button onclick="abrirPagina('biblioteca',this)">
 📚 Biblioteca
 </button>
 
-<button onclick="abrir('salvos',this)">
+<button onclick="abrirPagina('salvos',this)">
 💾 Salvos
 </button>
 
-<button onclick="abrir('config',this)">
+<button onclick="abrirPagina('config',this)">
 ⚙️ Configurações
 </button>
 
@@ -353,17 +347,11 @@ height:50px;
 
 </aside>
 
-
 <main class="main">
 
 <header class="header">
-
 <b>🤖 ScriptAI</b>
-
-<span class="online">
-● ONLINE
-</span>
-
+<span class="online">● ONLINE</span>
 </header>
 
 
@@ -373,12 +361,10 @@ height:50px;
 
 <div class="center hero">
 
-<h1>
-⚡ Script<span>AI</span>
-</h1>
+<h1>⚡ Script<span>AI</span></h1>
 
 <p>
-Crie scripts e sistemas para Roblox usando inteligência artificial.
+Crie scripts e sistemas para Roblox.
 </p>
 
 <button class="primary" onclick="abrirGerador()">
@@ -399,55 +385,51 @@ Crie scripts e sistemas para Roblox usando inteligência artificial.
 <h1>🤖 IA / Gerador</h1>
 
 <p>
-Descreva livremente o que você quer criar.
+Descreva livremente o sistema que você quer.
 </p>
 
 <div class="inputBox">
 
 <textarea
 id="pedido"
-placeholder="Ex: Crie um sistema completo de cidade RP para Roblox com dinheiro, empregos, casas, carros, lojas, NPCs, celular e polícia..."
+placeholder="Ex: Crie um sistema completo de cidade RP com dinheiro, empregos, casas, carros, lojas, NPCs e polícia..."
 ></textarea>
 
 <button
 class="generate"
 onclick="gerar()">
-
 GERAR
-
 </button>
 
 </div>
 
-
 <div class="quick">
 
-<button onclick="exemplo('Crie um sistema completo de dinheiro para Roblox com leaderstats, salvamento e interface.')">
+<button onclick="exemplo('Crie um sistema completo de dinheiro para Roblox com salvamento e interface.')">
 💰 Dinheiro
 </button>
 
-<button onclick="exemplo('Crie um sistema completo de cidade RP para Roblox com empregos, casas, carros, lojas, NPCs e polícia.')">
+<button onclick="exemplo('Crie um sistema completo de cidade RP para Roblox.')">
 🏙️ Cidade RP
 </button>
 
-<button onclick="exemplo('Crie um sistema de inventário completo para Roblox com interface, itens, quantidade e salvar dados.')">
+<button onclick="exemplo('Crie um sistema completo de inventário para Roblox.')">
 🎒 Inventário
 </button>
 
-<button onclick="exemplo('Crie um sistema completo de loja para Roblox com interface, produtos, dinheiro e compra.')">
+<button onclick="exemplo('Crie um sistema completo de loja para Roblox.')">
 🛒 Loja
 </button>
 
-<button onclick="exemplo('Crie um sistema completo de carros para Roblox com garagem, compra, spawn e veículos.')">
+<button onclick="exemplo('Crie um sistema completo de carros para Roblox.')">
 🚗 Carros
 </button>
 
-<button onclick="limparChat()">
+<button onclick="limpar()">
 🗑️ Limpar
 </button>
 
 </div>
-
 
 <div id="chat" class="chat"></div>
 
@@ -462,21 +444,21 @@ GERAR
 
 <div class="center">
 
-<h1>🧩 Ideias de sistemas</h1>
+<h1>🧩 Sistemas</h1>
 
 <div class="cards">
 
 <div class="card">
 <h3>🏙️ Cidade RP</h3>
-<p>Cidade completa com economia, empregos, casas, carros e NPCs.</p>
-<button onclick="usar('Crie uma cidade RP completa para Roblox com sistemas integrados.')">
+<p>Cidade com economia, empregos, casas e veículos.</p>
+<button onclick="usar('Crie um sistema completo de cidade RP para Roblox com dinheiro, empregos, casas, carros, lojas, NPCs e polícia.')">
 Criar
 </button>
 </div>
 
 <div class="card">
 <h3>💰 Economia</h3>
-<p>Dinheiro, salários, compras e economia.</p>
+<p>Dinheiro, salário e compras.</p>
 <button onclick="usar('Crie um sistema completo de economia para Roblox.')">
 Criar
 </button>
@@ -484,7 +466,7 @@ Criar
 
 <div class="card">
 <h3>🎒 Inventário</h3>
-<p>Itens, quantidades e interface.</p>
+<p>Itens, quantidade e interface.</p>
 <button onclick="usar('Crie um sistema completo de inventário para Roblox.')">
 Criar
 </button>
@@ -492,7 +474,7 @@ Criar
 
 <div class="card">
 <h3>👮 Polícia</h3>
-<p>Polícia, procurado, prisão e cargos.</p>
+<p>Procurado, polícia e prisão.</p>
 <button onclick="usar('Crie um sistema completo de polícia para Roblox.')">
 Criar
 </button>
@@ -500,7 +482,7 @@ Criar
 
 <div class="card">
 <h3>🚗 Veículos</h3>
-<p>Garagem, veículos, compra e spawn.</p>
+<p>Garagem, compra e spawn.</p>
 <button onclick="usar('Crie um sistema completo de veículos para Roblox.')">
 Criar
 </button>
@@ -508,8 +490,8 @@ Criar
 
 <div class="card">
 <h3>🏠 Casas</h3>
-<p>Compra, propriedade e entrada em casas.</p>
-<button onclick="usar('Crie um sistema completo de casas compráveis para Roblox.')">
+<p>Compra e propriedade.</p>
+<button onclick="usar('Crie um sistema completo de casas para Roblox.')">
 Criar
 </button>
 </div>
@@ -530,37 +512,32 @@ Criar
 <h1>📚 Biblioteca</h1>
 
 <input
-class="search"
 id="pesquisa"
+class="search"
 placeholder="Pesquisar..."
 oninput="pesquisar()"
 >
 
-<div id="bibliotecaLista" class="cards">
+<div id="listaBiblioteca" class="cards">
 
 <div class="card item">
-<h3>💰 Sistema de dinheiro</h3>
-<p>Economia e moedas.</p>
+<h3>💰 Dinheiro</h3>
+<p>Sistema de dinheiro.</p>
 </div>
 
 <div class="card item">
-<h3>🛒 Sistema de loja</h3>
-<p>Compra e venda.</p>
+<h3>🛒 Loja</h3>
+<p>Sistema de loja.</p>
 </div>
 
 <div class="card item">
-<h3>🚗 Sistema de veículos</h3>
-<p>Garagem e carros.</p>
+<h3>🚗 Veículos</h3>
+<p>Sistema de veículos.</p>
 </div>
 
 <div class="card item">
-<h3>🤖 Sistema de NPC</h3>
-<p>NPCs e comportamento.</p>
-</div>
-
-<div class="card item">
-<h3>🎒 Sistema de inventário</h3>
-<p>Itens e quantidade.</p>
+<h3>🤖 NPCs</h3>
+<p>Sistema de NPCs.</p>
 </div>
 
 </div>
@@ -597,7 +574,7 @@ oninput="pesquisar()"
 
 <h3>🗑️ Histórico</h3>
 
-<p>Apagar todos os pedidos salvos neste navegador.</p>
+<p>Apagar códigos salvos neste navegador.</p>
 
 <button onclick="apagarSalvos()">
 Apagar
@@ -610,28 +587,57 @@ Apagar
 </section>
 
 </main>
+
 </div>
 
 
 <script>
 
-/* ======================
-NAVEGAÇÃO
-====================== */
+/* =========================
+CONFIGURAÇÃO DA IA
+========================= */
 
-function abrir(id,botao){
+/*
+COLOQUE A URL DO SEU BACKEND AQUI.
+
+Exemplo:
+
+const API_URL =
+"https://meu-backend.vercel.app/api/generate";
+
+Se deixar vazio, o site continua funcionando
+com o modo local.
+*/
+
+const API_URL = "";
+
+
+/* =========================
+NAVEGAÇÃO
+========================= */
+
+function abrirPagina(id,botao){
 
 document
 .querySelectorAll(".page")
-.forEach(p=>p.classList.remove("active"));
+.forEach(function(page){
+
+page.classList.remove("active");
+
+});
 
 document
 .getElementById(id)
 .classList.add("active");
 
+
 document
 .querySelectorAll(".nav button")
-.forEach(b=>b.classList.remove("active"));
+.forEach(function(btn){
+
+btn.classList.remove("active");
+
+});
 
 if(botao)
 botao.classList.add("active");
@@ -641,31 +647,37 @@ botao.classList.add("active");
 
 function abrirGerador(){
 
-abrir("gerador");
+abrirPagina("gerador");
 
-setTimeout(()=>{
-document.getElementById("pedido").focus();
+setTimeout(function(){
+
+document
+.getElementById("pedido")
+.focus();
+
 },100);
 
 }
 
 
-/* ======================
+/* =========================
 EXEMPLOS
-====================== */
+========================= */
 
 function exemplo(texto){
 
 abrirGerador();
 
-document.getElementById("pedido").value=texto;
+document
+.getElementById("pedido")
+.value=texto;
 
 }
 
 
-/* ======================
-USAR SISTEMA
-====================== */
+/* =========================
+SISTEMAS
+========================= */
 
 function usar(texto){
 
@@ -674,23 +686,23 @@ exemplo(texto);
 }
 
 
-/* ======================
-GERAR IA
-====================== */
+/* =========================
+GERAR
+========================= */
 
 async function gerar(){
 
-var campo=
-document.getElementById("pedido");
-
-var pedido=
-campo.value.trim();
+const pedido=
+document
+.getElementById("pedido")
+.value
+.trim();
 
 
 if(!pedido){
 
 adicionar(
-"⚠️ Digite primeiro o que você quer criar.",
+"⚠️ Digite o que você quer criar.",
 "ai"
 );
 
@@ -705,64 +717,66 @@ pedido,
 );
 
 
-campo.value="";
+/*
+SE EXISTE BACKEND,
+USA IA DE VERDADE.
+*/
 
+if(API_URL){
 
-var loading=
-document.createElement("div");
-
-loading.className="msg ai loading";
-
-loading.innerText=
-"🤖 Criando seu sistema...";
-
-document
-.getElementById("chat")
-.appendChild(loading);
+const carregando=
+adicionar(
+"🤖 Criando seu sistema...",
+"ai"
+);
 
 
 try{
 
-var resposta=
-await fetch("/api/generate",{
-
+const resposta=
+await fetch(
+API_URL,
+{
 method:"POST",
 
 headers:{
-"Content-Type":"application/json"
+"Content-Type":
+"application/json"
 },
 
 body:JSON.stringify({
-
 message:pedido
-
 })
 
-});
+}
+);
 
 
-var dados=
+const dados=
 await resposta.json();
 
 
-loading.remove();
+if(
+carregando &&
+carregando.parentNode
+){
 
-
-if(!resposta.ok){
-
-adicionar(
-"❌ Erro: "+
-(dados.error ||
-"não foi possível gerar o código."),
-"ai"
-);
-
-return;
+carregando.remove();
 
 }
 
 
-adicionarAI(
+if(!resposta.ok){
+
+throw new Error(
+dados.error ||
+"Erro no servidor."
+);
+
+}
+
+
+adicionarIA(
 dados.reply
 );
 
@@ -773,34 +787,71 @@ dados.reply
 );
 
 
-}catch(erro){
+return;
 
-loading.remove();
+}catch(error){
+
+if(
+carregando &&
+carregando.parentNode
+){
+
+carregando.remove();
+
+}
+
+
+/*
+NÃO QUEBRA O SITE.
+MOSTRA O ERRO REAL.
+*/
 
 adicionar(
-"❌ Não consegui conectar à IA. Verifique o backend.",
+"⚠️ A conexão com a IA não está configurada ainda.\n\n"+
+"Configure a URL do backend na variável API_URL do index.html.",
 "ai"
 );
 
-console.error(erro);
+console.error(error);
+
+return;
 
 }
 
 }
 
 
-/* ======================
-ADICIONAR MENSAGEM
-====================== */
+/*
+SEM BACKEND:
+GERADOR LOCAL PARA TESTE.
+*/
+
+const respostaLocal=
+geradorLocal(pedido);
+
+adicionarIA(
+respostaLocal
+);
+
+salvar(
+pedido,
+respostaLocal
+);
+
+}
+
+
+/* =========================
+MENSAGEM
+========================= */
 
 function adicionar(texto,tipo){
 
-var div=
+const div=
 document.createElement("div");
 
 div.className=
-"msg "+
-tipo;
+"msg "+tipo;
 
 div.innerText=texto;
 
@@ -812,27 +863,29 @@ div.scrollIntoView({
 behavior:"smooth"
 });
 
+return div;
+
 }
 
 
-/* ======================
-RESPOSTA DA IA
-====================== */
+/* =========================
+RESPOSTA IA
+========================= */
 
-function adicionarAI(texto){
+function adicionarIA(texto){
 
-var div=
+const div=
 document.createElement("div");
 
 div.className="msg ai";
 
 
-var partes=
+const partes=
 texto.split("```");
 
 
 for(
-var i=0;
+let i=0;
 i<partes.length;
 i++
 ){
@@ -841,7 +894,7 @@ if(i%2===0){
 
 if(partes[i].trim()){
 
-var p=
+const p=
 document.createElement("div");
 
 p.innerText=
@@ -853,26 +906,26 @@ div.appendChild(p);
 
 }else{
 
-var box=
+const box=
 document.createElement("div");
 
 box.className="code";
 
 
-var top=
+const top=
 document.createElement("div");
 
 top.className="codeTop";
 
 
-var label=
+const nome=
 document.createElement("span");
 
-label.innerText=
+nome.innerText=
 "Lua / Luau";
 
 
-var btn=
+const btn=
 document.createElement("button");
 
 btn.className="copy";
@@ -881,7 +934,7 @@ btn.innerText=
 "📋 Copiar";
 
 
-var pre=
+const pre=
 document.createElement("pre");
 
 pre.innerText=
@@ -891,28 +944,29 @@ partes[i]
 
 btn.onclick=function(){
 
-navigator.clipboard
+navigator
+.clipboard
 .writeText(
-this
-.parentElement
-.nextElementSibling
-.innerText
-);
+pre.innerText
+)
+.then(()=>{
 
-this.innerText=
+btn.innerText=
 "✅ Copiado!";
 
-setTimeout(
-()=>{
-this.innerText="📋 Copiar";
-},
-1500
-);
+setTimeout(()=>{
+
+btn.innerText=
+"📋 Copiar";
+
+},1500);
+
+});
 
 };
 
 
-top.appendChild(label);
+top.appendChild(nome);
 
 top.appendChild(btn);
 
@@ -938,16 +992,40 @@ behavior:"smooth"
 }
 
 
-/* ======================
+/* =========================
+GERADOR LOCAL
+========================= */
+
+function geradorLocal(pedido){
+
+return `🤖 Pedido recebido:
+
+${pedido}
+
+⚙️ MODO DE TESTE
+
+O site está funcionando corretamente.
+
+Para a ScriptAI gerar sistemas novos e complexos de verdade, conecte o backend na variável API_URL.
+
+Quando conectado, a IA poderá analisar o pedido inteiro e criar o código correspondente.`;
+
+}
+
+
+/* =========================
 SALVAR
-====================== */
+========================= */
 
 function salvar(pedido,codigo){
 
-var dados=
+const dados=
 JSON.parse(
-localStorage.getItem("scriptai")||"[]"
+localStorage
+.getItem("scriptai")
+||"[]"
 );
+
 
 dados.push({
 
@@ -955,38 +1033,45 @@ pedido:pedido,
 
 codigo:codigo,
 
-data:new Date()
+data:
+new Date()
 .toLocaleString("pt-BR")
 
 });
+
 
 localStorage.setItem(
 "scriptai",
 JSON.stringify(dados)
 );
 
+
 carregarSalvos();
 
 }
 
 
-/* ======================
-CARREGAR
-====================== */
+/* =========================
+SALVOS
+========================= */
 
 function carregarSalvos(){
 
-var lista=
-document.getElementById(
-"salvosLista"
-);
+const lista=
+document
+.getElementById("salvosLista");
 
-if(!lista)return;
+if(!lista)
+return;
 
-var dados=
+
+const dados=
 JSON.parse(
-localStorage.getItem("scriptai")||"[]"
+localStorage
+.getItem("scriptai")
+||"[]"
 );
+
 
 lista.innerHTML="";
 
@@ -1006,35 +1091,43 @@ dados
 .reverse()
 .forEach(function(item){
 
-var card=
+const card=
 document.createElement("div");
 
 card.className="card";
 
-var titulo=
+
+const titulo=
 document.createElement("h3");
 
 titulo.innerText=
 "💾 "+item.pedido;
 
-var data=
+
+const data=
 document.createElement("p");
 
 data.innerText=
 item.data;
 
-var btn=
+
+const btn=
 document.createElement("button");
 
-btn.innerText="Abrir";
+btn.innerText=
+"Abrir";
+
 
 btn.onclick=function(){
 
 abrirGerador();
 
-adicionarAI(item.codigo);
+adicionarIA(
+item.codigo
+);
 
 };
+
 
 card.appendChild(titulo);
 
@@ -1052,11 +1145,11 @@ lista.appendChild(card);
 carregarSalvos();
 
 
-/* ======================
+/* =========================
 LIMPAR
-====================== */
+========================= */
 
-function limparChat(){
+function limpar(){
 
 document
 .getElementById("chat")
@@ -1067,26 +1160,30 @@ document
 
 function apagarSalvos(){
 
-localStorage.removeItem("scriptai");
+localStorage
+.removeItem("scriptai");
 
 carregarSalvos();
 
-alert("✅ Histórico apagado!");
+alert(
+"✅ Histórico apagado!"
+);
 
 }
 
 
-/* ======================
+/* =========================
 PESQUISA
-====================== */
+========================= */
 
 function pesquisar(){
 
-var busca=
+const busca=
 document
 .getElementById("pesquisa")
 .value
 .toLowerCase();
+
 
 document
 .querySelectorAll(".item")
@@ -1106,9 +1203,9 @@ item.innerText
 }
 
 
-/* ======================
+/* =========================
 ENTER
-====================== */
+========================= */
 
 document
 .getElementById("pedido")
