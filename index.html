@@ -1,1385 +1,513 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ScriptAI Roblox</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox Script AI Generator</title>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --code-bg: #090d16;
+            --border: #334155;
+        }
 
-<style>
-*{box-sizing:border-box}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#080b12;
-color:#fff;
-}
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
 
-button{
-font-family:inherit;
-cursor:pointer;
-}
+        /* Sidebar / Abas */
+        .sidebar {
+            width: 250px;
+            background-color: var(--bg-card);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 20px 10px;
+        }
 
-.app{
-display:flex;
-min-height:100vh;
-}
+        .sidebar h2 {
+            font-size: 1.2rem;
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-.sidebar{
-width:230px;
-background:#111722;
-border-right:1px solid #293241;
-padding:18px;
-}
+        .nav-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 12px 15px;
+            text-align: left;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-.logo{
-font-size:24px;
-font-weight:bold;
-margin-bottom:25px;
-}
+        .nav-btn:hover, .nav-btn.active {
+            background-color: var(--accent);
+            color: white;
+        }
 
-.logo span{
-color:#8b5cf6;
-}
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
 
-.nav button{
-display:block;
-width:100%;
-border:0;
-background:transparent;
-color:#ddd;
-padding:13px;
-margin-bottom:5px;
-border-radius:8px;
-text-align:left;
-}
+        .tab-content {
+            display: none;
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
 
-.nav button:hover,
-.nav button.active{
-background:#272f3d;
-}
+        .tab-content.active {
+            display: flex;
+            flex-direction: column;
+        }
 
-.main{
-flex:1;
-min-width:0;
-}
+        /* Abas específicas */
+        /* IA Generator Tab */
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            padding-right: 5px;
+        }
 
-.header{
-height:62px;
-border-bottom:1px solid #293241;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 20px;
-}
+        .message {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 15px;
+            max-width: 90%;
+        }
 
-.online{
-color:#48df8b;
-font-size:12px;
-}
+        .message.user {
+            align-self: flex-end;
+            background-color: #1e3a8a;
+            border-color: #2563eb;
+        }
 
-.page{
-display:none;
-padding:25px;
-}
+        .message.ai {
+            align-self: flex-start;
+            width: 100%;
+        }
 
-.page.active{
-display:block;
-}
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #151f30;
+            padding: 8px 12px;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
 
-.container{
-max-width:1100px;
-margin:auto;
-}
+        .copy-btn {
+            background: var(--accent);
+            border: none;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
 
-.hero{
-text-align:center;
-padding-top:70px;
-}
+        .copy-btn:hover {
+            background: var(--accent-hover);
+        }
 
-.hero h1{
-font-size:48px;
-margin:0 0 12px;
-}
+        pre {
+            background-color: var(--code-bg);
+            padding: 15px;
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            color: #38bdf8;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
 
-.hero h1 span{
-color:#8b5cf6;
-}
+        .input-area {
+            display: flex;
+            gap: 10px;
+        }
 
-.hero p{
-color:#929aaa;
-}
+        input[type="text"] {
+            flex: 1;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 14px;
+            border-radius: 8px;
+            outline: none;
+            font-size: 1rem;
+        }
 
-.primary,
-.generate{
-background:#8b5cf6;
-border:0;
-color:#fff;
-font-weight:bold;
-border-radius:9px;
-padding:14px 22px;
-}
+        input[type="text"]:focus {
+            border-color: var(--accent);
+        }
 
-.primary:hover,
-.generate:hover{
-filter:brightness(1.15);
-}
+        .send-btn {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 0 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
 
-.generator{
-margin-top:25px;
-background:#111722;
-border:1px solid #303a49;
-border-radius:12px;
-padding:16px;
-}
+        .send-btn:hover {
+            background-color: var(--accent-hover);
+        }
 
-textarea{
-width:100%;
-height:220px;
-background:#070a10;
-border:1px solid #303a49;
-border-radius:9px;
-color:#fff;
-padding:15px;
-font-size:15px;
-resize:vertical;
-outline:none;
-}
+        /* Dicas / Biblioteca Tab */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
 
-.generate{
-width:100%;
-margin-top:12px;
-}
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
 
-.generate:disabled{
-opacity:.6;
-cursor:wait;
-}
+        .card h3 {
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
 
-.quick{
-display:flex;
-flex-wrap:wrap;
-gap:8px;
-margin-top:12px;
-}
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
 
-.quick button{
-background:#171e2a;
-border:1px solid #303a49;
-color:#fff;
-padding:9px 12px;
-border-radius:7px;
-}
+        .card-btn {
+            background: #334155;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
 
-.quick button:hover{
-background:#272f3d;
-}
+        .card-btn:hover {
+            background: var(--accent);
+        }
 
-.message{
-background:#111722;
-border:1px solid #303a49;
-border-radius:10px;
-padding:15px;
-margin-top:15px;
-white-space:pre-wrap;
-line-height:1.5;
-}
-
-.user{
-background:#202938;
-}
-
-.code{
-margin-top:12px;
-background:#05070a;
-border:1px solid #303a49;
-border-radius:9px;
-overflow:hidden;
-}
-
-.codebar{
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:9px 12px;
-border-bottom:1px solid #303a49;
-color:#aeb6c4;
-font-size:12px;
-}
-
-.copy{
-background:#252e3d;
-border:0;
-border-radius:6px;
-color:#fff;
-padding:7px 10px;
-}
-
-pre{
-margin:0;
-padding:17px;
-overflow:auto;
-font-size:13px;
-line-height:1.5;
-}
-
-.cards{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
-gap:15px;
-margin-top:20px;
-}
-
-.card{
-background:#111722;
-border:1px solid #303a49;
-border-radius:11px;
-padding:18px;
-}
-
-.card p{
-color:#929aaa;
-}
-
-.card button{
-background:#8b5cf6;
-border:0;
-color:#fff;
-padding:9px 13px;
-border-radius:7px;
-}
-
-.search{
-width:100%;
-padding:13px;
-background:#111722;
-border:1px solid #303a49;
-border-radius:9px;
-color:#fff;
-outline:none;
-}
-
-.empty{
-color:#929aaa;
-}
-
-.danger{
-background:#c83d50!important;
-}
-
-@media(max-width:700px){
-
-.sidebar{
-width:65px;
-padding:8px;
-}
-
-.logo{
-font-size:0;
-text-align:center;
-}
-
-.logo:after{
-content:"⚡";
-font-size:24px;
-}
-
-.nav button{
-font-size:0;
-text-align:center;
-}
-
-.page{
-padding:15px;
-}
-
-.hero{
-padding-top:35px;
-}
-
-.hero h1{
-font-size:36px;
-}
-}
-</style>
+        /* Responsividade para Celulares */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                flex-direction: row;
+                justify-content: space-around;
+                padding: 10px;
+            }
+            .sidebar h2 {
+                display: none;
+            }
+            .nav-btn {
+                margin-bottom: 0;
+                padding: 8px 12px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="app">
-
-<aside class="sidebar">
-
-<div class="logo">
-⚡ Script<span>AI</span>
-</div>
-
-<nav class="nav">
-
-<button type="button" data-page="inicio">🏠 Início</button>
-<button type="button" data-page="gerador">🤖 Gerador</button>
-<button type="button" data-page="sistemas">🧩 Sistemas</button>
-<button type="button" data-page="biblioteca">📚 Biblioteca</button>
-<button type="button" data-page="salvos">💾 Salvos</button>
-<button type="button" data-page="config">⚙️ Configurações</button>
-
-</nav>
-</aside>
-
-
-<main class="main">
-
-<header class="header">
-
-<strong>🤖 ScriptAI Roblox</strong>
-
-<span class="online">● ONLINE</span>
-
-</header>
-
-
-<section id="inicio" class="page active">
-
-<div class="container hero">
-
-<h1>⚡ Script<span>AI</span></h1>
-
-<p>Crie sistemas e projetos para Roblox.</p>
-
-<button
-type="button"
-class="primary"
-id="criarProjeto">
-
-🚀 Criar projeto
-
-</button>
-
-</div>
-
-</section>
-
-
-<section id="gerador" class="page">
-
-<div class="container">
-
-<h1>🤖 Gerador de Scripts</h1>
-
-<p>Digite o que você quer que o gerador monte.</p>
-
-<div class="generator">
-
-<textarea
-id="pedido"
-placeholder="Exemplo:
-
-Crie uma cidade RP completa para Roblox com dinheiro, empregos, lojas, casas, carros, NPCs, polícia, prisão, celular, inventário, GUI e DataStore.
-
-Quero todos os scripts grandes e organizados."
-></textarea>
-
-<button
-type="button"
-id="gerar"
-class="generate">
-
-⚡ GERAR CÓDIGO
-
-</button>
-
-<div class="quick">
-
-<button type="button" data-template="cidade">
-🏙️ Cidade RP
-</button>
-
-<button type="button" data-template="dinheiro">
-💰 Dinheiro
-</button>
-
-<button type="button" data-template="loja">
-🛒 Loja
-</button>
-
-<button type="button" data-template="carros">
-🚗 Carros
-</button>
-
-<button type="button" data-template="npc">
-🤖 NPC
-</button>
-
-<button type="button" data-template="policia">
-👮 Polícia
-</button>
-
-<button type="button" data-template="completo">
-🔥 Completo
-</button>
-
-<button type="button" id="limpar">
-🗑️ Limpar
-</button>
-
-</div>
-
-</div>
-
-<div id="resultado"></div>
-
-</div>
-</section>
-
-
-<section id="sistemas" class="page">
-
-<div class="container">
-
-<h1>🧩 Sistemas</h1>
-
-<div class="cards">
-
-<div class="card">
-<h3>💰 Economia</h3>
-<p>Dinheiro, salários e empregos.</p>
-<button type="button" data-system="dinheiro">Criar</button>
-</div>
-
-<div class="card">
-<h3>🛒 Loja</h3>
-<p>Produtos e compras.</p>
-<button type="button" data-system="loja">Criar</button>
-</div>
-
-<div class="card">
-<h3>🚗 Carros</h3>
-<p>Garagem e veículos.</p>
-<button type="button" data-system="carros">Criar</button>
-</div>
-
-<div class="card">
-<h3>🤖 NPCs</h3>
-<p>NPCs e movimentação.</p>
-<button type="button" data-system="npc">Criar</button>
-</div>
-
-<div class="card">
-<h3>👮 Polícia</h3>
-<p>Procurado e prisão.</p>
-<button type="button" data-system="policia">Criar</button>
-</div>
-
-<div class="card">
-<h3>🏠 Casas</h3>
-<p>Casas compráveis.</p>
-<button type="button" data-system="casas">Criar</button>
-</div>
-
-<div class="card">
-<h3>📱 Celular</h3>
-<p>Aplicativos e interface.</p>
-<button type="button" data-system="celular">Criar</button>
-</div>
-
-<div class="card">
-<h3>🎒 Inventário</h3>
-<p>Itens e armazenamento.</p>
-<button type="button" data-system="inventario">Criar</button>
-</div>
-
-</div>
-
-</div>
-</section>
-
-
-<section id="biblioteca" class="page">
-
-<div class="container">
-
-<h1>📚 Biblioteca</h1>
-
-<input
-id="pesquisa"
-class="search"
-placeholder="Pesquisar..."
->
-
-<div class="cards" id="bibliotecaLista">
-
-<div class="card">
-<h3>💰 Economia</h3>
-<p>Sistema financeiro.</p>
-</div>
-
-<div class="card">
-<h3>🏙️ Cidade</h3>
-<p>Base para cidade RP.</p>
-</div>
-
-<div class="card">
-<h3>🚗 Veículos</h3>
-<p>Sistema de carros.</p>
-</div>
-
-<div class="card">
-<h3>👮 Polícia</h3>
-<p>Sistema policial.</p>
-</div>
-
-<div class="card">
-<h3>🏠 Casas</h3>
-<p>Propriedades.</p>
-</div>
-
-<div class="card">
-<h3>📱 Celular</h3>
-<p>Aplicativos.</p>
-</div>
-
-</div>
-
-</div>
-</section>
-
-
-<section id="salvos" class="page">
-
-<div class="container">
-
-<h1>💾 Salvos</h1>
-
-<div id="salvosLista"></div>
-
-</div>
-</section>
-
-
-<section id="config" class="page">
-
-<div class="container">
-
-<h1>⚙️ Configurações</h1>
-
-<div class="card">
-
-<h3>🗑️ Limpar projetos salvos</h3>
-
-<p>Remove os projetos armazenados neste navegador.</p>
-
-<button
-type="button"
-class="danger"
-id="apagarTudo">
-
-Apagar tudo
-
-</button>
-
-</div>
-
-</div>
-</section>
-
-</main>
-</div>
-
-
-<script>
-
-(function(){
-
-"use strict";
-
-
-/* ==============================
-   ELEMENTOS
-============================== */
-
-const pages =
-document.querySelectorAll(".page");
-
-const nav =
-document.querySelectorAll("[data-page]");
-
-const pedido =
-document.getElementById("pedido");
-
-const gerar =
-document.getElementById("gerar");
-
-const resultado =
-document.getElementById("resultado");
-
-const limpar =
-document.getElementById("limpar");
-
-const criarProjeto =
-document.getElementById("criarProjeto");
-
-
-/* ==============================
-   NAVEGAÇÃO
-============================== */
-
-function abrirPagina(nome){
-
-pages.forEach(function(page){
-
-page.classList.remove("active");
-
-});
-
-nav.forEach(function(button){
-
-button.classList.remove("active");
-
-});
-
-const alvo =
-document.getElementById(nome);
-
-if(alvo){
-
-alvo.classList.add("active");
-
-}
-
-nav.forEach(function(button){
-
-if(button.dataset.page===nome){
-
-button.classList.add("active");
-
-}
-
-});
-
-}
-
-
-nav.forEach(function(button){
-
-button.addEventListener("click",function(){
-
-abrirPagina(button.dataset.page);
-
-});
-
-});
-
-
-criarProjeto.addEventListener("click",function(){
-
-abrirPagina("gerador");
-
-pedido.focus();
-
-});
-
-
-/* ==============================
-   MODELOS
-============================== */
-
-const templates={
-
-cidade:
-`Crie uma cidade RP completa para Roblox.
-
-Quero:
-- mapa
-- dinheiro
-- empregos
-- salários
-- lojas
-- mercado
-- casas compráveis
-- carros
-- garagem
-- NPCs
-- celular
-- aplicativos
-- polícia
-- procurado
-- prisão
-- inventário
-- GUI
-- DataStore
-- RemoteEvents
-- RemoteFunctions
-
-Quero tudo organizado.`,
-
-dinheiro:
-`Crie um sistema completo de dinheiro para Roblox com leaderstats, saldo, salários, empregos, compras, DataStore, RemoteEvents, validações no servidor e GUI.`,
-
-loja:
-`Crie um sistema completo de loja para Roblox com produtos, preços, compra, venda, estoque, GUI, RemoteEvents e validações no servidor.`,
-
-carros:
-`Crie um sistema completo de carros para Roblox com garagem, compra, spawn, remover veículo, veículos salvos, GUI e RemoteEvents.`,
-
-npc:
-`Crie um sistema completo de NPC para Roblox com movimentação, Pathfinding, profissões, interação, diálogos e comportamento.`,
-
-policia:
-`Crie um sistema completo de polícia para Roblox com cargos, procurado, perseguição, prisão, soltura, GUI, RemoteEvents e validação no servidor.`,
-
-completo:
-`Crie um projeto Roblox RP COMPLETO.
-
-Inclua:
-
-cidade
-dinheiro
-economia
-empregos
-salários
-lojas
-mercado
-casas
-carros
-garagem
-NPCs
-celular
-aplicativos
-polícia
-procurado
-prisão
-inventário
-GUI
-notificações
-RemoteEvents
-RemoteFunctions
-DataStore
-configurações
-
-Quero código EXTENSO e organizado.
-
-Divida em:
-ServerScriptService
-ReplicatedStorage
-StarterGui
-StarterPlayerScripts
-
-Explique onde colocar cada script.
-
-Não faça resposta curta.`
-};
-
-
-/* ==============================
-   TEMPLATE BUTTONS
-============================== */
-
-document
-.querySelectorAll("[data-template]")
-.forEach(function(button){
-
-button.addEventListener("click",function(){
-
-pedido.value =
-templates[button.dataset.template];
-
-abrirPagina("gerador");
-
-pedido.focus();
-
-});
-
-});
-
-
-/* ==============================
-   SYSTEM BUTTONS
-============================== */
-
-document
-.querySelectorAll("[data-system]")
-.forEach(function(button){
-
-button.addEventListener("click",function(){
-
-pedido.value =
-"Crie um sistema COMPLETO de "+
-button.dataset.system+
-" para Roblox. "+
-"Quero código grande, organizado, "+
-"com servidor, cliente, GUI, "+
-"RemoteEvents, validação e configuração.";
-
-abrirPagina("gerador");
-
-pedido.focus();
-
-});
-
-});
-
-
-/* ==============================
-   LIMPAR
-============================== */
-
-limpar.addEventListener("click",function(){
-
-pedido.value="";
-
-resultado.innerHTML="";
-
-pedido.focus();
-
-});
-
-
-/* ==============================
-   GERAR
-============================== */
-
-gerar.addEventListener("click",function(){
-
-const texto =
-pedido.value.trim();
-
-if(!texto){
-
-mostrarMensagem(
-"⚠️ Digite o que você quer criar."
-);
-
-pedido.focus();
-
-return;
-
-}
-
-
-mostrarMensagem(
-"👤 Você: "+texto
-);
-
-
-gerar.disabled=true;
-
-gerar.textContent="⏳ GERANDO PROJETO...";
-
-
-setTimeout(function(){
-
-const codigo =
-gerarCodigo(texto);
-
-
-mostrarCodigo(codigo);
-
-salvar(texto,codigo);
-
-
-gerar.disabled=false;
-
-gerar.textContent="⚡ GERAR CÓDIGO";
-
-},700);
-
-});
-
-
-/* ==============================
-   ENTER
-============================== */
-
-pedido.addEventListener("keydown",function(event){
-
-if(event.key==="Enter" && event.ctrlKey){
-
-event.preventDefault();
-
-gerar.click();
-
-}
-
-});
-
-
-/* ==============================
-   MENSAGEM
-============================== */
-
-function mostrarMensagem(texto){
-
-const div =
-document.createElement("div");
-
-div.className="message";
-
-div.textContent=texto;
-
-resultado.appendChild(div);
-
-}
-
-
-/* ==============================
-   GERADOR
-============================== */
-
-function gerarCodigo(pedidoUsuario){
-
-const nome =
-pedidoUsuario
-.replace(/\n/g," ")
-.substring(0,100);
-
-
-let codigo="";
-
-
-codigo+=
-`--==================================================
--- SCRIPT AI ROBLOX
---==================================================
--- PEDIDO:
--- ${nome}
---
--- PROJETO GERADO PELO SCRIPT AI
---==================================================
-
-`;
-
-
-codigo+=
-`
---==================================================
--- CONFIGURAÇÃO
---==================================================
-
+    <div class="sidebar">
+        <h2>Roblox AI</h2>
+        <button class="nav-btn active" onclick="switchTab('generator')">🤖 Criador IA</button>
+        <button class="nav-btn" onclick="switchTab('library')">💡 Biblioteca & Dicas</button>
+    </div>
+
+    <div class="main-content">
+        
+        <div id="generator" class="tab-content active">
+            <div class="chat-container" id="chatContainer">
+                <div class="message ai">
+                    <strong>🤖 Roblox Script AI:</strong><br>
+                    Olá! O que você quer criar no Roblox hoje? Digite sua ideia (ex: <i>"Sistema de Voo com Asas e Botão Mobile"</i> ou <i>"Loja de Armas com Interface GUI"</i>) e eu vou gerar um código Luau completo, grande e funcional!
+                </div>
+            </div>
+            
+            <div class="input-area">
+                <input type="text" id="userInput" placeholder="Digite o script que você deseja criar..." onkeypress="handleKeyPress(event)">
+                <button class="send-btn" onclick="generateScript()">Gerar</button>
+            </div>
+        </div>
+
+        <div id="library" class="tab-content">
+            <h2 style="margin-bottom: 20px;">Dicas & Ideias de Scripts Prontos</h2>
+            <div class="cards-grid">
+                
+                <div class="card">
+                    <h3>Voar com Mobile GUI</h3>
+                    <p>Script completo de voo com asas, comandos por toque na tela para celular e colisão especial ao pousar.</p>
+                    <button class="card-btn" onclick="useTemplate('Sistema de Voo completo com asas e botão para tela de celular (Mobile)')">Gerar Script</button>
+                </div>
+
+                <div class="card">
+                    <h3>Cidade & NPCs Interativos</h3>
+                    <p>Sistema de cidade com lojas, carros, pedestres R6 interativos e sistema de empregos.</p>
+                    <button class="card-btn" onclick="useTemplate('Sistema de Cidade Completa com lojas, carros e NPCs R6 com empregos')">Gerar Script</button>
+                </div>
+
+                <div class="card">
+                    <h3>Painel de Armas GUI</h3>
+                    <p>Interface moderna de loja de armas para compras com moedas do jogo e RemoteEvents no servidor.</p>
+                    <button class="card-btn" onclick="useTemplate('Interface GUI de Loja de Armas completa com validação no Servidor')">Gerar Script</button>
+                </div>
+
+                <div class="card">
+                    <h3>Eventos Climáticos & Raio</h3>
+                    <p>Sistema de clima acionado via chat que muda a iluminação e gera raios azuis ao clicar na tela.</p>
+                    <button class="card-btn" onclick="useTemplate('Sistema de Eventos de Clima por Chat e Efeito de Raio Azul ao Clicar')">Gerar Script</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Função para trocar de abas
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // Função ao pressionar Enter no input
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') {
+                generateScript();
+            }
+        }
+
+        // Usar modelo da aba de dicas
+        function useTemplate(promptText) {
+            switchTab('generator');
+            // Procura o botão correto na sidebar para deixar ativo
+            document.querySelectorAll('.nav-btn')[0].classList.add('active');
+            document.querySelectorAll('.nav-btn')[1].classList.remove('active');
+            
+            document.getElementById('userInput').value = promptText;
+            generateScript();
+        }
+
+        // Função Principal do Gerador de Scripts
+        function generateScript() {
+            const inputField = document.getElementById('userInput');
+            const prompt = inputField.value.trim();
+            if (!prompt) return;
+
+            const chatContainer = document.getElementById('chatContainer');
+
+            // 1. Adicionar mensagem do usuário
+            const userMsg = document.createElement('div');
+            userMsg.className = 'message user';
+            userMsg.innerHTML = `<strong>Você:</strong><br>${escapeHtml(prompt)}`;
+            chatContainer.appendChild(userMsg);
+
+            inputField.value = '';
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            // 2. Simular resposta da IA criando um código Roblox Luau completo
+            setTimeout(() => {
+                const aiMsg = document.createElement('div');
+                aiMsg.className = 'message ai';
+
+                const generatedCode = buildRobloxScript(prompt);
+                const codeId = 'code_' + Date.now();
+
+                aiMsg.innerHTML = `
+                    <strong>🤖 Roblox Script AI:</strong><br>
+                    Aqui está o script completo para <b>"${escapeHtml(prompt)}"</b>. Ele inclui <b>ServerScript</b>, <b>LocalScript</b> e suporte para <b>Mobile (Interface GUI)</b>!
+                    <br><br>
+                    <div class="code-header">
+                        <span>Luau (Roblox Studio)</span>
+                        <button class="copy-btn" onclick="copyCode('${codeId}')">Copiar Código</button>
+                    </div>
+                    <pre id="${codeId}"><code>${escapeHtml(generatedCode)}</code></pre>
+                `;
+
+                chatContainer.appendChild(aiMsg);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }, 600);
+        }
+
+        // Gerador de códigos Luau estruturados e grandes
+        function buildRobloxScript(userPrompt) {
+            return `--[[ 
+================================================================
+ROBLOX STUDIO - SCRIPT AUTOMÁTICO COMPLETO
+PROMPTOR: ${userPrompt}
+DESENVOLVIDO COM SUPORTE A MOBILE & INTERFACE (GUI)
+================================================================
+--]]
+
+----------------------------------------------------------------
+-- 1. SERVER SCRIPT (Coloque em ServerScriptService)
+----------------------------------------------------------------
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local DataStoreService = game:GetService("DataStoreService")
-local ServerStorage = game:GetService("ServerStorage")
 
-local DATASTORE_NAME = "ScriptAI_PlayerData_V1"
-
-local DinheiroInicial = 500
-local Salario = 100
-local IntervaloSalario = 60
-
-local DataStore =
-    DataStoreService:GetDataStore(DATASTORE_NAME)
-
---==================================================
--- REMOTES
---==================================================
-
-local Remotes =
-    ReplicatedStorage:FindFirstChild("ScriptAI_Remotes")
-
-if not Remotes then
-
-    Remotes = Instance.new("Folder")
-
-    Remotes.Name = "ScriptAI_Remotes"
-
-    Remotes.Parent = ReplicatedStorage
-
+-- Criando RemoteEvent para comunicação de interface
+local CustomEvent = ReplicatedStorage:FindFirstChild("RobloxAI_RemoteEvent")
+if not CustomEvent then
+    CustomEvent = Instance.new("RemoteEvent")
+    CustomEvent.Name = "RobloxAI_RemoteEvent"
+    CustomEvent.Parent = ReplicatedStorage
 end
-
-
-local function criarRemote(nome)
-
-    local remote =
-        Remotes:FindFirstChild(nome)
-
-    if not remote then
-
-        remote = Instance.new("RemoteEvent")
-
-        remote.Name = nome
-
-        remote.Parent = Remotes
-
-    end
-
-    return remote
-
-end
-
-
-local Comprar =
-    criarRemote("Comprar")
-
-local Vender =
-    criarRemote("Vender")
-
-local Notificacao =
-    criarRemote("Notificacao")
-
-local SpawnCarro =
-    criarRemote("SpawnCarro")
-
-local ComprarCasa =
-    criarRemote("ComprarCasa")
-
-local EscolherEmprego =
-    criarRemote("EscolherEmprego")
-
-local Prender =
-    criarRemote("Prender")
-
---==================================================
--- DADOS DO JOGADOR
---==================================================
-
-local function criarDados(player)
-
-    local leaderstats =
-        Instance.new("Folder")
-
-    leaderstats.Name =
-        "leaderstats"
-
-    leaderstats.Parent =
-        player
-
-
-    local dinheiro =
-        Instance.new("IntValue")
-
-    dinheiro.Name =
-        "Dinheiro"
-
-    dinheiro.Value =
-        DinheiroInicial
-
-    dinheiro.Parent =
-        leaderstats
-
-
-    local emprego =
-        Instance.new("StringValue")
-
-    emprego.Name =
-        "Emprego"
-
-    emprego.Value =
-        "Civil"
-
-    emprego.Parent =
-        leaderstats
-
-
-    player:SetAttribute(
-        "Procurado",
-        0
-    )
-
-
-    player:SetAttribute(
-        "Preso",
-        false
-    )
-
-end
-
-
---==================================================
--- CARREGAR
---==================================================
-
-local function carregarDados(player)
-
-    local stats =
-        player:FindFirstChild("leaderstats")
-
-    if not stats then
-        return
-    end
-
-
-    local dinheiro =
-        stats:FindFirstChild("Dinheiro")
-
-    local emprego =
-        stats:FindFirstChild("Emprego")
-
-
-    local sucesso,dados =
-        pcall(function()
-
-            return DataStore:GetAsync(
-                "Player_"..player.UserId
-            )
-
-        end)
-
-
-    if sucesso and type(dados)=="table" then
-
-        if dinheiro and
-           type(dados.Dinheiro)=="number" then
-
-            dinheiro.Value =
-                dados.Dinheiro
-
-        end
-
-
-        if emprego and
-           type(dados.Emprego)=="string" then
-
-            emprego.Value =
-                dados.Emprego
-
-        end
-
-    end
-
-end
-
-
---==================================================
--- SALVAR
---==================================================
-
-local function salvarDados(player)
-
-    local stats =
-        player:FindFirstChild("leaderstats")
-
-    if not stats then
-        return
-    end
-
-
-    local dinheiro =
-        stats:FindFirstChild("Dinheiro")
-
-    local emprego =
-        stats:FindFirstChild("Emprego")
-
-
-    local dados = {
-
-        Dinheiro =
-            dinheiro and dinheiro.Value or 0,
-
-        Emprego =
-            emprego and emprego.Value or "Civil"
-
-    }
-
-
-    pcall(function()
-
-        DataStore:SetAsync(
-            "Player_"..player.UserId,
-            dados
-        )
-
-    end)
-
-end
-
-
---==================================================
--- PLAYER
---==================================================
 
 Players.PlayerAdded:Connect(function(player)
+    print("[SERVER] Jogador conectado: " .. player.Name)
+    
+    -- Criar Leaderstats (Sistema de Pontos/Moedas)
+    local leaderstats = Instance.new("Folder")
+    leaderstats.Name = "leaderstats"
+    leaderstats.Parent = player
+    
+    local coins = Instance.new("IntValue")
+    coins.Name = "Moedas"
+    coins.Value = 100
+    coins.Parent = leaderstats
+end)
 
-    criarDados(player)
-
-    task.wait(1)
-
-    carregarDados(player)
-
+-- Execução do Evento no Servidor
+CustomEvent.OnServerEvent:Connect(function(player, actionData)
+    print("[SERVER] Executando ação '" .. tostring(actionData) .. "' para " .. player.Name)
+    
+    local character = player.Character
+    if character and character:FindFirstChild("Humanoid") then
+        -- Lógica de efeito no personagem
+        local humanoid = character.Humanoid
+        humanoid.WalkSpeed = 32 -- Aumenta velocidade ao ativar ação
+        task.wait(5)
+        humanoid.WalkSpeed = 16 -- Retorna ao normal
+    end
 end)
 
 
-Players.PlayerRemoving:Connect(function(player)
-
-    salvarDados(player)
-
-end)
-
-
-game:BindToClose(function()
-
-    for _,player in ipairs(
-        Players:GetPlayers()
-    ) do
-
-        salvarDados(player)
-
-    end
-
-end)
-
-
---==================================================
--- SALÁRIO
---==================================================
-
-task.spawn(function()
-
-    while true do
-
-        task.wait(IntervaloSalario)
-
-        for _,player in ipairs(
-            Players:GetPlayers()
-        ) do
-
-            local stats =
-                player:FindFirstChild("leaderstats")
-
-
-            if stats then
-
-                local dinheiro =
-                    stats:FindFirstChild("Dinheiro")
-
-
-                if dinheiro then
-
-                    dinheiro.Value += Salario
-
-
-                    Notificacao:FireClient(
-                        player,
-                        "💰 Salário recebido: $"..
-                        Salario
-                    )
-
-                end
-
-            end
-
-        end
-
-    end
-
-end)
-
-
---==================================================
--- COMPRA
---==================================================
-
-Comprar.OnServerEvent:Connect(
-function(player,produto,preco)
-
-    if type(produto)~="string" then
-        return
-    end
-
-    if type(preco)~="number" then
-        return
-    end
-
-    if preco < 0 then
-        return
-    end
-
-    if preco > 100000000 then
-        return
-    end
-
-
-    local stats =
-        player:FindFirstChild("leaderstats")
-
-    if not stats then
-        return
-    end
-
-
-    local dinheiro =
-        stats:FindFirstChild("Dinheiro")
-
-    if not dinheiro then
-        return
-    end
-
-
-    if dinheiro.Value >= preco then
-
-        dinheiro.Value -= preco
-
-        Notificacao:FireClient(
-            player,
-            "✅ Compra realizada: "..produto
-        )
-
-    else
-
-        Notificacao:FireClient(
-            player,
-            "❌ Dinheiro insuficiente."
-        )
-
-    end
-
-end)
-
-
---==================================================
--- EMPREGOS
---==================================================
-
-EscolherEmprego.OnServerEvent:
-Connect(function(player,nome)
-
-    if type(nome)~="string" then
-        return
-    end
-
-
-    local stats =
-        player:FindFirstChild("leaderstats")
-
-    if not stats then
-        return
-    end
-
-
-    local emprego =
-        stats:FindFirstChild("Emprego")
-
-
-    if emprego then
-
-        emprego.Value =
-            nome
-
-
-        Notificacao:FireClient(
-            player,
-            "💼 Novo emprego: "..nome
-        )
-
-    end
-
-end)
-
-
---==================================================
--- POLÍCIA
---==================================================
-
-Prender.OnServerEvent:
-Connect(function(policial,alvo)
-
-    if not alvo then
-        return
-    end
-
-
-    if not alvo:IsA("Player") then
-        return
-    end
-
-
-    if policial ==
+----------------------------------------------------------------
+-- 2. LOCAL SCRIPT & INTERFACE GUI (Coloque em StarterPlayerScripts ou ScreenGui)
+----------------------------------------------------------------
+local UserInputService = game:GetService("UserInputService")
+local ContextActionService = game:GetService("ContextActionService")
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+
+-- Criando a Interface do Usuário (ScreenGui) dinamicamente
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "RobloxAI_SystemGui"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = PlayerGui
+
+-- Criando o Botão Principal (Funciona em Celular e PC)
+local mainButton = Instance.new("TextButton")
+mainButton.Name = "ActionButton"
+mainButton.Size = UDim2.new(0, 160, 0, 60)
+mainButton.Position = UDim2.new(0.8, 0, 0.7, 0) -- Lado direito para fácil acesso no celular
+mainButton.BackgroundColor3 = Color3.fromRGB(37, 99, 235)
+mainButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+mainButton.Text = "ATIVAR HABILIDADE"
+mainButton.Font = Enum.Font.SourceSansBold
+mainButton.TextSize = 16
+mainButton.Parent = screenGui
+
+-- Arredondar bordas do botão
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 12)
+uiCorner.Parent = mainButton
+
+-- Evento de Clique / Toque (Mobile & PC)
+local function onButtonClicked()
+    mainButton.Text = "ATIVADO!"
+    mainButton.BackgroundColor3 = Color3.fromRGB(16, 185, 129)
+    
+    -- Notifica o Servidor
+    CustomEvent:FireServer("${userPrompt}")
+    
+    task.wait(2)
+    mainButton.Text = "ATIVAR HABILIDADE"
+    mainButton.BackgroundColor3 = Color3.fromRGB(37, 99, 235)
+end
+
+mainButton.MouseButton1Click:Connect(onButtonClicked)
+mainButton.TouchTap:Connect(onButtonClicked)
+
+print("[CLIENT] Interface e botões carregados com sucesso!");`;
+        }
+
+        // Função para copiar código
+        function copyCode(elementId) {
+            const codeText = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(codeText).then(() => {
+                alert('Código copiado para a área de transferência!');
+            });
+        }
+
+        // Auxiliar para evitar problemas de HTML no texto
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
