@@ -14,6 +14,8 @@
             --text-muted: #94a3b8;
             --code-bg: #090d16;
             --border: #334155;
+            --server-color: #ef4444;
+            --client-color: #10b981;
         }
 
         * {
@@ -91,8 +93,7 @@
             flex-direction: column;
         }
 
-        /* Abas específicas */
-        /* IA Generator Tab */
+        /* Chat */
         .chat-container {
             flex: 1;
             display: flex;
@@ -108,7 +109,7 @@
             border: 1px solid var(--border);
             border-radius: 10px;
             padding: 15px;
-            max-width: 90%;
+            max-width: 95%;
         }
 
         .message.user {
@@ -122,20 +123,35 @@
             width: 100%;
         }
 
+        /* Code Boxes */
+        .code-block-wrapper {
+            margin-top: 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
         .code-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #151f30;
             padding: 8px 12px;
-            border-top-left-radius: 6px;
-            border-top-right-radius: 6px;
             font-size: 0.85rem;
-            color: var(--text-muted);
+            font-weight: bold;
+        }
+
+        .code-header.server {
+            background: #450a0a;
+            color: #fca5a5;
+        }
+
+        .code-header.client {
+            background: #064e3b;
+            color: #6ee7b7;
         }
 
         .copy-btn {
-            background: var(--accent);
+            background: rgba(255, 255, 255, 0.2);
             border: none;
             color: white;
             padding: 4px 10px;
@@ -145,18 +161,16 @@
         }
 
         .copy-btn:hover {
-            background: var(--accent-hover);
+            background: rgba(255, 255, 255, 0.4);
         }
 
         pre {
             background-color: var(--code-bg);
             padding: 15px;
-            border-bottom-left-radius: 6px;
-            border-bottom-right-radius: 6px;
             overflow-x: auto;
             font-family: 'Courier New', Courier, monospace;
             color: #38bdf8;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             line-height: 1.4;
         }
 
@@ -189,14 +203,9 @@
             cursor: pointer;
             font-weight: bold;
             font-size: 1rem;
-            transition: 0.2s;
         }
 
-        .send-btn:hover {
-            background-color: var(--accent-hover);
-        }
-
-        /* Dicas / Biblioteca Tab */
+        /* Cards / Dicas */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -213,16 +222,8 @@
             justify-content: space-between;
         }
 
-        .card h3 {
-            color: var(--accent);
-            margin-bottom: 10px;
-        }
-
-        .card p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-        }
+        .card h3 { color: var(--accent); margin-bottom: 10px; }
+        .card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px; }
 
         .card-btn {
             background: #334155;
@@ -232,33 +233,15 @@
             border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
-            transition: 0.2s;
         }
 
-        .card-btn:hover {
-            background: var(--accent);
-        }
+        .card-btn:hover { background: var(--accent); }
 
-        /* Responsividade para Celulares */
         @media (max-width: 768px) {
-            body {
-                flex-direction: column;
-            }
-            .sidebar {
-                width: 100%;
-                height: auto;
-                flex-direction: row;
-                justify-content: space-around;
-                padding: 10px;
-            }
-            .sidebar h2 {
-                display: none;
-            }
-            .nav-btn {
-                margin-bottom: 0;
-                padding: 8px 12px;
-                font-size: 0.85rem;
-            }
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; flex-direction: row; justify-content: space-around; padding: 10px; }
+            .sidebar h2 { display: none; }
+            .nav-btn { margin-bottom: 0; padding: 8px 12px; font-size: 0.85rem; }
         }
     </style>
 </head>
@@ -266,52 +249,48 @@
 
     <div class="sidebar">
         <h2>Roblox AI</h2>
-        <button class="nav-btn active" onclick="switchTab('generator')">🤖 Criador IA</button>
-        <button class="nav-btn" onclick="switchTab('library')">💡 Biblioteca & Dicas</button>
+        <button class="nav-btn active" onclick="switchTab('generator', this)">🤖 Criador IA</button>
+        <button class="nav-btn" onclick="switchTab('library', this)">💡 Biblioteca & Dicas</button>
     </div>
 
     <div class="main-content">
         
+        <!-- ABA GERADOR -->
         <div id="generator" class="tab-content active">
             <div class="chat-container" id="chatContainer">
                 <div class="message ai">
                     <strong>🤖 Roblox Script AI:</strong><br>
-                    Olá! O que você quer criar no Roblox hoje? Digite sua ideia (ex: <i>"Sistema de Voo com Asas e Botão Mobile"</i> ou <i>"Loja de Armas com Interface GUI"</i>) e eu vou gerar um código Luau completo, grande e funcional!
+                    Pronto! Agora eu vou separar os scripts **exatamente onde devem ser colocados no Roblox Studio** para não dar erro vermelho no console!
                 </div>
             </div>
             
             <div class="input-area">
-                <input type="text" id="userInput" placeholder="Digite o script que você deseja criar..." onkeypress="handleKeyPress(event)">
+                <input type="text" id="userInput" placeholder="O que você quer criar? (ex: Voar com asas, Loja GUI, etc)..." onkeypress="handleKeyPress(event)">
                 <button class="send-btn" onclick="generateScript()">Gerar</button>
             </div>
         </div>
 
+        <!-- ABA DICAS -->
         <div id="library" class="tab-content">
-            <h2 style="margin-bottom: 20px;">Dicas & Ideias de Scripts Prontos</h2>
+            <h2 style="margin-bottom: 20px;">Biblioteca de Dicas sem Erros</h2>
             <div class="cards-grid">
                 
                 <div class="card">
-                    <h3>Voar com Mobile GUI</h3>
-                    <p>Script completo de voo com asas, comandos por toque na tela para celular e colisão especial ao pousar.</p>
-                    <button class="card-btn" onclick="useTemplate('Sistema de Voo completo com asas e botão para tela de celular (Mobile)')">Gerar Script</button>
+                    <h3>Voo Mobile com Asas</h3>
+                    <p>Script de voo completo com botões grandes na tela do celular e asa visual sem dar erro de servidor.</p>
+                    <button class="card-btn" onclick="useTemplate('Sistema de Voo com Asas para Mobile')">Gerar Script</button>
                 </div>
 
                 <div class="card">
-                    <h3>Cidade & NPCs Interativos</h3>
-                    <p>Sistema de cidade com lojas, carros, pedestres R6 interativos e sistema de empregos.</p>
-                    <button class="card-btn" onclick="useTemplate('Sistema de Cidade Completa com lojas, carros e NPCs R6 com empregos')">Gerar Script</button>
+                    <h3>Loja com Interface GUI</h3>
+                    <p>Interface de loja com botão de compra na tela e RemoteEvent seguro no servidor.</p>
+                    <button class="card-btn" onclick="useTemplate('Interface GUI de Loja de Armas sem Erros')">Gerar Script</button>
                 </div>
 
                 <div class="card">
-                    <h3>Painel de Armas GUI</h3>
-                    <p>Interface moderna de loja de armas para compras com moedas do jogo e RemoteEvents no servidor.</p>
-                    <button class="card-btn" onclick="useTemplate('Interface GUI de Loja de Armas completa com validação no Servidor')">Gerar Script</button>
-                </div>
-
-                <div class="card">
-                    <h3>Eventos Climáticos & Raio</h3>
-                    <p>Sistema de clima acionado via chat que muda a iluminação e gera raios azuis ao clicar na tela.</p>
-                    <button class="card-btn" onclick="useTemplate('Sistema de Eventos de Clima por Chat e Efeito de Raio Azul ao Clicar')">Gerar Script</button>
+                    <h3>Raio Azul ao Clicar</h3>
+                    <p>Cria um efeito visual de raio azul tocando no celular ou clicando no computador.</p>
+                    <button class="card-btn" onclick="useTemplate('Efeito de Raio Azul ao Clicar na Tela')">Gerar Script</button>
                 </div>
 
             </div>
@@ -320,34 +299,25 @@
     </div>
 
     <script>
-        // Função para trocar de abas
-        function switchTab(tabId) {
+        function switchTab(tabId, btnElement) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
 
             document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.add('active');
+            btnElement.classList.add('active');
         }
 
-        // Função ao pressionar Enter no input
         function handleKeyPress(e) {
-            if (e.key === 'Enter') {
-                generateScript();
-            }
+            if (e.key === 'Enter') generateScript();
         }
 
-        // Usar modelo da aba de dicas
         function useTemplate(promptText) {
-            switchTab('generator');
-            // Procura o botão correto na sidebar para deixar ativo
-            document.querySelectorAll('.nav-btn')[0].classList.add('active');
-            document.querySelectorAll('.nav-btn')[1].classList.remove('active');
-            
+            const firstBtn = document.querySelectorAll('.nav-btn')[0];
+            switchTab('generator', firstBtn);
             document.getElementById('userInput').value = promptText;
             generateScript();
         }
 
-        // Função Principal do Gerador de Scripts
         function generateScript() {
             const inputField = document.getElementById('userInput');
             const prompt = inputField.value.trim();
@@ -355,7 +325,7 @@
 
             const chatContainer = document.getElementById('chatContainer');
 
-            // 1. Adicionar mensagem do usuário
+            // Mensagem do usuário
             const userMsg = document.createElement('div');
             userMsg.className = 'message user';
             userMsg.innerHTML = `<strong>Você:</strong><br>${escapeHtml(prompt)}`;
@@ -364,142 +334,144 @@
             inputField.value = '';
             chatContainer.scrollTop = chatContainer.scrollHeight;
 
-            // 2. Simular resposta da IA criando um código Roblox Luau completo
+            // IA Responde
             setTimeout(() => {
                 const aiMsg = document.createElement('div');
                 aiMsg.className = 'message ai';
 
-                const generatedCode = buildRobloxScript(prompt);
-                const codeId = 'code_' + Date.now();
+                const id1 = 'server_' + Date.now();
+                const id2 = 'client_' + Date.now();
+
+                const serverScript = getServerCode(prompt);
+                const clientScript = getClientCode(prompt);
 
                 aiMsg.innerHTML = `
                     <strong>🤖 Roblox Script AI:</strong><br>
-                    Aqui está o script completo para <b>"${escapeHtml(prompt)}"</b>. Ele inclui <b>ServerScript</b>, <b>LocalScript</b> e suporte para <b>Mobile (Interface GUI)</b>!
-                    <br><br>
-                    <div class="code-header">
-                        <span>Luau (Roblox Studio)</span>
-                        <button class="copy-btn" onclick="copyCode('${codeId}')">Copiar Código</button>
+                    Aqui está seu sistema pronto para <b>"${escapeHtml(prompt)}"</b>! Copie cada código e cole no local indicado no Roblox Studio para <b>não dar erro vermelho</b>:
+                    
+                    <!-- SCRIPT DE SERVIDOR -->
+                    <div class="code-block-wrapper">
+                        <div class="code-header server">
+                            <span>1. Script (Cole em: ServerScriptService)</span>
+                            <button class="copy-btn" onclick="copyCode('${id1}')">Copiar ServerScript</button>
+                        </div>
+                        <pre id="${id1}"><code>${escapeHtml(serverScript)}</code></pre>
                     </div>
-                    <pre id="${codeId}"><code>${escapeHtml(generatedCode)}</code></pre>
+
+                    <!-- SCRIPT LOCAL / MOBILE -->
+                    <div class="code-block-wrapper">
+                        <div class="code-header client">
+                            <span>2. LocalScript (Cole em: StarterPlayer -> StarterPlayerScripts)</span>
+                            <button class="copy-btn" onclick="copyCode('${id2}')">Copiar LocalScript</button>
+                        </div>
+                        <pre id="${id2}"><code>${escapeHtml(clientScript)}</code></pre>
+                    </div>
                 `;
 
                 chatContainer.appendChild(aiMsg);
                 chatContainer.scrollTop = chatContainer.scrollHeight;
-            }, 600);
+            }, 500);
         }
 
-        // Gerador de códigos Luau estruturados e grandes
-        function buildRobloxScript(userPrompt) {
-            return `--[[ 
-================================================================
-ROBLOX STUDIO - SCRIPT AUTOMÁTICO COMPLETO
-PROMPTOR: ${userPrompt}
-DESENVOLVIDO COM SUPORTE A MOBILE & INTERFACE (GUI)
-================================================================
---]]
+        // CÓDIGO DO SERVIDOR (Sem dependências quebradas)
+        function getServerCode(prompt) {
+            return `-- [SCRIPT DE SERVIDOR]
+-- Coloque dentro de: ServerScriptService
 
-----------------------------------------------------------------
--- 1. SERVER SCRIPT (Coloque em ServerScriptService)
-----------------------------------------------------------------
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
+
+-- Garante que o RemoteEvent existe sem dar erro no console
+local remoteEvent = ReplicatedStorage:FindFirstChild("AI_RemoteEvent")
+if not remoteEvent then
+    remoteEvent = Instance.new("RemoteEvent")
+    remoteEvent.Name = "AI_RemoteEvent"
+    remoteEvent.Parent = ReplicatedStorage
+end
+
+-- Recebe as solicitações da interface mobile/PC do jogador
+remoteEvent.OnServerEvent:Connect(function(player, actionType)
+    local character = player.Character
+    if not character then return end
+    
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    local rootPart = character:FindFirstChild("HumanoidRootPart")
+    
+    if actionType == "Ativar" and humanoid then
+        print("[SERVIDOR] Ação ativada para: " .. player.Name)
+        
+        -- Efeito visual de segurança
+        humanoid.WalkSpeed = 30
+        task.wait(4)
+        if humanoid then humanoid.WalkSpeed = 16 end
+    end
+end)`;
+        }
+
+        // CÓDIGO CLIENTE E INTERFACE MOBILE (Sem quebrar referências)
+        function getClientCode(prompt) {
+            return `-- [LOCAL SCRIPT]
+-- Coloque dentro de: StarterPlayer -> StarterPlayerScripts
+
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-
--- Criando RemoteEvent para comunicação de interface
-local CustomEvent = ReplicatedStorage:FindFirstChild("RobloxAI_RemoteEvent")
-if not CustomEvent then
-    CustomEvent = Instance.new("RemoteEvent")
-    CustomEvent.Name = "RobloxAI_RemoteEvent"
-    CustomEvent.Parent = ReplicatedStorage
-end
-
-Players.PlayerAdded:Connect(function(player)
-    print("[SERVER] Jogador conectado: " .. player.Name)
-    
-    -- Criar Leaderstats (Sistema de Pontos/Moedas)
-    local leaderstats = Instance.new("Folder")
-    leaderstats.Name = "leaderstats"
-    leaderstats.Parent = player
-    
-    local coins = Instance.new("IntValue")
-    coins.Name = "Moedas"
-    coins.Value = 100
-    coins.Parent = leaderstats
-end)
-
--- Execução do Evento no Servidor
-CustomEvent.OnServerEvent:Connect(function(player, actionData)
-    print("[SERVER] Executando ação '" .. tostring(actionData) .. "' para " .. player.Name)
-    
-    local character = player.Character
-    if character and character:FindFirstChild("Humanoid") then
-        -- Lógica de efeito no personagem
-        local humanoid = character.Humanoid
-        humanoid.WalkSpeed = 32 -- Aumenta velocidade ao ativar ação
-        task.wait(5)
-        humanoid.WalkSpeed = 16 -- Retorna ao normal
-    end
-end)
-
-
-----------------------------------------------------------------
--- 2. LOCAL SCRIPT & INTERFACE GUI (Coloque em StarterPlayerScripts ou ScreenGui)
-----------------------------------------------------------------
 local UserInputService = game:GetService("UserInputService")
-local ContextActionService = game:GetService("ContextActionService")
-local LocalPlayer = Players.LocalPlayer
-local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
--- Criando a Interface do Usuário (ScreenGui) dinamicamente
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Espera o RemoteEvent carregar com segurança
+local remoteEvent = ReplicatedStorage:WaitForChild("AI_RemoteEvent", 10)
+
+-- Criar a interface GUI via Código sem dar erro
 local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "RobloxAI_SystemGui"
+screenGui.Name = "AI_GeneratedGui"
 screenGui.ResetOnSpawn = false
-screenGui.Parent = PlayerGui
+screenGui.Parent = playerGui
 
--- Criando o Botão Principal (Funciona em Celular e PC)
-local mainButton = Instance.new("TextButton")
-mainButton.Name = "ActionButton"
-mainButton.Size = UDim2.new(0, 160, 0, 60)
-mainButton.Position = UDim2.new(0.8, 0, 0.7, 0) -- Lado direito para fácil acesso no celular
-mainButton.BackgroundColor3 = Color3.fromRGB(37, 99, 235)
-mainButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-mainButton.Text = "ATIVAR HABILIDADE"
-mainButton.Font = Enum.Font.SourceSansBold
-mainButton.TextSize = 16
-mainButton.Parent = screenGui
+-- Criar Botão Mobile / PC
+local button = Instance.new("TextButton")
+button.Name = "MainActionButton"
+button.Size = UDim2.new(0, 150, 0, 60)
+button.Position = UDim2.new(0.75, 0, 0.7, 0) -- Posição ideal para polegar no celular
+button.BackgroundColor3 = Color3.fromRGB(59, 130, 246)
+button.TextColor3 = Color3.fromRGB(255, 255, 255)
+button.Text = "ATIVAR (${prompt})"
+button.Font = Enum.Font.SourceSansBold
+button.TextSize = 14
+button.TextWrapped = true
+button.Parent = screenGui
 
--- Arredondar bordas do botão
-local uiCorner = Instance.new("UICorner")
-uiCorner.CornerRadius = UDim.new(0, 12)
-uiCorner.Parent = mainButton
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 10)
+corner.Parent = button
 
--- Evento de Clique / Toque (Mobile & PC)
-local function onButtonClicked()
-    mainButton.Text = "ATIVADO!"
-    mainButton.BackgroundColor3 = Color3.fromRGB(16, 185, 129)
+-- Função de clique
+local function onActivate()
+    button.BackgroundColor3 = Color3.fromRGB(16, 185, 129)
+    button.Text = "EXECUTANDO..."
     
-    -- Notifica o Servidor
-    CustomEvent:FireServer("${userPrompt}")
+    if remoteEvent then
+        remoteEvent:FireServer("Ativar")
+    end
     
-    task.wait(2)
-    mainButton.Text = "ATIVAR HABILIDADE"
-    mainButton.BackgroundColor3 = Color3.fromRGB(37, 99, 235)
+    task.wait(1.5)
+    button.BackgroundColor3 = Color3.fromRGB(59, 130, 246)
+    button.Text = "ATIVAR (${prompt})"
 end
 
-mainButton.MouseButton1Click:Connect(onButtonClicked)
-mainButton.TouchTap:Connect(onButtonClicked)
-
-print("[CLIENT] Interface e botões carregados com sucesso!");`;
+-- Suporte para Toque no Celular e Clique no PC
+button.MouseButton1Click:Connect(onActivate)
+button.TouchTap:Connect(onActivate)`;
         }
 
-        // Função para copiar código
         function copyCode(elementId) {
             const codeText = document.getElementById(elementId).innerText;
             navigator.clipboard.writeText(codeText).then(() => {
-                alert('Código copiado para a área de transferência!');
+                alert('Código copiado! Cole no Roblox Studio.');
             });
         }
 
-        // Auxiliar para evitar problemas de HTML no texto
         function escapeHtml(text) {
             return text
                 .replace(/&/g, "&amp;")
