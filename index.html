@@ -6,11 +6,7 @@
 <title>ScriptAI</title>
 
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
     background:#080a0f;
@@ -20,9 +16,7 @@ body{
     overflow:hidden;
 }
 
-button{
-    font-family:inherit;
-}
+button{font-family:inherit}
 
 .app{
     display:flex;
@@ -47,9 +41,7 @@ button{
     margin-bottom:20px;
 }
 
-.logo span{
-    color:#825cff;
-}
+.logo span{color:#825cff}
 
 .new-chat{
     width:100%;
@@ -63,9 +55,7 @@ button{
     margin-bottom:20px;
 }
 
-.new-chat:hover{
-    background:#7048f0;
-}
+.new-chat:hover{background:#7048f0}
 
 .section-title{
     color:#747c8d;
@@ -91,9 +81,7 @@ button{
     font-size:13px;
 }
 
-.tool:hover{
-    background:#222835;
-}
+.tool:hover{background:#222835}
 
 .history-area{
     flex:1;
@@ -115,13 +103,9 @@ button{
     font-size:12px;
 }
 
-.history-item:hover{
-    background:#202632;
-}
+.history-item:hover{background:#202632}
 
-.history-item.active{
-    border-color:#825cff;
-}
+.history-item.active{border-color:#825cff}
 
 .main{
     flex:1;
@@ -209,9 +193,7 @@ button{
     cursor:pointer;
 }
 
-.suggestion:hover{
-    background:#222835;
-}
+.suggestion:hover{background:#222835}
 
 .message{
     margin-bottom:18px;
@@ -238,13 +220,8 @@ button{
     color:#aeb6c5;
 }
 
-.user-message .message-name{
-    color:#bcaeff;
-}
-
-.ai-message .message-name{
-    color:#8f73ff;
-}
+.user-message .message-name{color:#bcaeff}
+.ai-message .message-name{color:#8f73ff}
 
 .code-container{
     margin-top:12px;
@@ -305,9 +282,7 @@ pre{
     padding:8px;
 }
 
-.input-box:focus-within{
-    border-color:#825cff;
-}
+.input-box:focus-within{border-color:#825cff}
 
 textarea{
     flex:1;
@@ -321,7 +296,6 @@ textarea{
     color:white;
     padding:10px;
     font-size:14px;
-    font-family:Arial,Helvetica,sans-serif;
 }
 
 .send{
@@ -353,37 +327,14 @@ textarea{
 }
 
 @media(max-width:750px){
-    .sidebar{
-        display:none;
-    }
-
-    .header{
-        padding:0 14px;
-    }
-
-    .chat{
-        padding:18px 12px;
-    }
-
-    .composer{
-        padding:10px 12px 14px;
-    }
-
-    .welcome{
-        padding-top:6vh;
-    }
-
-    .welcome h1{
-        font-size:29px;
-    }
-
-    .message{
-        padding:13px;
-    }
-
-    .send{
-        padding:10px 13px;
-    }
+    .sidebar{display:none}
+    .header{padding:0 14px}
+    .chat{padding:18px 12px}
+    .composer{padding:10px 12px 14px}
+    .welcome{padding-top:6vh}
+    .welcome h1{font-size:29px}
+    .message{padding:13px}
+    .send{padding:10px 13px}
 }
 </style>
 </head>
@@ -394,116 +345,102 @@ textarea{
 
 <aside class="sidebar">
 
-    <div class="logo">
-        ⚡ Script<span>AI</span>
-    </div>
+<div class="logo">⚡ Script<span>AI</span></div>
 
-    <button class="new-chat" onclick="novoChat()">
-        ＋ Novo chat
-    </button>
+<button class="new-chat" onclick="novoChat()">＋ Novo chat</button>
 
-    <div class="section-title">FERRAMENTAS</div>
+<div class="section-title">SISTEMAS</div>
 
-    <div class="tools">
+<div class="tools">
 
-        <button class="tool" onclick="modelo('Crie um sistema de moedas para meu jogo Roblox.')">
-            💰 Sistema de moedas
-        </button>
+<button class="tool" onclick="modelo('Crie um sistema completo de dinheiro e moedas para meu jogo Roblox, com leaderstats, GUI, coleta de moedas e salvamento DataStore.')">💰 Dinheiro</button>
 
-        <button class="tool" onclick="modelo('Crie um sistema de loja para meu jogo Roblox.')">
-            🛒 Sistema de loja
-        </button>
+<button class="tool" onclick="modelo('Crie um sistema completo de loja para Roblox com GUI, produtos, compra, venda, moedas e salvamento.')">🛒 Loja</button>
 
-        <button class="tool" onclick="modelo('Crie um sistema de NPC para meu jogo Roblox.')">
-            🤖 Sistema de NPC
-        </button>
+<button class="tool" onclick="modelo('Crie um sistema completo de empregos para uma cidade RP Roblox, com cargos, salário, pagamento e GUI.')">💼 Empregos</button>
 
-        <button class="tool" onclick="modelo('Crie um sistema de checkpoint para meu jogo Roblox.')">
-            📍 Checkpoint
-        </button>
+<button class="tool" onclick="modelo('Crie um sistema completo de casas compráveis para Roblox, com dono, preço, porta, interação e salvamento.')">🏠 Casas</button>
 
-        <button class="tool" onclick="modelo('Crie um sistema de teleporte para meu jogo Roblox.')">
-            🚀 Teleporte
-        </button>
+<button class="tool" onclick="modelo('Crie um sistema completo de carros para Roblox, com garagem, compra, spawn e condução.')">🚗 Carros</button>
 
-        <button class="tool" onclick="modelo('Explique o código Lua que eu enviar.')">
-            📖 Explicar código
-        </button>
+<button class="tool" onclick="modelo('Crie um sistema completo de NPCs para Roblox com interação, diálogo e comportamento.')">🤖 NPCs</button>
 
-        <button class="tool" onclick="modelo('Corrija o código Lua que eu enviar.')">
-            🐛 Corrigir código
-        </button>
+<button class="tool" onclick="modelo('Crie um celular GUI completo para Roblox com aplicativos, dinheiro, contatos e notificações.')">📱 Celular</button>
 
-        <button class="tool" onclick="modelo('Otimize o código Lua que eu enviar.')">
-            ⚡ Otimizar código
-        </button>
+<button class="tool" onclick="modelo('Crie um sistema de polícia completo para uma cidade RP Roblox, com procurado, abordagem e prisão.')">👮 Polícia</button>
 
-    </div>
+<button class="tool" onclick="modelo('Crie um sistema completo de cidade RP Roblox integrado com dinheiro, empregos, lojas, casas, carros, NPCs, celular e polícia.')">🏙️ Cidade RP</button>
 
-    <div class="section-title">HISTÓRICO</div>
+<button class="tool" onclick="modelo('Crie um sistema completo de inventário Roblox com itens, slots, GUI, equipar, remover e salvar.')">🎒 Inventário</button>
 
-    <div class="history-area" id="historico"></div>
+<button class="tool" onclick="modelo('Crie um sistema completo de missões Roblox com objetivos, recompensas, progresso e GUI.')">🎯 Missões</button>
+
+<button class="tool" onclick="modelo('Crie um sistema completo de XP e níveis para Roblox com recompensas e salvamento.')">⭐ XP e níveis</button>
+
+<button class="tool" onclick="modelo('Crie um sistema completo de equipes e cargos para Roblox com permissões diferentes.')">👥 Equipes</button>
+
+<button class="tool" onclick="modelo('Crie um sistema completo de administração para meu jogo Roblox com comandos e permissões.')">⚙️ Administração</button>
+
+</div>
+
+<div class="section-title">HISTÓRICO</div>
+
+<div class="history-area" id="historico"></div>
 
 </aside>
 
 <main class="main">
 
 <header class="header">
-    <div class="header-title">
-        🤖 Gerador de Scripts Lua
-    </div>
 
-    <div class="status">
-        ● Online
-    </div>
+<div class="header-title">
+🤖 Gerador de Scripts Lua
+</div>
+
+<div class="status">
+● Online
+</div>
+
 </header>
 
 <section class="chat">
-    <div class="chat-inner" id="chat"></div>
+
+<div class="chat-inner" id="chat"></div>
+
 </section>
 
 <footer class="composer">
 
-    <div class="composer-inner">
+<div class="composer-inner">
 
-        <div class="input-box">
+<div class="input-box">
 
-            <textarea
-                id="input"
-                placeholder="Descreva o script que você quer criar..."
-            ></textarea>
+<textarea
+id="input"
+placeholder="Descreva o sistema completo que você quer criar..."
+></textarea>
 
-            <button class="send" onclick="enviar()">
-                Gerar
-            </button>
+<button class="send" onclick="enviar()">
+Gerar
+</button>
 
-        </div>
+</div>
 
-        <div class="bottom-tools">
+<div class="bottom-tools">
 
-            <button onclick="modelo('Crie um script Lua para meu jogo Roblox.')">
-                ＋ Script
-            </button>
+<button onclick="modelo('Crie um sistema completo para meu jogo Roblox.')">＋ Sistema</button>
 
-            <button onclick="modelo('Corrija este código Lua:')">
-                🐛 Corrigir
-            </button>
+<button onclick="modelo('Crie uma GUI completa para este sistema Roblox.')">🖥️ GUI</button>
 
-            <button onclick="modelo('Explique este código Lua:')">
-                📖 Explicar
-            </button>
+<button onclick="modelo('Adicione salvamento DataStore a este sistema.')">💾 DataStore</button>
 
-            <button onclick="modelo('Otimize este código Lua:')">
-                ⚡ Otimizar
-            </button>
+<button onclick="modelo('Divida este sistema em vários scripts organizados e explique onde colocar cada um.')">📂 Organizar</button>
 
-            <button onclick="limparChat()">
-                🗑 Limpar
-            </button>
+<button onclick="limparChat()">🗑 Limpar</button>
 
-        </div>
+</div>
 
-    </div>
+</div>
 
 </footer>
 
@@ -513,667 +450,626 @@ textarea{
 
 <script>
 
-const CHAVE_CHATS = "SCRIPT_AI_CHATS_V1";
-const CHAVE_ATUAL = "SCRIPT_AI_CHAT_ATUAL_V1";
+const CHAVE="SCRIPT_AI_CHATS_V2";
 
-let chats = {};
+let chats=[];
 
-try {
-    chats = JSON.parse(
-        localStorage.getItem(CHAVE_CHATS) || "{}"
-    );
-} catch {
-    chats = {};
+try{
+    chats=JSON.parse(localStorage.getItem(CHAVE)||"[]");
+}catch{
+    chats=[];
 }
 
-let chatAtual = localStorage.getItem(CHAVE_ATUAL);
-
-if (!chatAtual || !chats[chatAtual]) {
-
-    chatAtual = criarId();
-
-    chats[chatAtual] = {
-        titulo:"Novo chat",
-        mensagens:[]
-    };
-
-    salvar();
-}
-
-const chat = document.getElementById("chat");
-const input = document.getElementById("input");
-const historico = document.getElementById("historico");
-
-function criarId(){
-
-    return "chat_" +
-        Date.now() +
-        "_" +
-        Math.random()
-        .toString(36)
-        .substring(2,8);
-
-}
+let conversaAtual=[];
 
 function salvar(){
 
     localStorage.setItem(
-        CHAVE_CHATS,
+        CHAVE,
         JSON.stringify(chats)
     );
-
-    localStorage.setItem(
-        CHAVE_ATUAL,
-        chatAtual
-    );
-
-}
-
-function atualizarHistorico(){
-
-    historico.innerHTML = "";
-
-    Object.keys(chats)
-        .reverse()
-        .forEach(function(id){
-
-            const item = chats[id];
-
-            const botao =
-                document.createElement("button");
-
-            botao.className = "history-item";
-
-            if(id === chatAtual){
-                botao.classList.add("active");
-            }
-
-            botao.textContent =
-                "💬 " +
-                (item.titulo || "Novo chat");
-
-            botao.onclick =
-                function(){
-                    abrirChat(id);
-                };
-
-            historico.appendChild(botao);
-
-        });
-
-}
-
-function abrirChat(id){
-
-    if(!chats[id]){
-        return;
-    }
-
-    chatAtual = id;
-
-    salvar();
-    renderizar();
-    atualizarHistorico();
-
-}
-
-function renderizar(){
-
-    chat.innerHTML = "";
-
-    const dados = chats[chatAtual];
-
-    if(!dados || dados.mensagens.length === 0){
-
-        mostrarWelcome();
-        return;
-
-    }
-
-    dados.mensagens.forEach(function(msg){
-
-        if(msg.tipo === "user"){
-            mostrarMensagemUsuario(
-                msg.texto,
-                false
-            );
-        }
-
-        if(msg.tipo === "ai"){
-            mostrarCodigo(
-                msg.texto,
-                false
-            );
-        }
-
-    });
-
-    scrollFinal();
-
-}
-
-function mostrarWelcome(){
-
-    chat.innerHTML = `
-
-        <div class="welcome">
-
-            <div class="welcome-icon">
-                ⚡
-            </div>
-
-            <h1>
-                O que você quer criar?
-            </h1>
-
-            <p>
-                Descreva seu script Lua e a ScriptAI
-                prepara um exemplo para seu projeto.
-            </p>
-
-            <div class="suggestions">
-
-                <button class="suggestion"
-                onclick="modelo('Crie um sistema de moedas para meu jogo.')">
-                    💰 Moedas
-                </button>
-
-                <button class="suggestion"
-                onclick="modelo('Crie um sistema de teleporte.')">
-                    🚀 Teleporte
-                </button>
-
-                <button class="suggestion"
-                onclick="modelo('Crie um sistema de checkpoint.')">
-                    📍 Checkpoint
-                </button>
-
-                <button class="suggestion"
-                onclick="modelo('Crie um sistema de NPC.')">
-                    🤖 NPC
-                </button>
-
-            </div>
-
-        </div>
-
-    `;
 
 }
 
 function modelo(texto){
 
-    input.value = texto;
-    input.focus();
+    document.getElementById("input").value=texto;
+    document.getElementById("input").focus();
 
 }
 
 function novoChat(){
 
-    chatAtual = criarId();
+    if(conversaAtual.length){
 
-    chats[chatAtual] = {
-        titulo:"Novo chat",
-        mensagens:[]
-    };
+        chats.push({
+            mensagens:[...conversaAtual],
+            data:new Date().toLocaleString("pt-BR")
+        });
 
-    salvar();
+        salvar();
+
+    }
+
+    conversaAtual=[];
+
+    document.getElementById("chat").innerHTML="";
+
+    mostrarWelcome();
+
     atualizarHistorico();
-    renderizar();
-
-    input.focus();
 
 }
 
 function limparChat(){
 
-    if(!chats[chatAtual]){
-        return;
-    }
+    conversaAtual=[];
 
-    chats[chatAtual].mensagens = [];
-    chats[chatAtual].titulo = "Novo chat";
+    document.getElementById("chat").innerHTML="";
 
-    salvar();
-    renderizar();
-    atualizarHistorico();
+    mostrarWelcome();
 
 }
 
-function mostrarMensagemUsuario(
-    texto,
-    salvarMensagem = true
-){
+function mostrarWelcome(){
 
-    const div =
-        document.createElement("div");
+    document.getElementById("chat").innerHTML=`
 
-    div.className =
-        "message user-message";
+    <div class="welcome">
 
-    const nome =
-        document.createElement("div");
+        <div class="welcome-icon">⚡</div>
 
-    nome.className =
-        "message-name";
+        <h1>O que você quer criar?</h1>
 
-    nome.textContent =
-        "Você";
+        <p>
+        Descreva seu sistema Roblox com todos os detalhes.
+        </p>
 
-    const conteudo =
-        document.createElement("div");
+        <div class="suggestions">
 
-    conteudo.textContent =
-        texto;
+            <button class="suggestion"
+            onclick="modelo('Crie uma cidade RP completa com dinheiro, empregos, lojas, casas, carros, NPCs, celular e polícia.')">
+            🏙️ Cidade RP
+            </button>
 
-    div.appendChild(nome);
-    div.appendChild(conteudo);
+            <button class="suggestion"
+            onclick="modelo('Crie um sistema completo de loja com moedas e salvamento.')">
+            🛒 Loja
+            </button>
 
-    chat.appendChild(div);
+            <button class="suggestion"
+            onclick="modelo('Crie um sistema completo de empregos com salários.')">
+            💼 Empregos
+            </button>
 
-    if(salvarMensagem){
+            <button class="suggestion"
+            onclick="modelo('Crie um sistema completo de casas compráveis.')">
+            🏠 Casas
+            </button>
 
-        chats[chatAtual].mensagens.push({
-            tipo:"user",
-            texto:texto
-        });
-
-        salvar();
-
-    }
-
-    scrollFinal();
-
-}
-
-function mostrarCodigo(
-    codigo,
-    salvarMensagem = true
-){
-
-    const div =
-        document.createElement("div");
-
-    div.className =
-        "message ai-message";
-
-    const nome =
-        document.createElement("div");
-
-    nome.className =
-        "message-name";
-
-    nome.textContent =
-        "🤖 ScriptAI";
-
-    const texto =
-        document.createElement("div");
-
-    texto.textContent =
-        "Aqui está o código gerado:";
-
-    const container =
-        document.createElement("div");
-
-    container.className =
-        "code-container";
-
-    const topo =
-        document.createElement("div");
-
-    topo.className =
-        "code-top";
-
-    const linguagem =
-        document.createElement("span");
-
-    linguagem.textContent =
-        "Lua";
-
-    const copiar =
-        document.createElement("button");
-
-    copiar.className =
-        "copy-button";
-
-    copiar.textContent =
-        "📋 Copiar";
-
-    copiar.onclick =
-        async function(){
-
-            try{
-
-                await navigator.clipboard.writeText(
-                    codigo
-                );
-
-                copiar.textContent =
-                    "✅ Copiado!";
-
-            }catch{
-
-                copiar.textContent =
-                    "❌ Erro";
-
-            }
-
-            setTimeout(
-                function(){
-                    copiar.textContent =
-                        "📋 Copiar";
-                },
-                1500
-            );
-
-        };
-
-    topo.appendChild(linguagem);
-    topo.appendChild(copiar);
-
-    const pre =
-        document.createElement("pre");
-
-    pre.textContent =
-        codigo;
-
-    container.appendChild(topo);
-    container.appendChild(pre);
-
-    div.appendChild(nome);
-    div.appendChild(texto);
-    div.appendChild(container);
-
-    chat.appendChild(div);
-
-    if(salvarMensagem){
-
-        chats[chatAtual].mensagens.push({
-            tipo:"ai",
-            texto:codigo
-        });
-
-        salvar();
-
-    }
-
-    scrollFinal();
-
-}
-
-function mostrarCarregando(){
-
-    const div =
-        document.createElement("div");
-
-    div.className =
-        "message ai-message";
-
-    div.id =
-        "carregando";
-
-    div.innerHTML = `
-
-        <div class="message-name">
-            🤖 ScriptAI
         </div>
 
-        ⏳ Gerando seu script...
+    </div>
 
     `;
 
-    chat.appendChild(div);
+}
 
-    scrollFinal();
+function escapeHTML(text){
+
+    return text.replace(/[&<>"']/g,function(m){
+
+        return {
+            "&":"&amp;",
+            "<":"&lt;",
+            ">":"&gt;",
+            '"':"&quot;",
+            "'":"&#039;"
+        }[m];
+
+    });
 
 }
 
-function removerCarregando(){
+function mostrarUsuario(texto){
 
-    const elemento =
-        document.getElementById(
-            "carregando"
-        );
+    const div=document.createElement("div");
 
-    if(elemento){
-        elemento.remove();
+    div.className="message user-message";
+
+    div.innerHTML=
+        '<div class="message-name">Você</div>'+
+        escapeHTML(texto);
+
+    document.getElementById("chat").appendChild(div);
+
+}
+
+function mostrarIA(texto){
+
+    const div=document.createElement("div");
+
+    div.className="message ai-message";
+
+    const nome=document.createElement("div");
+
+    nome.className="message-name";
+
+    nome.textContent="🤖 ScriptAI";
+
+    div.appendChild(nome);
+
+    const partes=texto.split(/```(?:lua|luau)?/i);
+
+    let codigoEncontrado=false;
+
+    for(let i=0;i<partes.length;i++){
+
+        if(i%2===0){
+
+            const p=document.createElement("div");
+
+            p.textContent=partes[i];
+
+            div.appendChild(p);
+
+        }else{
+
+            codigoEncontrado=true;
+
+            const container=document.createElement("div");
+
+            container.className="code-container";
+
+            const topo=document.createElement("div");
+
+            topo.className="code-top";
+
+            const linguagem=document.createElement("span");
+
+            linguagem.textContent="Lua / Luau";
+
+            const copiar=document.createElement("button");
+
+            copiar.className="copy-button";
+
+            copiar.textContent="📋 Copiar";
+
+            copiar.onclick=async function(){
+
+                const codigo=partes[i];
+
+                try{
+
+                    await navigator.clipboard.writeText(
+                        codigo.trim()
+                    );
+
+                    copiar.textContent="✅ Copiado!";
+
+                    setTimeout(
+                        ()=>copiar.textContent="📋 Copiar",
+                        1500
+                    );
+
+                }catch{
+
+                    copiar.textContent="❌ Erro";
+
+                }
+
+            };
+
+            topo.appendChild(linguagem);
+            topo.appendChild(copiar);
+
+            const pre=document.createElement("pre");
+
+            pre.textContent=partes[i];
+
+            container.appendChild(topo);
+            container.appendChild(pre);
+
+            div.appendChild(container);
+
+        }
+
     }
 
+    if(!codigoEncontrado){
+
+        const p=document.createElement("p");
+
+        p.textContent=texto;
+
+        div.appendChild(p);
+
+    }
+
+    document.getElementById("chat").appendChild(div);
+
 }
 
-function gerarScript(pedido){
+function gerarProjeto(pedido){
 
-    const p =
-        pedido.toLowerCase();
+    const p=pedido.toLowerCase();
+
+    let partes=[];
 
     if(
-        p.includes("moeda") ||
-        p.includes("dinheiro") ||
-        p.includes("coins")
+        p.includes("cidade") ||
+        p.includes("rp")
     ){
 
-        return `local Players = game:GetService("Players")
+        partes.push({
+
+            nome:"ServerScriptService/CityServer.server.lua",
+
+            codigo:`-- ScriptAI - Sistema base de Cidade RP
+
+local Players = game:GetService("Players")
+local DataStoreService = game:GetService("DataStoreService")
+
+local dinheiroStore =
+    DataStoreService:GetDataStore("ScriptAI_Dinheiro_V1")
 
 Players.PlayerAdded:Connect(function(player)
 
-    local leaderstats = Instance.new("Folder")
-    leaderstats.Name = "leaderstats"
-    leaderstats.Parent = player
+    local leaderstats =
+        Instance.new("Folder")
 
-    local moedas = Instance.new("IntValue")
-    moedas.Name = "Moedas"
-    moedas.Value = 0
-    moedas.Parent = leaderstats
+    leaderstats.Name="leaderstats"
+    leaderstats.Parent=player
+
+    local dinheiro =
+        Instance.new("IntValue")
+
+    dinheiro.Name="Dinheiro"
+    dinheiro.Value=500
+    dinheiro.Parent=leaderstats
+
+    local sucesso,dados=
+        pcall(function()
+
+            return dinheiroStore:GetAsync(
+                player.UserId
+            )
+
+        end)
+
+    if sucesso and dados then
+        dinheiro.Value=dados
+    end
 
 end)
 
--- Exemplo para adicionar moedas:
--- player.leaderstats.Moedas.Value += 10`;
+Players.PlayerRemoving:Connect(function(player)
+
+    local stats=
+        player:FindFirstChild("leaderstats")
+
+    if not stats then return end
+
+    local dinheiro=
+        stats:FindFirstChild("Dinheiro")
+
+    if not dinheiro then return end
+
+    pcall(function()
+
+        dinheiroStore:SetAsync(
+            player.UserId,
+            dinheiro.Value
+        )
+
+    end)
+
+end)`
+        });
 
     }
 
-    if(p.includes("teleporte")){
+    if(
+        p.includes("dinheiro") ||
+        p.includes("moeda")
+    ){
 
-        return `local destino =
-    workspace:WaitForChild("Destino")
+        partes.push({
 
-script.Parent.Touched:Connect(function(hit)
+            nome:"ServerScriptService/MoneySystem.server.lua",
 
-    local character = hit.Parent
+            codigo:`-- Sistema de dinheiro
 
-    local humanoid =
-        character:FindFirstChildOfClass("Humanoid")
+local Players=game:GetService("Players")
 
-    if humanoid then
+Players.PlayerAdded:Connect(function(player)
 
-        character:PivotTo(
-            destino.CFrame +
-            Vector3.new(0, 3, 0)
-        )
+    local stats=
+        player:FindFirstChild("leaderstats")
+
+    if not stats then
+
+        stats=Instance.new("Folder")
+        stats.Name="leaderstats"
+        stats.Parent=player
 
     end
 
-end)`;
+    local money=
+        stats:FindFirstChild("Dinheiro")
 
-    }
+    if not money then
 
-    if(p.includes("checkpoint")){
-
-        return `local checkpoint =
-    script.Parent
-
-checkpoint.Touched:Connect(function(hit)
-
-    local player =
-        game.Players:GetPlayerFromCharacter(
-            hit.Parent
-        )
-
-    if player then
-
-        player:SetAttribute(
-            "Checkpoint",
-            checkpoint.Name
-        )
-
-        print(
-            "Checkpoint salvo para "
-            .. player.Name
-        )
+        money=Instance.new("IntValue")
+        money.Name="Dinheiro"
+        money.Value=500
+        money.Parent=stats
 
     end
 
-end)`;
+end)
 
-    }
+local function adicionarDinheiro(
+    player,
+    quantidade
+)
 
-    if(p.includes("npc")){
+    local stats=
+        player:FindFirstChild("leaderstats")
 
-        return `local npc =
-    script.Parent
+    if not stats then return end
 
-local humanoid =
-    npc:FindFirstChildOfClass("Humanoid")
+    local money=
+        stats:FindFirstChild("Dinheiro")
 
-if humanoid then
+    if money then
+        money.Value += quantidade
+    end
 
-    humanoid.WalkSpeed = 10
+end
 
-    print("NPC configurado!")
-
-end`;
+_G.AdicionarDinheiro=adicionarDinheiro`
+        });
 
     }
 
     if(p.includes("loja")){
 
-        return `local preco = 100
+        partes.push({
 
-local function comprar(player)
+            nome:"ServerScriptService/ShopServer.server.lua",
 
-    local leaderstats =
-        player:FindFirstChild("leaderstats")
+            codigo:`-- Sistema de loja
 
-    if not leaderstats then
-        return
+local ReplicatedStorage=
+    game:GetService("ReplicatedStorage")
+
+local comprar=
+    Instance.new("RemoteEvent")
+
+comprar.Name="ComprarItem"
+comprar.Parent=ReplicatedStorage
+
+local produtos={
+
+    Espada={
+        preco=100
+    },
+
+    Lanterna={
+        preco=50
+    },
+
+    Radio={
+        preco=150
+    }
+
+}
+
+comprar.OnServerEvent:Connect(
+    function(player,nome)
+
+        local produto=
+            produtos[nome]
+
+        if not produto then return end
+
+        local stats=
+            player:FindFirstChild("leaderstats")
+
+        if not stats then return end
+
+        local dinheiro=
+            stats:FindFirstChild("Dinheiro")
+
+        if not dinheiro then return end
+
+        if dinheiro.Value >= produto.preco then
+
+            dinheiro.Value -= produto.preco
+
+            print(
+                player.Name..
+                " comprou "..
+                nome
+            )
+
+        end
+
     end
+)`
+        });
 
-    local moedas =
-        leaderstats:FindFirstChild("Moedas")
+    }
 
-    if moedas and moedas.Value >= preco then
+    if(p.includes("emprego")){
 
-        moedas.Value -= preco
+        partes.push({
 
-        print(
-            player.Name ..
-            " comprou o item!"
+            nome:"ServerScriptService/Jobs.server.lua",
+
+            codigo:`-- Sistema de empregos
+
+local ReplicatedStorage=
+    game:GetService("ReplicatedStorage")
+
+local escolher=
+    Instance.new("RemoteEvent")
+
+escolher.Name="EscolherEmprego"
+escolher.Parent=ReplicatedStorage
+
+local empregos={
+
+    Policial=250,
+    Medico=220,
+    Motorista=180,
+    Entregador=150,
+    Mecanico=200
+
+}
+
+escolher.OnServerEvent:Connect(
+    function(player,emprego)
+
+        local salario=
+            empregos[emprego]
+
+        if not salario then return end
+
+        player:SetAttribute(
+            "Emprego",
+            emprego
+        )
+
+        player:SetAttribute(
+            "Salario",
+            salario
         )
 
     end
-
-end`;
+)`
+        });
 
     }
 
-    return `-- ScriptAI
--- Exemplo baseado no pedido:
+    if(p.includes("casa")){
 
--- ${pedido.replace(/--/g,"")}
+        partes.push({
 
-local function iniciar()
+            nome:"ServerScriptService/Houses.server.lua",
 
-    print("Sistema iniciado!")
+            codigo:`-- Sistema de propriedades
+
+local casas={}
+
+local function comprarCasa(
+    player,
+    casa,
+    preco
+)
+
+    if casas[casa] then
+        return false
+    end
+
+    local stats=
+        player:FindFirstChild("leaderstats")
+
+    if not stats then return false end
+
+    local dinheiro=
+        stats:FindFirstChild("Dinheiro")
+
+    if not dinheiro then return false end
+
+    if dinheiro.Value < preco then
+        return false
+    end
+
+    dinheiro.Value-=preco
+
+    casas[casa]=player.UserId
+
+    return true
 
 end
 
-iniciar()`;
-
-}
-
-function enviar(){
-
-    const pedido =
-        input.value.trim();
-
-    if(!pedido){
-        return;
-    }
-
-    const dados =
-        chats[chatAtual];
-
-    if(dados.mensagens.length === 0){
-
-        dados.titulo =
-            pedido.substring(0,32);
+_G.ComprarCasa=comprarCasa`
+        });
 
     }
 
-    mostrarMensagemUsuario(
-        pedido,
-        true
-    );
+    if(p.includes("carro") || p.includes("veículo")){
 
-    input.value = "";
+        partes.push({
 
-    mostrarCarregando();
+            nome:"ServerScriptService/VehicleServer.server.lua",
 
-    setTimeout(function(){
+            codigo:`-- Sistema base de veículos
 
-        removerCarregando();
+local ReplicatedStorage=
+    game:GetService("ReplicatedStorage")
 
-        const codigo =
-            gerarScript(pedido);
+local spawnCar=
+    Instance.new("RemoteEvent")
 
-        mostrarCodigo(
-            codigo,
-            true
-        );
+spawnCar.Name="SpawnCar"
+spawnCar.Parent=ReplicatedStorage
 
-        salvar();
-        atualizarHistorico();
+spawnCar.OnServerEvent:Connect(
+    function(player,modelo)
 
-    },800);
+        if typeof(modelo)~="Instance" then
+            return
+        end
 
-}
+        local clone=
+            modelo:Clone()
 
-function scrollFinal(){
+        clone.Parent=
+            workspace
 
-    setTimeout(function(){
+        if player.Character then
 
-        const area =
-            document.querySelector(".chat");
+            clone:PivotTo(
+                player.Character:GetPivot()
+                *CFrame.new(0,0,-12)
+            )
 
-        area.scrollTop =
-            area.scrollHeight;
+        end
 
-    },10);
-
-}
-
-input.addEventListener(
-    "keydown",
-    function(event){
-
-        if(
-            event.key === "Enter" &&
-            !event.shiftKey
-        ){
-
-            event.preventDefault();
-
-            enviar();
-
-        }
+    end
+)`
+        });
 
     }
-);
 
-atualizarHistorico();
-renderizar();
+    if(p.includes("npc")){
 
-</script>
+        partes.push({
 
-</body>
-  </html>
+            nome:"ServerScriptService/NPCSystem.server.lua",
+
+            codigo:`-- Sistema base de NPC
+
+local PathfindingService=
+    game:GetService("PathfindingService")
+
+local function fazerNPCAndar(
+    npc,
+    destino
+)
+
+    local humanoid=
+        npc:FindFirstChildOfClass(
+            "Humanoid"
+        )
+
+    local root=
+        npc:FindFirstChild(
+            "HumanoidRootPart"
+        )
+
+    if not humanoid or not root then
+        retu
