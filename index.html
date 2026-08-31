@@ -3,59 +3,60 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>ScriptAI</title>
+<title>ScriptAI - Roblox</title>
 
 <style>
 *{box-sizing:border-box}
 
 body{
 margin:0;
+font-family:Arial,sans-serif;
 background:#080b12;
-color:#fff;
-font-family:Arial,sans-serif
+color:#fff
 }
 
 button{
-cursor:pointer;
-font-family:Arial,sans-serif
+font-family:inherit;
+cursor:pointer
 }
 
 .app{
-min-height:100vh;
-display:flex
+display:flex;
+min-height:100vh
 }
 
 .sidebar{
 width:240px;
-background:#10141c;
-border-right:1px solid #292f3a;
+background:#10141d;
+border-right:1px solid #29303c;
 padding:15px
 }
 
 .logo{
 font-size:25px;
-font-weight:bold;
+font-weight:800;
 margin-bottom:25px
 }
 
 .logo span{
-color:#825cff
+color:#875cff
 }
 
 .nav button{
+display:block;
 width:100%;
-padding:13px;
-margin:4px 0;
 border:0;
-border-radius:8px;
 background:transparent;
 color:#ddd;
+padding:13px;
+border-radius:9px;
+margin:4px 0;
 text-align:left
 }
 
 .nav button:hover,
 .nav button.active{
-background:#252b38
+background:#252c39
 }
 
 .main{
@@ -65,7 +66,7 @@ min-width:0
 
 .header{
 height:60px;
-border-bottom:1px solid #292f3a;
+border-bottom:1px solid #29303c;
 display:flex;
 align-items:center;
 justify-content:space-between;
@@ -73,8 +74,8 @@ padding:0 20px
 }
 
 .online{
-color:#43df88;
-font-size:13px
+color:#40df86;
+font-size:12px
 }
 
 .page{
@@ -93,24 +94,25 @@ margin:auto
 
 .hero{
 text-align:center;
-margin-top:80px
+padding-top:80px
 }
 
 .hero h1{
-font-size:48px
+font-size:50px;
+margin:10px
 }
 
 .hero h1 span{
-color:#825cff
+color:#875cff
 }
 
 .hero p{
-color:#929aaa
+color:#929baa
 }
 
 .primary,
 .generate{
-background:#825cff;
+background:#875cff;
 border:0;
 color:#fff;
 font-weight:bold;
@@ -122,7 +124,7 @@ padding:14px 22px
 display:flex;
 gap:8px;
 background:#151a23;
-border:1px solid #363e4d;
+border:1px solid #343c49;
 border-radius:12px;
 padding:8px;
 margin-top:20px
@@ -130,33 +132,33 @@ margin-top:20px
 
 textarea{
 flex:1;
-height:150px;
-background:transparent;
-border:0;
-outline:0;
+height:180px;
 resize:none;
+outline:0;
+border:0;
+background:transparent;
 color:#fff;
 padding:12px;
 font-size:15px
 }
 
 .generate{
-padding:0 28px
+min-width:120px
 }
 
 .quick{
 display:flex;
-gap:7px;
 flex-wrap:wrap;
+gap:7px;
 margin-top:10px
 }
 
 .quick button{
 background:#151a23;
-border:1px solid #303744;
+border:1px solid #303846;
 color:#fff;
-padding:8px 12px;
-border-radius:7px
+border-radius:7px;
+padding:9px 12px
 }
 
 .chat{
@@ -167,8 +169,8 @@ margin-top:20px
 padding:16px;
 border-radius:12px;
 margin:10px 0;
-line-height:1.5;
-white-space:pre-wrap
+white-space:pre-wrap;
+line-height:1.5
 }
 
 .user{
@@ -177,33 +179,33 @@ background:#202737
 
 .ai{
 background:#11161f;
-border:1px solid #292f3a
+border:1px solid #29313e
 }
 
 .code{
-margin-top:14px;
+margin-top:15px;
 background:#05070a;
-border:1px solid #303744;
-border-radius:8px;
+border:1px solid #303846;
+border-radius:9px;
 overflow:auto
 }
 
-.codeTop{
+.codeHead{
 display:flex;
 justify-content:space-between;
 align-items:center;
 padding:9px 12px;
 border-bottom:1px solid #292f3a;
-color:#9da6b5;
-font-size:12px
+font-size:12px;
+color:#9da6b5
 }
 
 .copy{
-background:#252c38;
-color:#fff;
+background:#252d3a;
 border:0;
+border-radius:6px;
 padding:7px 10px;
-border-radius:6px
+color:#fff
 }
 
 pre{
@@ -211,7 +213,7 @@ margin:0;
 padding:18px;
 overflow:auto;
 font-size:13px;
-line-height:1.5
+line-height:1.55
 }
 
 .cards{
@@ -223,41 +225,51 @@ margin-top:20px
 
 .card{
 background:#11161f;
-border:1px solid #292f3a;
+border:1px solid #29313e;
 border-radius:12px;
 padding:18px
 }
 
 .card p{
-color:#929aaa
+color:#929baa
 }
 
 .card button{
-background:#825cff;
+background:#875cff;
 color:#fff;
 border:0;
-padding:9px 13px;
-border-radius:7px
+border-radius:7px;
+padding:9px 13px
 }
 
 .search{
 width:100%;
-margin-top:15px;
 padding:13px;
 background:#151a23;
-border:1px solid #343b49;
+border:1px solid #343c49;
 border-radius:9px;
 color:#fff;
 outline:0
 }
 
-.badge{
-display:inline-block;
-background:#242b39;
-padding:5px 9px;
-border-radius:20px;
+.tabs{
+display:flex;
+gap:7px;
+flex-wrap:wrap;
+margin:15px 0
+}
+
+.tabs button{
+background:#151a23;
+border:1px solid #303846;
+color:#fff;
+padding:9px 12px;
+border-radius:7px
+}
+
+.small{
 font-size:12px;
-margin:3px
+color:#8e98a8
 }
 
 @media(max-width:700px){
@@ -291,11 +303,11 @@ padding:15px
 }
 
 .hero{
-margin-top:40px
+padding-top:35px
 }
 
 .hero h1{
-font-size:35px
+font-size:36px
 }
 
 .inputBox{
@@ -322,33 +334,27 @@ height:50px
 
 <div class="nav">
 
-<button class="active"
-onclick="abrirPagina('inicio',this)">
+<button class="active" onclick="page('inicio',this)">
 🏠 Início
 </button>
 
-<button
-onclick="abrirPagina('gerador',this)">
+<button onclick="page('gerador',this)">
 🤖 IA / Gerador
 </button>
 
-<button
-onclick="abrirPagina('sistemas',this)">
+<button onclick="page('sistemas',this)">
 🧩 Sistemas
 </button>
 
-<button
-onclick="abrirPagina('biblioteca',this)">
+<button onclick="page('biblioteca',this)">
 📚 Biblioteca
 </button>
 
-<button
-onclick="abrirPagina('salvos',this)">
+<button onclick="page('salvos',this)">
 💾 Salvos
 </button>
 
-<button
-onclick="abrirPagina('config',this)">
+<button onclick="page('config',this)">
 ⚙️ Configurações
 </button>
 
@@ -356,41 +362,27 @@ onclick="abrirPagina('config',this)">
 
 </aside>
 
-
 <main class="main">
 
 <header class="header">
-
-<b>🤖 ScriptAI</b>
-
-<span class="online">
-● ONLINE
-</span>
-
+<b>🤖 ScriptAI Roblox</b>
+<span class="online">● ONLINE</span>
 </header>
 
 
-<!-- INÍCIO -->
-
-<section id="inicio"
-class="page active">
+<section id="inicio" class="page active">
 
 <div class="center hero">
 
-<h1>
-⚡ Script<span>AI</span>
-</h1>
+<h1>⚡ Script<span>AI</span></h1>
 
 <p>
-Crie sistemas completos para Roblox a partir da sua descrição.
+Gerador de projetos e sistemas Roblox.
 </p>
 
-<button
-class="primary"
+<button class="primary"
 onclick="abrirGerador()">
-
-🚀 Começar
-
+🚀 Criar projeto
 </button>
 
 </div>
@@ -398,62 +390,58 @@ onclick="abrirGerador()">
 </section>
 
 
-<!-- GERADOR -->
-
-<section id="gerador"
-class="page">
+<section id="gerador" class="page">
 
 <div class="center">
 
-<h1>🤖 IA / Gerador</h1>
+<h1>🤖 Gerador</h1>
 
 <p>
-Explique tudo que você quer no sistema. Quanto mais detalhes, melhor.
+Descreva o projeto completo. A ferramenta vai montar vários arquivos.
 </p>
-
 
 <div class="inputBox">
 
 <textarea
 id="pedido"
-placeholder="Exemplo: Crie uma cidade RP completa para Roblox com dinheiro, empregos, salário, lojas, mercado, casas compráveis, carros, NPCs, celular com aplicativos, polícia, prisão e sistema de procurado. Quero tudo funcionando junto e organizado em scripts."
+placeholder="Ex: Faça uma cidade RP completa para Roblox. Quero dinheiro, empregos, salários, lojas, mercado, casas compráveis, carros, garagem, NPCs, celular com aplicativos, polícia, procurado, prisão, interface bonita e salvamento. Quero tudo conectado e organizado."
 ></textarea>
 
-<button
-class="generate"
+<button class="generate"
 onclick="gerar()">
-
 ⚡ GERAR
-
 </button>
 
 </div>
 
-
 <div class="quick">
 
-<button onclick="exemplo('Crie uma cidade RP completa para Roblox com dinheiro, empregos, lojas, casas, carros, NPCs, celular, polícia e prisão.')">
+<button onclick="modelo('cidade')">
 🏙️ Cidade RP
 </button>
 
-<button onclick="exemplo('Crie um sistema completo de dinheiro, salário, economia e salvamento para Roblox.')">
+<button onclick="modelo('economia')">
 💰 Economia
 </button>
 
-<button onclick="exemplo('Crie um sistema completo de loja, mercado, compra e venda de itens para Roblox.')">
+<button onclick="modelo('loja')">
 🛒 Loja
 </button>
 
-<button onclick="exemplo('Crie um sistema completo de carros, garagem, compra, spawn e veículos para Roblox.')">
+<button onclick="modelo('carros')">
 🚗 Carros
 </button>
 
-<button onclick="exemplo('Crie NPCs inteligentes para Roblox que andem pela cidade e trabalhem nos estabelecimentos.')">
+<button onclick="modelo('npc')">
 🤖 NPCs
 </button>
 
-<button onclick="exemplo('Crie um sistema completo de polícia, procurado, perseguição e prisão para Roblox.')">
+<button onclick="modelo('policia')">
 👮 Polícia
+</button>
+
+<button onclick="modelo('completo')">
+🔥 Projeto completo
 </button>
 
 <button onclick="limpar()">
@@ -462,20 +450,14 @@ onclick="gerar()">
 
 </div>
 
-
-<div id="chat"
-class="chat">
-</div>
+<div id="chat" class="chat"></div>
 
 </div>
 
 </section>
 
 
-<!-- SISTEMAS -->
-
-<section id="sistemas"
-class="page">
+<section id="sistemas" class="page">
 
 <div class="center">
 
@@ -485,66 +467,50 @@ class="page">
 
 <div class="card">
 <h3>🏙️ Cidade RP</h3>
-<p>Cidade completa com diversos sistemas.</p>
-<button onclick="usar('Crie uma cidade RP completa para Roblox com economia, empregos, casas, carros, lojas, NPCs, celular e polícia.')">
-Criar
-</button>
+<p>Mapa lógico, serviços e sistemas.</p>
+<button onclick="usar('Crie uma cidade RP completa para Roblox com dinheiro, empregos, lojas, casas, carros, NPCs, celular, polícia e prisão.')">Criar</button>
 </div>
 
 <div class="card">
 <h3>💰 Economia</h3>
-<p>Dinheiro, salário e salvamento.</p>
-<button onclick="usar('Crie um sistema completo de economia para Roblox com dinheiro, salário, compras e DataStore.')">
-Criar
-</button>
+<p>Dinheiro, salários e DataStore.</p>
+<button onclick="usar('Crie um sistema completo de economia para Roblox com dinheiro, salário, compras e salvamento.')">Criar</button>
 </div>
 
 <div class="card">
 <h3>🛒 Loja</h3>
-<p>Produtos e compras.</p>
-<button onclick="usar('Crie um sistema completo de loja para Roblox com produtos, preços, compra e estoque.')">
-Criar
-</button>
+<p>Produtos, preços e compras.</p>
+<button onclick="usar('Crie um sistema completo de loja e mercado para Roblox com interface e compras.')">Criar</button>
 </div>
 
 <div class="card">
-<h3>🚗 Veículos</h3>
-<p>Garagem e carros.</p>
-<button onclick="usar('Crie um sistema completo de veículos para Roblox com garagem, compra, spawn e armazenamento.')">
-Criar
-</button>
+<h3>🚗 Carros</h3>
+<p>Garagem e veículos.</p>
+<button onclick="usar('Crie um sistema completo de carros e garagem para Roblox com interface de spawn.')">Criar</button>
 </div>
 
 <div class="card">
-<h3>🤖 NPC</h3>
-<p>NPCs com comportamento.</p>
-<button onclick="usar('Crie um sistema completo de NPCs para Roblox com movimentação e funções.')">
-Criar
-</button>
+<h3>🤖 NPCs</h3>
+<p>NPCs e movimentação.</p>
+<button onclick="usar('Crie um sistema completo de NPCs para Roblox com profissões, movimentação e interação.')">Criar</button>
 </div>
 
 <div class="card">
 <h3>👮 Polícia</h3>
-<p>Polícia, procurado e prisão.</p>
-<button onclick="usar('Crie um sistema completo de polícia para Roblox com procurado, perseguição e prisão.')">
-Criar
-</button>
-</div>
-
-<div class="card">
-<h3>🏠 Casas</h3>
-<p>Compra de propriedades.</p>
-<button onclick="usar('Crie um sistema completo de casas compráveis para Roblox.')">
-Criar
-</button>
+<p>Procurado, prisão e polícia.</p>
+<button onclick="usar('Crie um sistema completo de polícia para Roblox com procurado, perseguição, prisão e interface.')">Criar</button>
 </div>
 
 <div class="card">
 <h3>📱 Celular</h3>
-<p>Interface com aplicativos.</p>
-<button onclick="usar('Crie um sistema completo de celular para Roblox com aplicativos e interface.')">
-Criar
-</button>
+<p>Interface e aplicativos.</p>
+<button onclick="usar('Crie um sistema completo de celular para Roblox com interface e aplicativos.')">Criar</button>
+</div>
+
+<div class="card">
+<h3>🏠 Casas</h3>
+<p>Propriedades compráveis.</p>
+<button onclick="usar('Crie um sistema completo de casas compráveis para Roblox com dono, preço e interação.')">Criar</button>
 </div>
 
 </div>
@@ -554,52 +520,47 @@ Criar
 </section>
 
 
-<!-- BIBLIOTECA -->
-
-<section id="biblioteca"
-class="page">
+<section id="biblioteca" class="page">
 
 <div class="center">
 
 <h1>📚 Biblioteca</h1>
 
-<input
-id="pesquisa"
+<input id="pesquisa"
 class="search"
 placeholder="Pesquisar..."
-oninput="pesquisar()"
->
+oninput="pesquisar()">
 
 <div class="cards">
 
 <div class="card item">
-<h3>💰 Dinheiro</h3>
-<p>Sistema econômico.</p>
+<h3>💰 Economia</h3>
+<p>Dinheiro e salários.</p>
 </div>
 
 <div class="card item">
 <h3>🏙️ Cidade</h3>
-<p>Sistema de cidade RP.</p>
+<p>Cidade RP.</p>
 </div>
 
 <div class="card item">
-<h3>🛒 Loja</h3>
-<p>Sistema comercial.</p>
-</div>
-
-<div class="card item">
-<h3>🚗 Carros</h3>
-<p>Sistema de veículos.</p>
-</div>
-
-<div class="card item">
-<h3>🤖 NPC</h3>
-<p>Sistema de NPC.</p>
+<h3>🚗 Veículos</h3>
+<p>Carros e garagem.</p>
 </div>
 
 <div class="card item">
 <h3>👮 Polícia</h3>
-<p>Sistema policial.</p>
+<p>Polícia e prisão.</p>
+</div>
+
+<div class="card item">
+<h3>🏠 Casas</h3>
+<p>Propriedades.</p>
+</div>
+
+<div class="card item">
+<h3>📱 Celular</h3>
+<p>Aplicativos.</p>
 </div>
 
 </div>
@@ -609,14 +570,11 @@ oninput="pesquisar()"
 </section>
 
 
-<!-- SALVOS -->
-
-<section id="salvos"
-class="page">
+<section id="salvos" class="page">
 
 <div class="center">
 
-<h1>💾 Meus códigos</h1>
+<h1>💾 Códigos salvos</h1>
 
 <div id="salvosLista"
 class="cards">
@@ -627,10 +585,7 @@ class="cards">
 </section>
 
 
-<!-- CONFIG -->
-
-<section id="config"
-class="page">
+<section id="config" class="page">
 
 <div class="center">
 
@@ -638,13 +593,13 @@ class="page">
 
 <div class="card">
 
-<h3>🗑️ Histórico</h3>
+<h3>🗑️ Apagar histórico</h3>
 
 <p>
-Apague os códigos armazenados neste navegador.
+Remove os projetos salvos neste navegador.
 </p>
 
-<button onclick="apagarSalvos()">
+<button onclick="apagar()">
 Apagar
 </button>
 
@@ -661,45 +616,32 @@ Apagar
 
 <script>
 
-/* ======================================
+/* ========================================
 NAVEGAÇÃO
-====================================== */
+======================================== */
 
-function abrirPagina(id,botao){
+function page(id,btn){
 
 document
 .querySelectorAll(".page")
-.forEach(function(page){
-
-page.classList.remove("active");
-
-});
+.forEach(x=>x.classList.remove("active"));
 
 document
 .getElementById(id)
 .classList.add("active");
 
-
 document
 .querySelectorAll(".nav button")
-.forEach(function(btn){
+.forEach(x=>x.classList.remove("active"));
 
-btn.classList.remove("active");
-
-});
-
-if(botao){
-
-botao.classList.add("active");
-
-}
+if(btn)btn.classList.add("active");
 
 }
 
 
 function abrirGerador(){
 
-abrirPagina("gerador");
+page("gerador");
 
 document
 .getElementById("pedido")
@@ -708,45 +650,64 @@ document
 }
 
 
-/* ======================================
-EXEMPLOS
-====================================== */
+/* ========================================
+MODELOS
+======================================== */
 
-function exemplo(texto){
+const modelos={
+
+cidade:
+"Crie uma cidade RP completa para Roblox com dinheiro, empregos, salários, lojas, mercado, casas compráveis, carros, garagem, NPCs, celular com aplicativos, polícia, procurado, prisão, interface e salvamento.",
+
+economia:
+"Crie um sistema completo de economia para Roblox com dinheiro, salário, empregos, compras e salvamento.",
+
+loja:
+"Crie um sistema completo de loja para Roblox com produtos, preços, interface, compra e estoque.",
+
+carros:
+"Crie um sistema completo de carros para Roblox com garagem, compra, spawn, armazenamento e interface.",
+
+npc:
+"Crie um sistema completo de NPCs para Roblox com movimentação, profissões, interação e inteligência.",
+
+policia:
+"Crie um sistema completo de polícia para Roblox com procurado, perseguição, prisão, cargos e interface.",
+
+completo:
+"Crie um projeto Roblox RP extremamente completo com cidade, dinheiro, economia, empregos, salários, lojas, mercado, casas compráveis, carros, garagem, NPCs, celular com aplicativos, polícia, procurado, prisão, inventário, interface GUI completa, RemoteEvents, DataStore, configurações e todos os sistemas conectados."
+
+};
+
+
+function modelo(tipo){
 
 abrirGerador();
 
 document
 .getElementById("pedido")
-.value=texto;
+.value=modelos[tipo];
 
 }
 
 
-function usar(texto){
-
-exemplo(texto);
-
-}
-
-
-/* ======================================
-GERAR
-====================================== */
+/* ========================================
+GERADOR
+======================================== */
 
 function gerar(){
 
-const campo =
-document.getElementById("pedido");
-
-const pedido =
-campo.value.trim();
+const pedido=
+document
+.getElementById("pedido")
+.value
+.trim();
 
 
 if(!pedido){
 
-adicionarIA(
-"⚠️ Digite uma descrição do sistema que você quer criar."
+mensagem(
+"⚠️ Escreva o que você quer criar."
 );
 
 return;
@@ -754,559 +715,659 @@ return;
 }
 
 
-/* mostra pedido */
-
-adicionarUsuario(pedido);
-
-campo.value="";
+usuario(pedido);
 
 
-/* análise */
-
-const sistemas =
-analisarPedido(pedido);
+const sistemas=
+detectarSistemas(pedido);
 
 
-/* resposta */
+let texto=
+"PROJETO SCRIPT AI\n\n";
 
-let resposta =
-"🤖 ENTENDI SEU PROJETO\n\n";
-
-
-resposta +=
-"📋 Sistemas identificados:\n\n";
+texto+=
+"Sistemas detectados:\n";
 
 
-sistemas.forEach(function(sistema){
-
-resposta +=
-"• "+sistema.nome+"\n";
-
+sistemas.forEach(s=>{
+texto+="• "+s+"\n";
 });
 
 
-resposta +=
-"\n⚙️ Criando os módulos...\n\n";
+texto+=
+"\nArquivos gerados:\n"+
+"• ServerScriptService/Main.server.lua\n"+
+"• ReplicatedStorage/Remotes\n"+
+"• StarterPlayerScripts/Client.client.lua\n"+
+"• StarterGui/MainGui\n"+
+"• ModuleScripts/Config.lua\n\n";
 
 
-/* código grande */
-
-resposta +=
-gerarProjeto(
+const projeto=
+criarProjeto(
 pedido,
 sistemas
 );
 
 
-adicionarCodigo(
-resposta
+codigo(
+texto+
+projeto
 );
 
 
 salvar(
 pedido,
-resposta
+projeto
 );
 
 }
 
 
-/* ======================================
-ANÁLISE DO PEDIDO
-====================================== */
+/* ========================================
+DETECTOR
+======================================== */
 
-function analisarPedido(texto){
+function detectarSistemas(p){
 
-const p =
-texto
-.toLowerCase()
+const texto=
+p.toLowerCase()
 .normalize("NFD")
 .replace(/[\u0300-\u036f]/g,"");
 
 
-const sistemas=[];
+const lista=[];
 
 
-/* sistema detector */
-
-function detectar(
-nome,
-palavras
-){
-
-for(
-const palavra of palavras
-){
-
-if(p.includes(palavra)){
-
-sistemas.push({
-nome:nome
-});
-
-return;
-
-}
-
-}
-
-}
-
-
-/* detectores */
-
-detectar(
-"💰 Sistema de dinheiro",
-[
-"dinheiro",
-"economia",
-"moeda",
-"saldo",
-"money"
-]
-);
-
-
-detectar(
-"💼 Sistema de empregos",
-[
-"emprego",
-"empregos",
-"trabalho",
-"profissao",
-"profissao"
-]
-);
-
-
-detectar(
-"🛒 Sistema de loja",
-[
-"loja",
-"mercado",
-"shop",
-"comercio",
-"comprar"
-]
-);
-
-
-detectar(
-"🏠 Sistema de casas",
-[
-"casa",
-"casas",
-"moradia",
-"imovel",
-"imoveis"
-]
-);
-
-
-detectar(
-"🚗 Sistema de veículos",
-[
-"carro",
-"carros",
-"veiculo",
-"veiculos",
-"garagem"
-]
-);
-
-
-detectar(
-"🤖 Sistema de NPCs",
-[
-"npc",
-"npcs",
-"personagem",
-"pedestre"
-]
-);
-
-
-detectar(
-"👮 Sistema de polícia",
-[
-"policia",
-"policial",
-"guardas",
-"guarda",
-"prisao",
-"prender"
-]
-);
-
-
-detectar(
-"📱 Sistema de celular",
-[
-"celular",
-"telefone",
-"smartphone",
-"aplicativo",
-"apps"
-]
-);
-
-
-detectar(
-"🎒 Sistema de inventário",
-[
-"inventario",
-"item",
-"itens",
-"mochila"
-]
-);
-
-
-detectar(
-"💾 Sistema de salvamento",
-[
-"salvar",
-"salvamento",
-"datastore",
-"persistencia"
-]
-);
-
-
-/* cidade */
-
-detectar(
-"🏙️ Sistema de cidade",
-[
-"cidade",
-"city",
-"roleplay",
-"rp"
-]
-);
-
-
-/* se nada foi detectado */
+function add(nome,palavras){
 
 if(
-sistemas.length===0
-){
-
-sistemas.push({
-nome:"🧩 Sistema personalizado"
-});
-
-}
-
-
-return sistemas;
-
-}
-
-
-/* ======================================
-GERADOR DE PROJETO
-====================================== */
-
-function gerarProjeto(
-pedido,
-sistemas
-){
-
-let codigo="";
-
-
-codigo +=
-"-- ======================================================\n"+
-"-- SCRIPT AI - PROJETO ROBLOX\n"+
-"-- ======================================================\n"+
-"-- Pedido original:\n"+
-"-- "+pedido+"\n"+
-"-- ======================================================\n\n";
-
-
-codigo +=
-"local Players = game:GetService(\"Players\")\n"+
-"local ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n"+
-"local DataStoreService = game:GetService(\"DataStoreService\")\n\n";
-
-
-codigo +=
-"-- ======================================================\n"+
-"-- CONFIGURAÇÃO PRINCIPAL\n"+
-"-- ======================================================\n\n";
-
-
-codigo +=
-"local CONFIG = {\n"+
-"    DinheiroInicial = 500,\n"+
-"    SalarioPadrao = 100,\n"+
-"    IntervaloSalario = 60,\n"+
-"    MaximoProcurado = 5\n"+
-"}\n\n";
-
-
-/* dinheiro */
-
-if(
-sistemas.some(
-x=>x.nome.includes("dinheiro")
+palavras.some(
+x=>texto.includes(x)
 )
 ){
 
-codigo +=
-"-- ======================================================\n"+
-"-- SISTEMA DE DINHEIRO\n"+
-"-- ======================================================\n\n";
+lista.push(nome);
 
-codigo +=
-"local MoneyStore = DataStoreService:GetDataStore(\"ScriptAIMoney_v1\")\n\n";
-
-codigo +=
-"local function criarEconomia(player)\n\n"+
-"    local leaderstats = Instance.new(\"Folder\")\n"+
-"    leaderstats.Name = \"leaderstats\"\n"+
-"    leaderstats.Parent = player\n\n"+
-"    local dinheiro = Instance.new(\"IntValue\")\n"+
-"    dinheiro.Name = \"Dinheiro\"\n"+
-"    dinheiro.Value = CONFIG.DinheiroInicial\n"+
-"    dinheiro.Parent = leaderstats\n\n"+
-"    return dinheiro\n"+
-"end\n\n";
-
-codigo +=
-"local function carregarDinheiro(player)\n\n"+
-"    local stats = player:FindFirstChild(\"leaderstats\")\n"+
-"    if not stats then return end\n\n"+
-"    local dinheiro = stats:FindFirstChild(\"Dinheiro\")\n"+
-"    if not dinheiro then return end\n\n"+
-"    local sucesso, valor = pcall(function()\n"+
-"        return MoneyStore:GetAsync(\"Player_\" .. player.UserId)\n"+
-"    end)\n\n"+
-"    if sucesso and typeof(valor) == \"number\" then\n"+
-"        dinheiro.Value = valor\n"+
-"    end\n"+
-"end\n\n";
-
-codigo +=
-"local function salvarDinheiro(player)\n\n"+
-"    local stats = player:FindFirstChild(\"leaderstats\")\n"+
-"    if not stats then return end\n\n"+
-"    local dinheiro = stats:FindFirstChild(\"Dinheiro\")\n"+
-"    if not dinheiro then return end\n\n"+
-"    pcall(function()\n"+
-"        MoneyStore:SetAsync(\n"+
-"            \"Player_\" .. player.UserId,\n"+
-"            dinheiro.Value\n"+
-"        )\n"+
-"    end)\n"+
-"end\n\n";
+}
 
 }
 
 
-/* empregos */
+add(
+"💰 Dinheiro / Economia",
+["dinheiro","economia","money","saldo"]
+);
 
-if(
-sistemas.some(
-x=>x.nome.includes("empregos")
-)
-){
+add(
+"💼 Empregos / Salários",
+["emprego","empregos","trabalho","salario"]
+);
 
-codigo +=
-"-- ======================================================\n"+
-"-- SISTEMA DE EMPREGOS\n"+
-"-- ======================================================\n\n";
+add(
+"🛒 Loja / Mercado",
+["loja","mercado","comprar","vender"]
+);
 
-codigo +=
-"local Empregos = {\n"+
-"    Policial = {Salario = 300},\n"+
-"    Medico = {Salario = 250},\n"+
-"    Motorista = {Salario = 180},\n"+
-"    Mecanico = {Salario = 220},\n"+
-"    Civil = {Salario = 100}\n"+
-"}\n\n";
+add(
+"🏠 Casas",
+["casa","casas","moradia","imovel"]
+);
 
-codigo +=
-"local function definirEmprego(player, nome)\n\n"+
-"    local emprego = Empregos[nome]\n"+
-"    if not emprego then return false end\n\n"+
-"    player:SetAttribute(\"Emprego\", nome)\n"+
-"    player:SetAttribute(\"Salario\", emprego.Salario)\n\n"+
-"    return true\n"+
-"end\n\n";
+add(
+"🚗 Carros / Garagem",
+["carro","carros","veiculo","garagem"]
+);
 
-codigo +=
-"local function pagarSalario(player)\n\n"+
-"    local stats = player:FindFirstChild(\"leaderstats\")\n"+
-"    if not stats then return end\n\n"+
-"    local dinheiro = stats:FindFirstChild(\"Dinheiro\")\n"+
-"    if not dinheiro then return end\n\n"+
-"    local salario = player:GetAttribute(\"Salario\")\n"+
-"    if typeof(salario) ~= \"number\" then\n"+
-"        salario = CONFIG.SalarioPadrao\n"+
-"    end\n\n"+
-"    dinheiro.Value += salario\n"+
-"end\n\n";
+add(
+"🤖 NPCs",
+["npc","npcs","pedestre"]
+);
 
-}
+add(
+"👮 Polícia / Prisão",
+["policia","policial","prisao","prender","procurado"]
+);
+
+add(
+"📱 Celular / Aplicativos",
+["celular","telefone","smartphone","aplicativo"]
+);
+
+add(
+"🎒 Inventário",
+["inventario","mochila","item","itens"]
+);
+
+add(
+"💾 DataStore",
+["salvar","salvamento","datastore"]
+);
+
+add(
+"🏙️ Cidade RP",
+["cidade","roleplay","rp"]
+);
+
+if(!lista.length)
+lista.push("🧩 Sistema personalizado");
 
 
-/* loja */
-
-if(
-sistemas.some(
-x=>x.nome.includes("loja")
-)
-){
-
-codigo +=
-"-- ======================================================\n"+
-"-- SISTEMA DE LOJA\n"+
-"-- ======================================================\n\n";
-
-codigo +=
-"local Produtos = {\n"+
-"    Agua = {Preco = 10},\n"+
-"    Comida = {Preco = 20},\n"+
-"    Celular = {Preco = 500},\n"+
-"    KitMedico = {Preco = 100}\n"+
-"}\n\n";
-
-codigo +=
-"local function comprarProduto(player, produto)\n\n"+
-"    local dados = Produtos[produto]\n"+
-"    if not dados then return false end\n\n"+
-"    local stats = player:FindFirstChild(\"leaderstats\")\n"+
-"    if not stats then return false end\n\n"+
-"    local dinheiro = stats:FindFirstChild(\"Dinheiro\")\n"+
-"    if not dinheiro then return false end\n\n"+
-"    if dinheiro.Value < dados.Preco then\n"+
-"        return false\n"+
-"    end\n\n"+
-"    dinheiro.Value -= dados.Preco\n\n"+
-"    return true\n"+
-"end\n\n";
+return lista;
 
 }
 
 
-/* casas */
+/* ========================================
+PROJETO
+======================================== */
 
-if(
-sistemas.some(
-x=>x.nome.includes("casas")
-)
-){
+function criarProjeto(pedido,sistemas){
 
-codigo +=
-"-- ======================================================\n"+
-"-- SISTEMA DE CASAS\n"+
-"-- ======================================================\n\n";
+let s="";
 
-codigo +=
-"local Casas = {}\n\n";
 
-codigo +=
-"local function registrarCasa(nome, preco, modelo)\n\n"+
-"    Casas[nome] = {\n"+
-"        Preco = preco,\n"+
-"        Modelo = modelo,\n"+
-"        Dono = nil\n"+
-"    }\n"+
-"end\n\n";
+s+=
+"\n\n====================================================\n"+
+"ARQUIVO 1 — CONFIG.LUA\n"+
+"====================================================\n\n";
 
-codigo +=
-"local function comprarCasa(player, nome)\n\n"+
-"    local casa = Casas[nome]\n"+
-"    if not casa then return false end\n\n"+
-"    if casa.Dono then return false end\n\n"+
-"    local stats = player:FindFirstChild(\"leaderstats\")\n"+
-"    if not stats then return false end\n\n"+
-"    local dinheiro = stats:FindFirstChild(\"Dinheiro\")\n"+
-"    if not dinheiro then return false end\n\n"+
-"    if dinheiro.Value < casa.Preco then\n"+
-"        return false\n"+
-"    end\n\n"+
-"    dinheiro.Value -= casa.Preco\n"+
-"    casa.Dono = player.UserId\n\n"+
-"    return true\n"+
-"end\n\n";
 
+s+=
+`local Config = {}
+
+Config.NomeDoJogo = "Meu Projeto RP"
+
+Config.DinheiroInicial = 500
+
+Config.SalarioPadrao = 100
+
+Config.IntervaloSalario = 60
+
+Config.MaximoProcurado = 5
+
+Config.VelocidadeNPC = 12
+
+Config.CorPrincipal = Color3.fromRGB(130,90,255)
+
+return Config
+`;
+
+
+/* SERVER */
+
+s+=
+"\n\n====================================================\n"+
+"ARQUIVO 2 — MAIN.SERVER.LUA\n"+
+"====================================================\n\n";
+
+
+s+=
+`local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local DataStoreService = game:GetService("DataStoreService")
+
+local MoneyStore =
+    DataStoreService:GetDataStore("ScriptAI_Money_v3")
+
+local Config = {
+    DinheiroInicial = 500,
+    SalarioPadrao = 100,
+    IntervaloSalario = 60
 }
 
+local function criarRemotes()
 
-/* carros */
+    local folder =
+        ReplicatedStorage:FindFirstChild("ScriptAI_Remotes")
 
-if(
-sistemas.some(
-x=>x.nome.includes("veículos")
-)
-){
+    if not folder then
 
-codigo +=
-"-- ======================================================\n"+
-"-- SISTEMA DE VEÍCULOS\n"+
-"-- ======================================================\n\n";
+        folder = Instance.new("Folder")
+        folder.Name = "ScriptAI_Remotes"
+        folder.Parent = ReplicatedStorage
 
-codigo +=
-"local function spawnVeiculo(player, modelo)\n\n"+
-"    if not modelo then return end\n\n"+
-"    local carro = modelo:Clone()\n"+
-"    carro.Parent = workspace\n\n"+
-"    local character = player.Character\n"+
-"    if character then\n"+
-"        carro:PivotTo(\n"+
-"            character:GetPivot() * CFrame.new(0, 0, -12)\n"+
-"        )\n"+
-"    end\n\n"+
-"    return carro\n"+
-"end\n\n";
+    end
 
-codigo +=
-"local function removerVeiculo(carro)\n\n"+
-"    if carro and carro.Parent then\n"+
-"        carro:Destroy()\n"+
-"    end\n"+
-"end\n\n";
+    local nomes = {
+        "Comprar",
+        "SpawnCarro",
+        "EscolherEmprego",
+        "ComprarCasa",
+        "Prender",
+        "AbrirCelular",
+        "Notificacao"
+    }
 
-}
+    for _,nome in ipairs(nomes) do
+
+        if not folder:FindFirstChild(nome) then
+
+            local remote =
+                Instance.new("RemoteEvent")
+
+            remote.Name = nome
+            remote.Parent = folder
+
+        end
+
+    end
+
+    return folder
+
+end
+
+local Remotes = criarRemotes()
 
 
-/* NPC */
+local function criarStats(player)
 
-if(
-sistemas.some(
-x=>x.nome.includes("NPC")
-)
-){
+    local leaderstats =
+        Instance.new("Folder")
 
-codigo +=
-"-- ======================================================\n"+
-"-- SISTEMA DE NPCs\n"+
-"-- ======================================================\n\n";
+    leaderstats.Name =
+        "leaderstats"
 
-codigo +=
-"local PathfindingService = game:GetService(\"PathfindingService\")\n\n";
+    leaderstats.Parent =
+        player
 
-codigo +=
-"local function NPCAndar(npc, destino)\n\n"+
-"    local humanoid = npc:FindFirstChildOfClass(\"Humanoid\")\n"+
-"    local root = npc:FindFirstChild(\"HumanoidRootPart\")\n\n"+
-"    if not humanoid or not root then\n"+
-"        return\n"+
-"    end\n\n"+
-"    local path = PathfindingService:CreatePath({\n"+
-"        AgentRadius = 2,\n"+
-"        AgentHeight = 5,\n"+
-"        AgentCanJump = true\n"+
-"    })\n\n"+
-"    local sucesso = pcall(function()\n"+
-"        path:ComputeAsync(root.Position, destino)\n"+
-"    end)\n\n"+
-"    if not sucesso then return end\n\n"+
-"    if path.Status == Enum.PathStatus.Success then\n\n"+
-"        for _, waypoint in ipairs(path:GetWaypoints()) do\n\n"+
-"            if waypoint.Action == Enum.PathWaypointAction.Jump then\n"+
-"                humanoid.Jump = true\n"+
-"            end\n\n"+
+
+    local dinheiro =
+        Instance.new("IntValue")
+
+    dinheiro.Name =
+        "Dinheiro"
+
+    dinheiro.Value =
+        Config.DinheiroInicial
+
+    dinheiro.Parent =
+        leaderstats
+
+
+    local emprego =
+        Instance.new("StringValue")
+
+    emprego.Name =
+        "Emprego"
+
+    emprego.Value =
+        "Civil"
+
+    emprego.Parent =
+        leaderstats
+
+end
+
+
+local function carregar(player)
+
+    local stats =
+        player:FindFirstChild("leaderstats")
+
+    if not stats then return end
+
+    local dinheiro =
+        stats:FindFirstChild("Dinheiro")
+
+    if not dinheiro then return end
+
+
+    local ok,data =
+        pcall(function()
+
+            return MoneyStore:GetAsync(
+                "Player_"..player.UserId
+            )
+
+        end)
+
+
+    if ok and typeof(data) == "number" then
+
+        dinheiro.Value =
+            data
+
+    end
+
+end
+
+
+local function salvar(player)
+
+    local stats =
+        player:FindFirstChild("leaderstats")
+
+    if not stats then return end
+
+    local dinheiro =
+        stats:FindFirstChild("Dinheiro")
+
+    if not dinheiro then return end
+
+
+    pcall(function()
+
+        MoneyStore:SetAsync(
+            "Player_"..player.UserId,
+            dinheiro.Value
+        )
+
+    end)
+
+end
+
+
+Players.PlayerAdded:Connect(function(player)
+
+    criarStats(player)
+
+    task.wait(1)
+
+    carregar(player)
+
+    player:SetAttribute(
+        "Procurado",
+        0
+    )
+
+    player:SetAttribute(
+        "Preso",
+        false
+    )
+
+    player:SetAttribute(
+        "Celular",
+        true
+    )
+
+end)
+
+
+Players.PlayerRemoving:Connect(function(player)
+
+    salvar(player)
+
+end)
+
+
+game:BindToClose(function()
+
+    for _,player in ipairs(
+        Players:GetPlayers()
+    ) do
+
+        salvar(player)
+
+    end
+
+end)
+
+
+-- SALÁRIOS
+
+task.spawn(function()
+
+    while true do
+
+        task.wait(
+            Config.IntervaloSalario
+        )
+
+        for _,player in ipairs(
+            Players:GetPlayers()
+        ) do
+
+            local stats =
+                player:FindFirstChild(
+                    "leaderstats"
+                )
+
+            if stats then
+
+                local dinheiro =
+                    stats:FindFirstChild(
+                        "Dinheiro"
+                    )
+
+                if dinheiro then
+
+                    dinheiro.Value +=
+                        Config.SalarioPadrao
+
+                end
+
+            end
+
+        end
+
+    end
+
+end)
+
+
+-- COMPRAS
+
+Remotes.Comprar.OnServerEvent:Connect(
+function(player,produto,preco)
+
+    if typeof(preco) ~= "number" then
+        return
+    end
+
+    if preco < 0 then
+        return
+    end
+
+    local stats =
+        player:FindFirstChild(
+            "leaderstats"
+        )
+
+    if not stats then return end
+
+    local dinheiro =
+        stats:FindFirstChild(
+            "Dinheiro"
+        )
+
+    if not dinheiro then return end
+
+
+    if dinheiro.Value >= preco then
+
+        dinheiro.Value -= preco
+
+        Remotes.Notificacao:FireClient(
+            player,
+            "Compra realizada: "..tostring(produto)
+        )
+
+    end
+
+end)
+
+
+-- EMPREGOS
+
+Remotes.EscolherEmprego.OnServerEvent:Connect(
+function(player,nome)
+
+    local stats =
+        player:FindFirstChild(
+            "leaderstats"
+        )
+
+    if not stats then return end
+
+    local emprego =
+        stats:FindFirstChild(
+            "Emprego"
+        )
+
+    if emprego then
+
+        emprego.Value =
+            tostring(nome)
+
+    end
+
+end)
+
+
+-- PROCURADO
+
+Remotes.Prender.OnServerEvent:Connect(
+function(policial,alvo)
+
+    if not alvo then return end
+
+    if not alvo:IsA("Player") then
+        return
+    end
+
+    alvo:SetAttribute(
+        "Procurado",
+        0
+    )
+
+    alvo:SetAttribute(
+        "Preso",
+        true
+    )
+
+    Remotes.Notificacao:FireClient(
+        alvo,
+        "Você foi preso."
+    )
+
+end)
+
+print("SCRIPT AI: servidor carregado")
+`;
+
+
+/* CLIENT */
+
+s+=
+"\n\n====================================================\n"+
+"ARQUIVO 3 — CLIENT.CLIENT.LUA\n"+
+"====================================================\n\n";
+
+
+s+=
+`local Players =
+    game:GetService("Players")
+
+local ReplicatedStorage =
+    game:GetService("ReplicatedStorage")
+
+local player =
+    Players.LocalPlayer
+
+local Remotes =
+    ReplicatedStorage:
+    WaitForChild("ScriptAI_Remotes")
+
+
+local function criarGUI()
+
+    local gui =
+        Instance.new("ScreenGui")
+
+    gui.Name =
+        "ScriptAI_Interface"
+
+    gui.ResetOnSpawn =
+        false
+
+    gui.Parent =
+        player:WaitForChild(
+            "PlayerGui"
+        )
+
+
+    local frame =
+        Instance.new("Frame")
+
+    frame.Size =
+        UDim2.fromOffset(
+            330,
+            430
+        )
+
+    frame.Position =
+        UDim2.new(
+            0.5,
+            -165,
+            0.5,
+            -215
+        )
+
+    frame.BackgroundColor3 =
+        Color3.fromRGB(
+            17,
+            22,
+            31
+        )
+
+    frame.BorderSizePixel =
+        0
+
+    frame.Parent =
+        gui
+
+
+    local title =
+        Instance.new("TextLabel")
+
+    title.Size =
+        UDim2.new(
+            1,
+            0,
+            0,
+            55
+        )
+
+    title.BackgroundTransparency =
+        1
+
+    title.Text =
+        "📱 MENU DO JOGADOR"
+
+    title.TextColor3 =
+        Color3.new(
+            1,
+            1,
+            1
+        )
+
+    title.TextScaled =
+        true
+
+    title.Parent =
+        frame
+
+
+    local dinheiro =
+        Instance.new("TextLabel")
+
+    dinheiro.Size =
+        UDim2.new(
+            1,
+            -30,
+            0,
+            45
+        )
+
+    dinheiro.Position =
+        UDim2.fromOffset(
+            15,
+            65
+        )
+
+    dinheiro.BackgroundColor3 =
+        Color3.fromRGB(
+            30,
+            37,
+       
