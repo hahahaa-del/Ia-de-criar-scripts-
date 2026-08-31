@@ -3,139 +3,1165 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>ScriptAI</title>
 
 <style>
+
+*{
+box-sizing:border-box;
+}
+
 body{
-    margin:0;
-    background:#080b12;
-    color:white;
-    font-family:Arial,sans-serif;
-    padding:30px;
-}
-
-.container{
-    max-width:800px;
-    margin:auto;
-}
-
-h1{
-    text-align:center;
-}
-
-textarea{
-    width:100%;
-    height:120px;
-    background:#151a23;
-    color:white;
-    border:1px solid #444;
-    border-radius:10px;
-    padding:15px;
-    box-sizing:border-box;
-    resize:none;
+margin:0;
+background:#080b12;
+color:white;
+font-family:Arial,Helvetica,sans-serif;
 }
 
 button{
-    margin-top:10px;
-    padding:14px 25px;
-    border:0;
-    border-radius:10px;
-    background:#825cff;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
+font-family:inherit;
+cursor:pointer;
 }
 
-button:hover{
-    background:#7048ed;
+.app{
+height:100vh;
+display:flex;
 }
 
-#resposta{
-    margin-top:20px;
-    padding:20px;
-    background:#11161f;
-    border-radius:10px;
-    white-space:pre-wrap;
+/* MENU */
+
+.sidebar{
+width:250px;
+background:#10141d;
+border-right:1px solid #292f3b;
+padding:15px;
+display:flex;
+flex-direction:column;
+}
+
+.logo{
+font-size:25px;
+font-weight:bold;
+padding:10px 5px 20px;
+}
+
+.logo span{
+color:#825cff;
+}
+
+.nav{
+flex:1;
+}
+
+.nav button{
+display:block;
+width:100%;
+padding:12px;
+margin:5px 0;
+border:0;
+border-radius:8px;
+background:transparent;
+color:#d9deea;
+text-align:left;
+}
+
+.nav button:hover,
+.nav button.active{
+background:#222938;
+color:white;
+}
+
+.bottomMenu{
+border-top:1px solid #292f3b;
+padding-top:10px;
+}
+
+.bottomMenu button{
+display:block;
+width:100%;
+padding:11px;
+margin:5px 0;
+border:0;
+border-radius:8px;
+background:transparent;
+color:#aaa;
+text-align:left;
+}
+
+/* PRINCIPAL */
+
+.main{
+flex:1;
+min-width:0;
+display:flex;
+flex-direction:column;
+}
+
+/* HEADER */
+
+.header{
+height:62px;
+border-bottom:1px solid #292f3b;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 20px;
+}
+
+.status{
+color:#45df88;
+font-size:13px;
+}
+
+/* PÁGINAS */
+
+.page{
+display:none;
+flex:1;
+overflow:auto;
+padding:30px;
+}
+
+.page.active{
+display:block;
+}
+
+/* HOME */
+
+.hero{
+max-width:900px;
+margin:70px auto;
+text-align:center;
+}
+
+.hero h1{
+font-size:45px;
+margin:10px;
+}
+
+.hero span{
+color:#825cff;
+}
+
+.hero p{
+color:#929baa;
+font-size:17px;
+}
+
+.hero button{
+margin-top:20px;
+padding:14px 25px;
+border:0;
+border-radius:10px;
+background:#825cff;
+color:white;
+font-weight:bold;
+}
+
+/* CARDS */
+
+.cards{
+max-width:1000px;
+margin:30px auto;
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(200px,1fr));
+gap:15px;
+}
+
+.card{
+background:#11161f;
+border:1px solid #292f3b;
+border-radius:12px;
+padding:20px;
+}
+
+.card h3{
+margin-top:0;
+}
+
+.card p{
+color:#929baa;
+font-size:14px;
+}
+
+.card button{
+padding:9px 13px;
+border:0;
+border-radius:7px;
+background:#825cff;
+color:white;
+}
+
+/* GERADOR */
+
+.generator{
+max-width:900px;
+margin:auto;
+}
+
+.generator h1{
+margin-top:0;
+}
+
+.inputBox{
+display:flex;
+gap:8px;
+background:#151a23;
+border:1px solid #363e4d;
+border-radius:12px;
+padding:7px;
+}
+
+textarea{
+flex:1;
+height:80px;
+resize:none;
+background:transparent;
+border:0;
+outline:0;
+color:white;
+padding:12px;
+font-size:14px;
+}
+
+.generate{
+padding:0 20px;
+border:0;
+border-radius:9px;
+background:#825cff;
+color:white;
+font-weight:bold;
+}
+
+.tools{
+display:flex;
+gap:7px;
+flex-wrap:wrap;
+margin-top:10px;
+}
+
+.tools button{
+background:#151a23;
+border:1px solid #292f3b;
+color:white;
+padding:8px 11px;
+border-radius:7px;
+}
+
+#resultado{
+margin-top:20px;
+}
+
+.message{
+padding:16px;
+background:#11161f;
+border:1px solid #292f3b;
+border-radius:12px;
+margin-bottom:15px;
+line-height:1.5;
+}
+
+.code{
+background:#05070a;
+border:1px solid #303744;
+border-radius:8px;
+overflow:hidden;
+margin-top:12px;
+}
+
+.codeTop{
+height:40px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:6px 10px;
+border-bottom:1px solid #292f3b;
+color:#9ba4b3;
+font-size:12px;
+}
+
+.copy{
+background:#252c38;
+color:white;
+border:0;
+padding:6px 10px;
+border-radius:6px;
 }
 
 pre{
-    background:#05070a;
-    padding:15px;
-    border-radius:8px;
-    overflow:auto;
+margin:0;
+padding:15px;
+overflow:auto;
 }
+
+/* BIBLIOTECA */
+
+.search{
+width:100%;
+max-width:600px;
+padding:13px;
+background:#151a23;
+border:1px solid #343b49;
+border-radius:9px;
+color:white;
+outline:none;
+margin:10px 0 20px;
+}
+
+/* SOBRE */
+
+.about{
+max-width:800px;
+margin:auto;
+line-height:1.7;
+color:#c0c6d2;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+.sidebar{
+width:65px;
+padding:8px;
+}
+
+.logo{
+font-size:0;
+text-align:center;
+}
+
+.logo:after{
+content:"⚡";
+font-size:25px;
+}
+
+.nav button,
+.bottomMenu button{
+font-size:0;
+text-align:center;
+}
+
+.nav button:first-letter,
+.bottomMenu button:first-letter{
+font-size:20px;
+}
+
+.page{
+padding:20px 12px;
+}
+
+}
+
 </style>
 </head>
 
+
 <body>
 
-<div class="container">
+<div class="app">
 
-<h1>🤖 ScriptAI</h1>
 
-<p>Digite o que você quer que eu crie:</p>
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<div class="logo">
+⚡ Script<span>AI</span>
+</div>
+
+
+<div class="nav">
+
+<button class="active"
+onclick="abrirPagina('inicio',this)">
+🏠 Início
+</button>
+
+<button
+onclick="abrirPagina('gerador',this)">
+🤖 Gerador
+</button>
+
+<button
+onclick="abrirPagina('sistemas',this)">
+🧩 Sistemas
+</button>
+
+<button
+onclick="abrirPagina('biblioteca',this)">
+📚 Biblioteca
+</button>
+
+<button
+onclick="abrirPagina('salvos',this)">
+💾 Meus códigos
+</button>
+
+</div>
+
+
+<div class="bottomMenu">
+
+<button
+onclick="abrirPagina('config',this)">
+⚙️ Configurações
+</button>
+
+<button
+onclick="abrirPagina('sobre',this)">
+ℹ️ Sobre
+</button>
+
+</div>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+
+<header class="header">
+
+<b>🤖 ScriptAI</b>
+
+<span class="status">
+● ONLINE
+</span>
+
+</header>
+
+
+<!-- INÍCIO -->
+
+<section
+id="inicio"
+class="page active">
+
+<div class="hero">
+
+<h1>
+⚡ Script<span>AI</span>
+</h1>
+
+<p>
+Seu assistente para criar scripts e sistemas para Roblox.
+</p>
+
+<button
+onclick="abrirGerador()">
+
+🚀 Começar a criar
+
+</button>
+
+</div>
+
+
+<div class="cards">
+
+<div class="card">
+
+<h3>🤖 Gerador</h3>
+
+<p>
+Crie scripts para seus projetos.
+</p>
+
+<button onclick="abrirGerador()">
+Abrir
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h3>🧩 Sistemas</h3>
+
+<p>
+Veja sistemas prontos.
+</p>
+
+<button
+onclick="abrirPaginaPorId('sistemas')">
+Ver sistemas
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h3>📚 Biblioteca</h3>
+
+<p>
+Pesquise exemplos de código.
+</p>
+
+<button
+onclick="abrirPaginaPorId('biblioteca')">
+Abrir
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- GERADOR -->
+
+<section
+id="gerador"
+class="page">
+
+<div class="generator">
+
+<h1>🤖 Gerador de Scripts</h1>
+
+<p>
+Explique o sistema que você quer criar.
+</p>
+
+
+<div class="inputBox">
 
 <textarea
 id="pedido"
-placeholder="Ex: Crie um sistema de dinheiro para Roblox"
+placeholder="Ex: Crie um sistema de dinheiro para Roblox..."
 ></textarea>
+
+
+<button
+class="generate"
+type="button"
+onclick="gerar()">
+
+GERAR
+
+</button>
+
+</div>
+
+
+<div class="tools">
+
+<button
+onclick="preencher('Crie um sistema de dinheiro para Roblox')">
+💰 Dinheiro
+</button>
+
+<button
+onclick="preencher('Crie um sistema de loja para Roblox')">
+🛒 Loja
+</button>
+
+<button
+onclick="preencher('Crie um sistema de empregos para Roblox')">
+💼 Empregos
+</button>
+
+<button
+onclick="preencher('Crie um sistema de carros para Roblox')">
+🚗 Carros
+</button>
+
+<button
+onclick="preencher('Crie um sistema de NPCs para Roblox')">
+🤖 NPCs
+</button>
+
+<button
+onclick="preencher('Crie um sistema de polícia para Roblox')">
+👮 Polícia
+</button>
+
+<button
+onclick="limparResultado()">
+🗑 Limpar
+</button>
+
+</div>
+
+
+<div id="resultado">
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SISTEMAS -->
+
+<section
+id="sistemas"
+class="page">
+
+<h1>🧩 Sistemas prontos</h1>
+
+<div class="cards">
+
+
+<div class="card">
+<h3>💰 Dinheiro</h3>
+<p>Leaderstats e sistema de moedas.</p>
+<button onclick="usarSistema('dinheiro')">
+Usar
+</button>
+</div>
+
+
+<div class="card">
+<h3>🛒 Loja</h3>
+<p>Sistema básico de compras.</p>
+<button onclick="usarSistema('loja')">
+Usar
+</button>
+</div>
+
+
+<div class="card">
+<h3>💼 Empregos</h3>
+<p>Cargos e salários.</p>
+<button onclick="usarSistema('emprego')">
+Usar
+</button>
+</div>
+
+
+<div class="card">
+<h3>🏠 Casas</h3>
+<p>Compra e propriedade de casas.</p>
+<button onclick="usarSistema('casa')">
+Usar
+</button>
+</div>
+
+
+<div class="card">
+<h3>🚗 Carros</h3>
+<p>Spawn de veículos.</p>
+<button onclick="usarSistema('carro')">
+Usar
+</button>
+</div>
+
+
+<div class="card">
+<h3>🤖 NPCs</h3>
+<p>NPC usando Pathfinding.</p>
+<button onclick="usarSistema('npc')">
+Usar
+</button>
+</div>
+
+
+<div class="card">
+<h3>📱 Celular</h3>
+<p>Interface de celular.</p>
+<button onclick="usarSistema('celular')">
+Usar
+</button>
+</div>
+
+
+<div class="card">
+<h3>👮 Polícia</h3>
+<p>Procurado e prisão.</p>
+<button onclick="usarSistema('policia')">
+Usar
+</button>
+</div>
+
+
+<div class="card">
+<h3>🎒 Inventário</h3>
+<p>Sistema de itens.</p>
+<button onclick="usarSistema('inventario')">
+Usar
+</button>
+</div>
+
+
+<div class="card">
+<h3>⭐ XP</h3>
+<p>Experiência e níveis.</p>
+<button onclick="usarSistema('xp')">
+Usar
+</button>
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- BIBLIOTECA -->
+
+<section
+id="biblioteca"
+class="page">
+
+<h1>📚 Biblioteca</h1>
+
+<p>
+Pesquise por sistemas disponíveis.
+</p>
+
+<input
+class="search"
+id="pesquisa"
+placeholder="Pesquisar..."
+oninput="pesquisar()"
+>
+
+
+<div
+class="cards"
+id="bibliotecaCards">
+
+
+<div class="card item">
+<h3>💰 Sistema de dinheiro</h3>
+<p>Moedas para jogadores.</p>
+<button onclick="usarSistema('dinheiro')">
+Abrir
+</button>
+</div>
+
+
+<div class="card item">
+<h3>🛒 Sistema de loja</h3>
+<p>Compra de itens.</p>
+<button onclick="usarSistema('loja')">
+Abrir
+</button>
+</div>
+
+
+<div class="card item">
+<h3>🚗 Sistema de carros</h3>
+<p>Spawn de veículos.</p>
+<button onclick="usarSistema('carro')">
+Abrir
+</button>
+</div>
+
+
+<div class="card item">
+<h3>🤖 Sistema de NPC</h3>
+<p>NPC com movimentação.</p>
+<button onclick="usarSistema('npc')">
+Abrir
+</button>
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- SALVOS -->
+
+<section
+id="salvos"
+class="page">
+
+<h1>💾 Meus códigos</h1>
+
+<p>
+Os códigos salvos durante esta sessão aparecem aqui.
+</p>
+
+<div
+id="listaSalvos"
+class="cards">
+
+</div>
+
+</section>
+
+
+<!-- CONFIG -->
+
+<section
+id="config"
+class="page">
+
+<h1>⚙️ Configurações</h1>
+
+<div class="card">
+
+<h3>🎨 Aparência</h3>
+
+<p>
+Tema atual: Escuro
+</p>
+
+<button
+onclick="alert('O tema escuro já está ativado!')">
+Testar
+</button>
+
+</div>
 
 <br>
 
+<div class="card">
+
+<h3>🧹 Dados</h3>
+
+<p>
+Apagar todos os códigos salvos.
+</p>
+
 <button
-type="button"
-onclick="GERAR_SCRIPT()"
->
-GERAR
+onclick="apagarSalvos()">
+Apagar códigos
 </button>
 
-<div id="resposta">
-Aguardando seu pedido...
 </div>
+
+</section>
+
+
+<!-- SOBRE -->
+
+<section
+id="sobre"
+class="page">
+
+<div class="about">
+
+<h1>ℹ️ Sobre o ScriptAI</h1>
+
+<p>
+O ScriptAI é uma interface criada para ajudar
+na criação de scripts e sistemas para Roblox.
+</p>
+
+<p>
+Você pode escrever o que deseja criar,
+selecionar sistemas prontos e copiar os códigos.
+</p>
+
+<h2>⚡ Recursos</h2>
+
+<p>
+🤖 Gerador<br>
+🧩 Sistemas prontos<br>
+📚 Biblioteca<br>
+💾 Códigos salvos<br>
+🔎 Pesquisa<br>
+📋 Copiar código
+</p>
+
+</div>
+
+</section>
+
+
+</main>
 
 </div>
 
 
 <script>
 
-function GERAR_SCRIPT(){
+/* =========================
+NAVEGAÇÃO
+========================= */
 
-    var pedido =
-        document.getElementById("pedido").value;
+function abrirPagina(id,botao){
 
-    var resposta =
-        document.getElementById("resposta");
+var paginas =
+document.querySelectorAll(".page");
 
+for(
+var i=0;
+i<paginas.length;
+i++
+){
 
-    if(pedido.trim() === ""){
+paginas[i].classList.remove("active");
 
-        resposta.innerText =
-            "⚠️ Digite um pedido primeiro.";
-
-        return;
-
-    }
-
-
-    var texto =
-        pedido.toLowerCase();
+}
 
 
-    /* DINHEIRO */
+document
+.getElementById(id)
+.classList.add("active");
 
-    if(
-        texto.includes("dinheiro") ||
-        texto.includes("moeda")
-    ){
 
-        resposta.innerHTML =
-        "<b>🤖 ScriptAI</b><br><br>" +
+var botoes =
+document.querySelectorAll(".nav button");
 
-        "Aqui está seu sistema de dinheiro:" +
+for(
+var i=0;
+i<botoes.length;
+i++
+){
 
-        "<pre>" +
+botoes[i].classList.remove("active");
 
-`local Players = game:GetService("Players")
+}
+
+
+if(botao){
+
+botao.classList.add("active");
+
+}
+
+}
+
+
+function abrirPaginaPorId(id){
+
+var botoes =
+document.querySelectorAll(".nav button");
+
+var encontrado=null;
+
+for(
+var i=0;
+i<botoes.length;
+i++
+){
+
+if(
+botoes[i]
+.getAttribute("onclick")
+.includes("'"+id+"'")
+){
+
+encontrado=botoes[i];
+
+}
+
+}
+
+abrirPagina(id,encontrado);
+
+}
+
+
+function abrirGerador(){
+
+abrirPaginaPorId("gerador");
+
+document
+.getElementById("pedido")
+.focus();
+
+}
+
+
+/* =========================
+PREENCHER
+========================= */
+
+function preencher(texto){
+
+abrirGerador();
+
+document
+.getElementById("pedido")
+.value=texto;
+
+}
+
+
+/* =========================
+GERAR
+========================= */
+
+function gerar(){
+
+var campo =
+document.getElementById("pedido");
+
+var pedido =
+campo.value.trim();
+
+
+if(
+pedido===""
+){
+
+mostrar(
+"⚠️ Digite primeiro o que você quer criar."
+);
+
+return;
+
+}
+
+
+var resposta =
+criarCodigo(pedido);
+
+
+mostrar(resposta);
+
+salvarCodigo(
+pedido,
+resposta
+);
+
+}
+
+
+/* =========================
+MOSTRAR
+========================= */
+
+function mostrar(texto){
+
+var resultado =
+document.getElementById("resultado");
+
+resultado.innerHTML="";
+
+
+var div =
+document.createElement("div");
+
+div.className="message";
+
+
+var partes =
+texto.split("```");
+
+
+for(
+var i=0;
+i<partes.length;
+i++
+){
+
+if(
+i%2===0
+){
+
+var p =
+document.createElement("div");
+
+p.innerHTML =
+escapar(partes[i])
+.replace(/\n/g,"<br>");
+
+div.appendChild(p);
+
+}else{
+
+var box =
+document.createElement("div");
+
+box.className="code";
+
+
+var top =
+document.createElement("div");
+
+top.className="codeTop";
+
+
+var titulo =
+document.createElement("span");
+
+titulo.innerText="Lua / Luau";
+
+
+var copy =
+document.createElement("button");
+
+copy.className="copy";
+
+copy.innerText="📋 Copiar";
+
+
+var pre =
+document.createElement("pre");
+
+pre.innerText=partes[i];
+
+
+copy.onclick=function(){
+
+navigator.clipboard
+.writeText(
+this.parentElement
+.nextElementSibling
+.innerText
+);
+
+this.innerText="✅ Copiado!";
+
+var b=this;
+
+setTimeout(
+function(){
+
+b.innerText="📋 Copiar";
+
+},
+1500
+);
+
+};
+
+
+top.appendChild(titulo);
+
+top.appendChild(copy);
+
+box.appendChild(top);
+
+box.appendChild(pre);
+
+div.appendChild(box);
+
+}
+
+}
+
+
+resultado.appendChild(div);
+
+}
+
+
+/* =========================
+GERADOR DE CÓDIGO
+========================= */
+
+function criarCodigo(pedido){
+
+var t =
+pedido.toLowerCase();
+
+
+if(
+t.includes("dinheiro") ||
+t.includes("moeda")
+){
+
+return `💰 Sistema de dinheiro:
+
+\`\`\`
+local Players =
+game:GetService("Players")
 
 Players.PlayerAdded:Connect(function(player)
 
@@ -161,132 +1187,175 @@ Players.PlayerAdded:Connect(function(player)
     dinheiro.Parent =
         leaderstats
 
-end)` +
+end)
+\`\`\`
 
-        "</pre>" +
+📌 Coloque em ServerScriptService.`;
 
-        "📌 Coloque o Script em ServerScriptService.";
-
-        return;
-
-    }
+}
 
 
-    /* LOJA */
+if(
+t.includes("loja")
+){
 
-    if(texto.includes("loja")){
+return `🛒 Sistema de loja:
 
-        resposta.innerHTML =
-        "<b>🤖 ScriptAI</b><br><br>" +
-
-        "Sistema de loja:" +
-
-        "<pre>" +
-
-`local function Comprar(player, preco)
+\`\`\`
+local function Comprar(
+    player,
+    preco
+)
 
     local stats =
-        player:FindFirstChild("leaderstats")
+        player:FindFirstChild(
+            "leaderstats"
+        )
 
-    if not stats then return end
+    if not stats then
+        return
+    end
 
     local dinheiro =
-        stats:FindFirstChild("Dinheiro")
+        stats:FindFirstChild(
+            "Dinheiro"
+        )
 
-    if not dinheiro then return end
+    if not dinheiro then
+        return
+    end
 
     if dinheiro.Value >= preco then
 
         dinheiro.Value -= preco
 
-        print("Compra realizada!")
+        print(
+            "Compra realizada!"
+        )
 
     end
 
-end` +
+end
+\`\`\``;
 
-        "</pre>";
-
-        return;
-
-    }
+}
 
 
-    /* NPC */
+if(
+t.includes("emprego")
+){
 
-    if(texto.includes("npc")){
+return `💼 Sistema de empregos:
 
-        resposta.innerHTML =
-        "<b>🤖 ScriptAI</b><br><br>" +
+\`\`\`
+local Empregos = {
 
-        "Sistema de NPC:" +
+    Policial = 300,
+    Medico = 280,
+    Motorista = 200,
+    Entregador = 180,
+    Mecanico = 250
 
-        "<pre>" +
+}
 
-`local PathfindingService =
-    game:GetService("PathfindingService")
 
-local function NPCAndar(npc, destino)
+function EscolherEmprego(
+    player,
+    nome
+)
 
-    local humanoid =
-        npc:FindFirstChildOfClass("Humanoid")
+    local salario =
+        Empregos[nome]
 
-    local root =
-        npc:FindFirstChild("HumanoidRootPart")
-
-    if not humanoid or not root then
+    if not salario then
         return
     end
 
-    local path =
-        PathfindingService:CreatePath()
-
-    path:ComputeAsync(
-        root.Position,
-        destino
+    player:SetAttribute(
+        "Emprego",
+        nome
     )
 
-    if path.Status ==
-        Enum.PathStatus.Success then
+    player:SetAttribute(
+        "Salario",
+        salario
+    )
 
-        for _, waypoint in
-        ipairs(path:GetWaypoints()) do
+end
+\`\`\``;
 
-            humanoid:MoveTo(
-                waypoint.Position
-            )
+}
 
-            humanoid.MoveToFinished:Wait()
 
-        end
+if(
+t.includes("casa")
+){
 
+return `🏠 Sistema de casas:
+
+\`\`\`
+local Casas = {}
+
+
+function ComprarCasa(
+    player,
+    nome,
+    preco
+)
+
+    if Casas[nome] then
+        return false
     end
 
-end` +
 
-        "</pre>";
+    local stats =
+        player:FindFirstChild(
+            "leaderstats"
+        )
 
-        return;
+    if not stats then
+        return false
+    end
 
-    }
+
+    local dinheiro =
+        stats:FindFirstChild(
+            "Dinheiro"
+        )
+
+    if not dinheiro then
+        return false
+    end
 
 
-    /* CARRO */
+    if dinheiro.Value < preco then
+        return false
+    end
 
-    if(
-        texto.includes("carro") ||
-        texto.includes("veículo") ||
-        texto.includes("veiculo")
-    ){
 
-        resposta.innerHTML =
-        "<b>🤖 ScriptAI</b><br><br>" +
+    dinheiro.Value -= preco
 
-        "Sistema de carros:" +
+    Casas[nome] =
+        player.UserId
 
-        "<pre>" +
+    return true
 
-`local function SpawnCar(
+end
+\`\`\``;
+
+}
+
+
+if(
+t.includes("carro") ||
+t.includes("veiculo") ||
+t.includes("veículo")
+){
+
+return `🚗 Sistema de carros:
+
+\`\`\`
+local function SpawnCar(
     player,
     modelo
 )
@@ -295,11 +1364,13 @@ end` +
         return
     end
 
+
     local carro =
         modelo:Clone()
 
     carro.Parent =
         workspace
+
 
     if player.Character then
 
@@ -311,32 +1382,98 @@ end` +
 
     end
 
-end` +
+end
+\`\`\``;
 
-        "</pre>";
-
-        return;
-
-    }
+}
 
 
-    /* POLÍCIA */
+if(
+t.includes("npc")
+){
 
-    if(
-        texto.includes("policia") ||
-        texto.includes("polícia") ||
-        texto.includes("prisao") ||
-        texto.includes("prisão")
-    ){
+return `🤖 Sistema de NPC:
 
-        resposta.innerHTML =
-        "<b>🤖 ScriptAI</b><br><br>" +
+\`\`\`
+local PathfindingService =
+    game:GetService(
+        "PathfindingService"
+    )
 
-        "Sistema de procurado/prisão:" +
 
-        "<pre>" +
+function FazerNPCAndar(
+    npc,
+    destino
+)
 
-`function Procurar(player, nivel)
+    local humanoid =
+        npc:FindFirstChildOfClass(
+            "Humanoid"
+        )
+
+    local root =
+        npc:FindFirstChild(
+            "HumanoidRootPart"
+        )
+
+
+    if not humanoid or not root then
+        return
+    end
+
+
+    local path =
+        PathfindingService:CreatePath()
+
+
+    path:ComputeAsync(
+        root.Position,
+        destino
+    )
+
+
+    if path.Status ==
+        Enum.PathStatus.Success then
+
+
+        for _,waypoint in
+        ipairs(
+            path:GetWaypoints()
+        ) do
+
+
+            humanoid:MoveTo(
+                waypoint.Position
+            )
+
+
+            humanoid.MoveToFinished:
+                Wait()
+
+        end
+
+    end
+
+end
+\`\`\``;
+
+}
+
+
+if(
+t.includes("polícia") ||
+t.includes("policia") ||
+t.includes("prisão") ||
+t.includes("prisao")
+){
+
+return `👮 Sistema de polícia:
+
+\`\`\`
+function Procurar(
+    player,
+    nivel
+)
 
     player:SetAttribute(
         "Procurado",
@@ -346,12 +1483,16 @@ end` +
 end
 
 
-function Prender(player, tempo)
+function Prender(
+    player,
+    tempo
+)
 
     player:SetAttribute(
         "Preso",
         true
     )
+
 
     task.delay(
         tempo or 15,
@@ -369,40 +1510,259 @@ function Prender(player, tempo)
         end
     )
 
-end` +
-
-        "</pre>";
-
-        return;
-
-    }
-
-
-    /* QUALQUER OUTRO PEDIDO */
-
-    resposta.innerHTML =
-    "<b>🤖 ScriptAI</b><br><br>" +
-
-    "Entendi seu pedido:<br><br>" +
-
-    "<b>" +
-    pedido.replace(
-        /</g,
-        "&lt;"
-    ) +
-    "</b><br><br>" +
-
-    "Para sistemas programados, tente pedir algo como:<br>" +
-
-    "• Crie um sistema de dinheiro para Roblox<br>" +
-    "• Crie um sistema de loja para Roblox<br>" +
-    "• Crie um sistema de NPC para Roblox<br>" +
-    "• Crie um sistema de carros para Roblox<br>" +
-    "• Crie um sistema de polícia para Roblox";
+end
+\`\`\``;
 
 }
 
-</script>
 
-</body>
-</html>
+if(
+t.includes("celular") ||
+t.includes("telefone")
+){
+
+return `📱 Sistema de celular:
+
+\`\`\`
+local Players =
+    game:GetService("Players")
+
+local player =
+    Players.LocalPlayer
+
+
+local gui =
+    Instance.new("ScreenGui")
+
+gui.Name="Celular"
+
+gui.Parent =
+    player:WaitForChild(
+        "PlayerGui"
+    )
+
+
+local celular =
+    Instance.new("Frame")
+
+celular.Size =
+    UDim2.fromOffset(
+        280,
+        500
+    )
+
+celular.Position =
+    UDim2.new(
+        .5,
+        -140,
+        .5,
+        -250
+    )
+
+celular.Parent =
+    gui
+\`\`\``;
+
+}
+
+
+if(
+t.includes("inventário") ||
+t.includes("inventario")
+){
+
+return `🎒 Sistema de inventário:
+
+\`\`\`
+local Inventarios = {}
+
+
+game.Players.PlayerAdded:Connect(
+function(player)
+
+    Inventarios[
+        player.UserId
+    ] = {}
+
+end)
+
+
+function AdicionarItem(
+    player,
+    item
+)
+
+    local inventario =
+        Inventarios[
+            player.UserId
+        ]
+
+    if not inventario then
+        return
+    end
+
+
+    table.insert(
+        inventario,
+        item
+    )
+
+end
+\`\`\``;
+
+}
+
+
+if(
+t.includes("xp") ||
+t.includes("nivel") ||
+t.includes("nível")
+){
+
+return `⭐ Sistema de XP:
+
+\`\`\`
+function AdicionarXP(
+    player,
+    quantidade
+)
+
+    local xp =
+        player:GetAttribute(
+            "XP"
+        ) or 0
+
+
+    local nivel =
+        player:GetAttribute(
+            "Nivel"
+        ) or 1
+
+
+    xp += quantidade
+
+
+    if xp >= nivel * 100 then
+
+        xp -= nivel * 100
+
+        nivel += 1
+
+    end
+
+
+    player:SetAttribute(
+        "XP",
+        xp
+    )
+
+
+    player:SetAttribute(
+        "Nivel",
+        nivel
+    )
+
+end
+\`\`\``;
+
+}
+
+
+/* PADRÃO */
+
+return `🤖 Entendi o pedido:
+
+<b>${escapar(pedido)}</b>
+
+No gerador local, os sistemas disponíveis incluem:
+
+💰 Dinheiro
+🛒 Loja
+💼 Empregos
+🏠 Casas
+🚗 Carros
+🤖 NPCs
+📱 Celular
+👮 Polícia
+🎒 Inventário
+⭐ XP
+
+Escolha um deles ou descreva seu sistema usando uma dessas funções.`;
+
+}
+
+
+/* =========================
+ESCAPAR
+========================= */
+
+function escapar(texto){
+
+return String(texto)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;");
+
+}
+
+
+/* =========================
+USAR SISTEMA
+========================= */
+
+function usarSistema(tipo){
+
+var nomes={
+
+dinheiro:
+"Crie um sistema de dinheiro para Roblox.",
+
+loja:
+"Crie um sistema de loja para Roblox.",
+
+emprego:
+"Crie um sistema de empregos para Roblox.",
+
+casa:
+"Crie um sistema de casas para Roblox.",
+
+carro:
+"Crie um sistema de carros para Roblox.",
+
+npc:
+"Crie um sistema de NPCs para Roblox.",
+
+celular:
+"Crie um sistema de celular para Roblox.",
+
+policia:
+"Crie um sistema de polícia para Roblox.",
+
+inventario:
+"Crie um sistema de inventário para Roblox.",
+
+xp:
+"Crie um sistema de XP para Roblox."
+
+};
+
+
+preencher(
+nomes[tipo]
+);
+
+}
+
+
+/* =========================
+SALVAR
+========================= */
+
+function salvarCodigo(
+pedido,
+codigo
+){
+
+var salvos =
+JS
