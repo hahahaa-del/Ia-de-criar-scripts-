@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ScriptAI</title>
 
 <style>
@@ -10,9 +10,9 @@
 
 body{
 margin:0;
-font-family:Arial,sans-serif;
 background:#080b12;
 color:#fff;
+font-family:Arial,sans-serif;
 }
 
 button{
@@ -21,7 +21,7 @@ font-family:Arial,sans-serif;
 }
 
 .app{
-height:100vh;
+min-height:100vh;
 display:flex;
 }
 
@@ -43,13 +43,14 @@ color:#825cff;
 }
 
 .nav button{
+display:block;
 width:100%;
-padding:12px;
-margin:4px 0;
 border:0;
-border-radius:8px;
 background:transparent;
 color:#ddd;
+padding:13px;
+border-radius:8px;
+margin:4px 0;
 text-align:left;
 }
 
@@ -60,18 +61,16 @@ background:#252b38;
 
 .main{
 flex:1;
-display:flex;
-flex-direction:column;
 min-width:0;
 }
 
 .header{
 height:60px;
-border-bottom:1px solid #292f3a;
 display:flex;
 align-items:center;
 justify-content:space-between;
 padding:0 20px;
+border-bottom:1px solid #292f3a;
 }
 
 .online{
@@ -81,8 +80,6 @@ font-size:13px;
 
 .page{
 display:none;
-flex:1;
-overflow:auto;
 padding:25px;
 }
 
@@ -102,6 +99,7 @@ margin-top:80px;
 
 .hero h1{
 font-size:48px;
+margin-bottom:10px;
 }
 
 .hero h1 span{
@@ -112,35 +110,36 @@ color:#825cff;
 color:#929aaa;
 }
 
-.primary,.generate{
+.primary,
+.generate{
 background:#825cff;
-color:white;
 border:0;
+color:white;
+font-weight:bold;
 border-radius:9px;
 padding:14px 22px;
-font-weight:bold;
 }
 
 .inputBox{
+margin-top:20px;
 display:flex;
 gap:8px;
 background:#151a23;
 border:1px solid #363e4d;
-border-radius:12px;
 padding:8px;
-margin-top:20px;
+border-radius:12px;
 }
 
 textarea{
 flex:1;
-height:110px;
+height:120px;
+resize:none;
 background:transparent;
 border:0;
 outline:0;
-resize:none;
-color:#fff;
-padding:12px;
+color:white;
 font-size:15px;
+padding:12px;
 }
 
 .generate{
@@ -149,17 +148,17 @@ padding:0 25px;
 
 .quick{
 display:flex;
-gap:7px;
 flex-wrap:wrap;
+gap:7px;
 margin-top:10px;
 }
 
 .quick button{
 background:#151a23;
 border:1px solid #303744;
-color:#fff;
-padding:8px 12px;
+color:white;
 border-radius:7px;
+padding:8px 12px;
 }
 
 .chat{
@@ -184,16 +183,17 @@ border:1px solid #292f3a;
 }
 
 .code{
+margin-top:12px;
 background:#05070a;
 border:1px solid #303744;
 border-radius:8px;
 overflow:auto;
-margin-top:12px;
 }
 
 .codeTop{
 display:flex;
 justify-content:space-between;
+align-items:center;
 padding:8px 10px;
 border-bottom:1px solid #292f3a;
 font-size:12px;
@@ -230,7 +230,6 @@ padding:18px;
 
 .card p{
 color:#929aaa;
-font-size:14px;
 }
 
 .card button{
@@ -243,13 +242,13 @@ border-radius:7px;
 
 .search{
 width:100%;
+margin-top:15px;
 padding:13px;
 background:#151a23;
 border:1px solid #343b49;
 border-radius:9px;
-color:white;
 outline:0;
-margin-top:15px;
+color:white;
 }
 
 @media(max-width:700px){
@@ -276,10 +275,6 @@ text-align:center;
 
 .nav button:first-letter{
 font-size:20px;
-}
-
-.page{
-padding:15px;
 }
 
 .hero{
@@ -314,34 +309,33 @@ height:50px;
 
 <div class="nav">
 
-<button class="active" onclick="abrir('inicio',this)">
+<button class="active" onclick="abrirPagina('inicio',this)">
 🏠 Início
 </button>
 
-<button onclick="abrir('gerador',this)">
+<button onclick="abrirPagina('gerador',this)">
 🤖 IA / Gerador
 </button>
 
-<button onclick="abrir('sistemas',this)">
+<button onclick="abrirPagina('sistemas',this)">
 🧩 Sistemas
 </button>
 
-<button onclick="abrir('biblioteca',this)">
+<button onclick="abrirPagina('biblioteca',this)">
 📚 Biblioteca
 </button>
 
-<button onclick="abrir('salvos',this)">
+<button onclick="abrirPagina('salvos',this)">
 💾 Salvos
 </button>
 
-<button onclick="abrir('config',this)">
+<button onclick="abrirPagina('config',this)">
 ⚙️ Configurações
 </button>
 
 </div>
 
 </aside>
-
 
 <main class="main">
 
@@ -350,6 +344,8 @@ height:50px;
 <span class="online">● ONLINE</span>
 </header>
 
+
+<!-- INÍCIO -->
 
 <section id="inicio" class="page active">
 
@@ -371,6 +367,8 @@ onclick="abrirGerador()">
 </section>
 
 
+<!-- GERADOR -->
+
 <section id="gerador" class="page">
 
 <div class="center">
@@ -378,7 +376,7 @@ onclick="abrirGerador()">
 <h1>🤖 IA / Gerador</h1>
 
 <p>
-Descreva o que você quer criar.
+Descreva exatamente o sistema que você quer.
 </p>
 
 <div class="inputBox">
@@ -388,7 +386,8 @@ id="pedido"
 placeholder="Ex: Crie um sistema completo de cidade RP com dinheiro, empregos, casas, carros, lojas, NPCs e polícia..."
 ></textarea>
 
-<button class="generate"
+<button
+class="generate"
 onclick="gerar()">
 GERAR
 </button>
@@ -397,24 +396,28 @@ GERAR
 
 <div class="quick">
 
-<button onclick="exemplo('Crie um sistema de dinheiro para Roblox com leaderstats e salvamento.')">
+<button onclick="exemplo('Crie um sistema completo de dinheiro para Roblox.')">
 💰 Dinheiro
 </button>
 
-<button onclick="exemplo('Crie um sistema de loja para Roblox com compra de itens.')">
+<button onclick="exemplo('Crie um sistema completo de loja para Roblox.')">
 🛒 Loja
 </button>
 
-<button onclick="exemplo('Crie um sistema de carros para Roblox com garagem e spawn.')">
+<button onclick="exemplo('Crie um sistema completo de carros para Roblox.')">
 🚗 Carros
 </button>
 
-<button onclick="exemplo('Crie um sistema de NPCs para Roblox usando PathfindingService.')">
+<button onclick="exemplo('Crie um sistema completo de NPCs para Roblox.')">
 🤖 NPCs
 </button>
 
-<button onclick="exemplo('Crie um sistema de polícia e prisão para Roblox.')">
+<button onclick="exemplo('Crie um sistema completo de polícia para Roblox.')">
 👮 Polícia
+</button>
+
+<button onclick="exemplo('Crie um sistema completo de casas para Roblox.')">
+🏠 Casas
 </button>
 
 <button onclick="limpar()">
@@ -430,6 +433,8 @@ GERAR
 </section>
 
 
+<!-- SISTEMAS -->
+
 <section id="sistemas" class="page">
 
 <div class="center">
@@ -439,25 +444,17 @@ GERAR
 <div class="cards">
 
 <div class="card">
-<h3>🏙️ Cidade RP</h3>
-<p>Cidade com vários sistemas integrados.</p>
-<button onclick="usar('Crie uma cidade RP completa para Roblox com dinheiro, empregos, casas, carros, lojas, NPCs e polícia.')">
-Criar
-</button>
-</div>
-
-<div class="card">
 <h3>💰 Economia</h3>
-<p>Dinheiro, salários e compras.</p>
-<button onclick="usar('Crie um sistema completo de economia para Roblox.')">
+<p>Dinheiro e salários.</p>
+<button onclick="usar('Crie um sistema de dinheiro e economia completo para Roblox.')">
 Criar
 </button>
 </div>
 
 <div class="card">
-<h3>🎒 Inventário</h3>
-<p>Itens e quantidades.</p>
-<button onclick="usar('Crie um sistema completo de inventário para Roblox.')">
+<h3>🛒 Loja</h3>
+<p>Compra de itens.</p>
+<button onclick="usar('Crie um sistema completo de loja para Roblox.')">
 Criar
 </button>
 </div>
@@ -465,7 +462,15 @@ Criar
 <div class="card">
 <h3>🚗 Veículos</h3>
 <p>Garagem e veículos.</p>
-<button onclick="usar('Crie um sistema completo de veículos para Roblox.')">
+<button onclick="usar('Crie um sistema completo de carros e garagem para Roblox.')">
+Criar
+</button>
+</div>
+
+<div class="card">
+<h3>🤖 NPC</h3>
+<p>NPCs com movimentação.</p>
+<button onclick="usar('Crie um sistema completo de NPCs para Roblox.')">
 Criar
 </button>
 </div>
@@ -480,7 +485,7 @@ Criar
 
 <div class="card">
 <h3>🏠 Casas</h3>
-<p>Casas compráveis.</p>
+<p>Compra de propriedades.</p>
 <button onclick="usar('Crie um sistema completo de casas para Roblox.')">
 Criar
 </button>
@@ -493,6 +498,8 @@ Criar
 </section>
 
 
+<!-- BIBLIOTECA -->
+
 <section id="biblioteca" class="page">
 
 <div class="center">
@@ -502,7 +509,7 @@ Criar
 <input
 id="pesquisa"
 class="search"
-placeholder="Pesquisar..."
+placeholder="Pesquisar sistema..."
 oninput="pesquisar()"
 >
 
@@ -510,7 +517,7 @@ oninput="pesquisar()"
 
 <div class="card item">
 <h3>💰 Dinheiro</h3>
-<p>Sistema de dinheiro.</p>
+<p>Sistema de economia.</p>
 </div>
 
 <div class="card item">
@@ -528,12 +535,24 @@ oninput="pesquisar()"
 <p>Sistema de NPCs.</p>
 </div>
 
+<div class="card item">
+<h3>👮 Polícia</h3>
+<p>Sistema policial.</p>
+</div>
+
+<div class="card item">
+<h3>🏠 Casas</h3>
+<p>Sistema de propriedades.</p>
+</div>
+
 </div>
 
 </div>
 
 </section>
 
+
+<!-- SALVOS -->
 
 <section id="salvos" class="page">
 
@@ -548,6 +567,8 @@ oninput="pesquisar()"
 </section>
 
 
+<!-- CONFIGURAÇÕES -->
+
 <section id="config" class="page">
 
 <div class="center">
@@ -556,12 +577,12 @@ oninput="pesquisar()"
 
 <div class="card">
 
-<h3>🗑️ Apagar histórico</h3>
+<h3>🗑️ Histórico</h3>
 
-<p>Remove os códigos salvos neste navegador.</p>
+<p>Apague os códigos armazenados neste navegador.</p>
 
-<button onclick="apagar()">
-Apagar
+<button onclick="apagarSalvos()">
+Apagar histórico
 </button>
 
 </div>
@@ -571,6 +592,7 @@ Apagar
 </section>
 
 </main>
+
 </div>
 
 
@@ -580,12 +602,14 @@ Apagar
 NAVEGAÇÃO
 ========================= */
 
-function abrir(id,btn){
+function abrirPagina(id,botao){
 
 document
 .querySelectorAll(".page")
-.forEach(p=>{
+.forEach(function(p){
+
 p.classList.remove("active");
+
 });
 
 document
@@ -594,19 +618,22 @@ document
 
 document
 .querySelectorAll(".nav button")
-.forEach(b=>{
+.forEach(function(b){
+
 b.classList.remove("active");
+
 });
 
-if(btn)
-btn.classList.add("active");
+if(botao){
+botao.classList.add("active");
+}
 
 }
 
 
 function abrirGerador(){
 
-abrir("gerador");
+abrirPagina("gerador");
 
 document
 .getElementById("pedido")
@@ -638,7 +665,7 @@ exemplo(texto);
 
 
 /* =========================
-GERAR
+GERADOR
 ========================= */
 
 function gerar(){
@@ -652,8 +679,8 @@ campo.value.trim();
 
 if(!pedido){
 
-mostrar(
-"⚠️ Escreva primeiro o sistema que você quer."
+adicionarIA(
+"⚠️ Digite o que você quer criar."
 );
 
 return;
@@ -667,34 +694,41 @@ campo.value="";
 
 
 /*
-GERADOR LOCAL.
-Ele analisa o pedido inteiro.
+O gerador entende várias partes
+do pedido e combina os sistemas.
 */
 
-const resposta=
-criarSistema(pedido);
+const codigo=
+gerarCodigo(pedido);
 
-adicionarIA(resposta);
+adicionarIA(codigo);
 
 salvar(
 pedido,
-resposta
+codigo
 );
 
 }
 
 
 /* =========================
-GERADOR
+GERADOR DE CÓDIGO
 ========================= */
 
-function criarSistema(pedido){
+function gerarCodigo(pedido){
 
 const p=
 pedido.toLowerCase();
 
+let codigo="";
 
-let partes=[];
+
+codigo+=
+"-- ========================================\n"+
+"-- ScriptAI - Sistema Roblox\n"+
+"-- Pedido:\n"+
+"-- "+pedido+"\n"+
+"-- ========================================\n\n";
 
 
 /* DINHEIRO */
@@ -705,12 +739,8 @@ p.includes("economia")||
 p.includes("moeda")
 ){
 
-partes.push(`💰 SISTEMA DE DINHEIRO
-
-Coloque este Script em ServerScriptService:
-
-\`\`\`lua
-local Players = game:GetService("Players")
+codigo+=
+`local Players = game:GetService("Players")
 
 Players.PlayerAdded:Connect(function(player)
 
@@ -724,8 +754,8 @@ Players.PlayerAdded:Connect(function(player)
     dinheiro.Parent = leaderstats
 
 end)
-\`\`\`
-`);
+
+`;
 
 }
 
@@ -734,18 +764,18 @@ end)
 
 if(p.includes("loja")){
 
-partes.push(`🛒 SISTEMA DE LOJA
+codigo+=
+`local function Comprar(player, preco)
 
-\`\`\`lua
-local function comprar(player, preco)
-
-    local stats = player:FindFirstChild("leaderstats")
+    local stats =
+        player:FindFirstChild("leaderstats")
 
     if not stats then
         return false
     end
 
-    local dinheiro = stats:FindFirstChild("Dinheiro")
+    local dinheiro =
+        stats:FindFirstChild("Dinheiro")
 
     if not dinheiro then
         return false
@@ -762,8 +792,8 @@ local function comprar(player, preco)
     return false
 
 end
-\`\`\`
-`);
+
+`;
 
 }
 
@@ -772,22 +802,23 @@ end
 
 if(
 p.includes("carro")||
+p.includes("carros")||
 p.includes("veiculo")||
 p.includes("veículo")
 ){
 
-partes.push(`🚗 SISTEMA DE VEÍCULOS
+codigo+=
+`local function SpawnCarro(player, modelo)
 
-\`\`\`lua
-local function SpawnVehicle(player, model)
-
-    if not model then
+    if not modelo then
         return
     end
 
-    local carro = model:Clone()
+    local carro =
+        modelo:Clone()
 
-    carro.Parent = workspace
+    carro.Parent =
+        workspace
 
     if player.Character then
 
@@ -799,8 +830,8 @@ local function SpawnVehicle(player, model)
     end
 
 end
-\`\`\`
-`);
+
+`;
 
 }
 
@@ -809,19 +840,25 @@ end
 
 if(p.includes("npc")){
 
-partes.push(`🤖 SISTEMA DE NPC
-
-\`\`\`lua
-local PathfindingService =
+codigo+=
+`local PathfindingService =
     game:GetService("PathfindingService")
 
-local function andar(npc, destino)
+
+local function FazerNPCAndar(
+    npc,
+    destino
+)
 
     local humanoid =
-        npc:FindFirstChildOfClass("Humanoid")
+        npc:FindFirstChildOfClass(
+            "Humanoid"
+        )
 
     local root =
-        npc:FindFirstChild("HumanoidRootPart")
+        npc:FindFirstChild(
+            "HumanoidRootPart"
+        )
 
     if not humanoid or not root then
         return
@@ -852,8 +889,8 @@ local function andar(npc, destino)
     end
 
 end
-\`\`\`
-`);
+
+`;
 
 }
 
@@ -863,14 +900,15 @@ end
 if(
 p.includes("policia")||
 p.includes("polícia")||
-p.includes("prisão")||
-p.includes("prisao")
+p.includes("prisao")||
+p.includes("prisão")
 ){
 
-partes.push(`👮 SISTEMA DE POLÍCIA
-
-\`\`\`lua
-local function TornarProcurado(player, nivel)
+codigo+=
+`local function Procurado(
+    player,
+    nivel
+)
 
     player:SetAttribute(
         "Procurado",
@@ -888,8 +926,8 @@ local function Prender(player)
     )
 
 end
-\`\`\`
-`);
+
+`;
 
 }
 
@@ -898,22 +936,29 @@ end
 
 if(p.includes("casa")){
 
-partes.push(`🏠 SISTEMA DE CASAS
+codigo+=
+`local Casas = {}
 
-\`\`\`lua
-local Casas = {}
 
-local function ComprarCasa(player, nome, preco)
+local function ComprarCasa(
+    player,
+    nome,
+    preco
+)
 
     local stats =
-        player:FindFirstChild("leaderstats")
+        player:FindFirstChild(
+            "leaderstats"
+        )
 
     if not stats then
         return false
     end
 
     local dinheiro =
-        stats:FindFirstChild("Dinheiro")
+        stats:FindFirstChild(
+            "Dinheiro"
+        )
 
     if not dinheiro then
         return false
@@ -935,8 +980,8 @@ local function ComprarCasa(player, nome, preco)
     return true
 
 end
-\`\`\`
-`);
+
+`;
 
 }
 
@@ -948,16 +993,17 @@ p.includes("inventario")||
 p.includes("inventário")
 ){
 
-partes.push(`🎒 SISTEMA DE INVENTÁRIO
+codigo+=
+`local Inventarios = {}
 
-\`\`\`lua
-local Inventarios = {}
 
-game.Players.PlayerAdded:Connect(function(player)
+Players.PlayerAdded:Connect(
+    function(player)
 
-    Inventarios[player.UserId] = {}
+        Inventarios[player.UserId] = {}
 
-end)
+    end
+)
 
 
 local function AdicionarItem(
@@ -978,8 +1024,8 @@ local function AdicionarItem(
     )
 
 end
-\`\`\`
-`);
+
+`;
 
 }
 
@@ -988,10 +1034,8 @@ end
 
 if(p.includes("emprego")){
 
-partes.push(`💼 SISTEMA DE EMPREGOS
-
-\`\`\`lua
-local Empregos = {
+codigo+=
+`local Empregos = {
 
     Policial = 300,
     Medico = 280,
@@ -1024,8 +1068,8 @@ local function EscolherEmprego(
     )
 
 end
-\`\`\`
-`);
+
+`;
 
 }
 
@@ -1037,14 +1081,10 @@ p.includes("celular")||
 p.includes("telefone")
 ){
 
-partes.push(`📱 SISTEMA DE CELULAR
+codigo+=
+`local player =
+    game.Players.LocalPlayer
 
-\`\`\`lua
-local Players =
-    game:GetService("Players")
-
-local player =
-    Players.LocalPlayer
 
 local gui =
     Instance.new("ScreenGui")
@@ -1056,50 +1096,75 @@ gui.ResetOnSpawn =
     false
 
 gui.Parent =
-    player:WaitForChild("PlayerGui")
+    player:WaitForChild(
+        "PlayerGui"
+    )
+
 
 local telefone =
     Instance.new("Frame")
 
 telefone.Size =
-    UDim2.fromOffset(280,500)
+    UDim2.fromOffset(
+        280,
+        500
+    )
 
 telefone.Position =
-    UDim2.new(.5,-140,.5,-250)
+    UDim2.new(
+        .5,
+        -140,
+        .5,
+        -250
+    )
 
 telefone.Parent =
     gui
-\`\`\`
-`);
+
+`;
 
 }
 
 
-/* PEDIDO GENÉRICO */
+/* SISTEMA GENÉRICO */
 
-if(partes.length===0){
+if(
+codigo.split("\n").length < 12
+){
 
-partes.push(`🤖 ENTENDI O SEU PEDIDO
+codigo+=
+`-- Sistema personalizado
 
-"${pedido}"
+local Players =
+    game:GetService("Players")
 
-O pedido foi recebido.
 
-Para sistemas específicos, o gerador local consegue montar módulos de dinheiro, lojas, carros, NPCs, polícia, casas, inventário, empregos e celular.
+Players.PlayerAdded:Connect(
+    function(player)
 
-Para transformar isso em uma IA que consiga criar QUALQUER sistema novo que você descrever, é necessário conectar este site a um modelo de IA através de uma API.
-`);
+        print(
+            "Sistema carregado para "
+            .. player.Name
+        )
+
+    end
+)
+
+`;
 
 }
 
 
-return partes.join("\n\n");
+codigo+=
+"\n-- Fim do sistema ScriptAI";
+
+return codigo;
 
 }
 
 
 /* =========================
-MENSAGENS
+CHAT
 ========================= */
 
 function adicionarUsuario(texto){
@@ -1124,60 +1189,35 @@ behavior:"smooth"
 }
 
 
-function mostrar(texto){
-
-adicionarIA(texto);
-
-}
-
-
 function adicionarIA(texto){
 
 const div=
 document.createElement("div");
 
-div.className="msg ai";
-
-const partes=
-String(texto).split("```");
+div.className=
+"msg ai";
 
 
-for(
-let i=0;
-i<partes.length;
-i++
-){
-
-if(i%2===0){
-
-if(partes[i].trim()){
-
-const p=
+const introducao=
 document.createElement("div");
 
-p.innerText=
-partes[i];
+introducao.innerText=
+"🤖 ScriptAI gerou o sistema:";
 
-div.appendChild(p);
+div.appendChild(introducao);
 
-}
-
-}else{
-
-const codigo=
-partes[i]
-.replace(/^lua\s*/i,"")
-.trim();
 
 const box=
 document.createElement("div");
 
 box.className="code";
 
+
 const top=
 document.createElement("div");
 
 top.className="codeTop";
+
 
 const nome=
 document.createElement("span");
@@ -1185,32 +1225,38 @@ document.createElement("span");
 nome.innerText=
 "Lua / Luau";
 
-const btn=
+
+const copiar=
 document.createElement("button");
 
-btn.className="copy";
+copiar.className=
+"copy";
 
-btn.innerText=
+copiar.innerText=
 "📋 Copiar";
+
 
 const pre=
 document.createElement("pre");
 
 pre.innerText=
-codigo;
+texto;
 
-btn.onclick=function(){
 
-navigator.clipboard
-.writeText(codigo)
-.then(()=>{
+copiar.onclick=
+function(){
 
-btn.innerText=
+navigator
+.clipboard
+.writeText(texto)
+.then(function(){
+
+copiar.innerText=
 "✅ Copiado!";
 
-setTimeout(()=>{
+setTimeout(function(){
 
-btn.innerText=
+copiar.innerText=
 "📋 Copiar";
 
 },1500);
@@ -1219,19 +1265,16 @@ btn.innerText=
 
 };
 
+
 top.appendChild(nome);
 
-top.appendChild(btn);
+top.appendChild(copiar);
 
 box.appendChild(top);
 
 box.appendChild(pre);
 
 div.appendChild(box);
-
-}
-
-}
 
 
 document
@@ -1248,15 +1291,16 @@ return div;
 
 
 /* =========================
-SALVAR
+SALVAMENTO
 ========================= */
 
 function salvar(pedido,codigo){
 
-let dados=
+const dados=
 JSON.parse(
-localStorage.getItem("scriptai")||
-"[]"
+localStorage.getItem(
+"scriptai"
+) || "[]"
 );
 
 dados.push({
@@ -1292,20 +1336,23 @@ if(!lista)return;
 
 const dados=
 JSON.parse(
-localStorage.getItem("scriptai")||
-"[]"
+localStorage.getItem(
+"scriptai"
+) || "[]"
 );
 
 lista.innerHTML="";
 
+
 if(!dados.length){
 
 lista.innerHTML=
-"<p>Nenhum código salvo.</p>";
+"<p>Nenhum código salvo ainda.</p>";
 
 return;
 
 }
+
 
 dados
 .slice()
@@ -1317,11 +1364,13 @@ document.createElement("div");
 
 card.className="card";
 
+
 const h=
 document.createElement("h3");
 
 h.innerText=
 "💾 "+item.pedido;
+
 
 const p=
 document.createElement("p");
@@ -1329,13 +1378,16 @@ document.createElement("p");
 p.innerText=
 item.data;
 
+
 const btn=
 document.createElement("button");
 
 btn.innerText=
 "Abrir";
 
-btn.onclick=function(){
+
+btn.onclick=
+function(){
 
 abrirGerador();
 
@@ -1344,6 +1396,7 @@ item.codigo
 );
 
 };
+
 
 card.appendChild(h);
 
@@ -1374,7 +1427,7 @@ document
 }
 
 
-function apagar(){
+function apagarSalvos(){
 
 localStorage.removeItem(
 "scriptai"
@@ -1397,17 +1450,23 @@ document
 .value
 .toLowerCase();
 
+
 document
 .querySelectorAll(".item")
 .forEach(function(item){
 
 item.style.display=
+
 item.innerText
 .toLowerCase()
 .includes(busca)
+
 ?
+
 "block"
+
 :
+
 "none";
 
 });
